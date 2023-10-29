@@ -3,7 +3,8 @@
   "id": "crdcc",
   "chainType": "Live",
   "bootNodes": [
-      "/ip4/34.42.43.193/tcp/30333/p2p/12D3KooWE5KbZH26nVBybnf9gP3PainoiFjrVfNCw2e59utTZADV"
+   "/ip4/34.93.33.64/tcp/30333/p2p/12D3KooWB6uwsvF2KRa8Y2qwZrMBnqLXcDAmsmTEZKGpDatW7Sgu",
+   "/ip4/34.93.68.198/tcp/30333/p2p/12D3KooWSomkaaHCsXJ3vC29ZKoDFjPhekQS6tCAAfkUH6A7FAfQ"
   ],
   "telemetryEndpoints": [
     [
