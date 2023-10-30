@@ -61,7 +61,7 @@ Send the information to us through [the google form](https://forms.gle/DXyZR9xj4
 
 An existing council member should be making a proposal to add an account as a member.
 
-[!Membership](./images/network-membership.png)
+![Membership](./images/network-membership.png)
 
 This step is required if one wants to add an account to 'write' into ledger.
 
@@ -69,7 +69,7 @@ This step is required if one wants to add an account to 'write' into ledger.
 
 If anyone wants to add a node, the nodeId (the public part of node.key generated with steps like earlier).
 
-[!NetworkNode](./images/well-known-node.png)
+![NetworkNode](./images/well-known-node.png)
 
 After this is voted successfully by the council, one can start the node. Notice that, one account can have only one nodeId. So, if one wants to run 3 nodes, 3 accounts needs to be created.
 
@@ -100,7 +100,7 @@ More information on what are the parameters to add for running different type of
 
 For becoming 'Validator', one needs approval for the given account to be added as the 'authority'.
 
-[!Authority](./images/add_authority_nodes.png)
+![Authority](./images/add_authority_nodes.png)
 
 After approval, one needs to start the same cord command with extra parameters `--validator --pruning=archive`.
 
@@ -114,5 +114,5 @@ cord key generate-session-keys --chain ./confidex-alpha.json  --base-path $(pwd)
 
 ## Council activities, and voting for council's motions.
 
-[!Voting](./images/voting.png)
+![Voting](./images/voting.png)
 
