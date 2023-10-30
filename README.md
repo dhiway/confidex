@@ -11,7 +11,15 @@ In this document we will try to provide information on how to start and manage t
 Dhiway's [CORD Explorer](https://apps.cord.network) is a key component in managing the ledger. As part of the Confidex network, one can open [this link](https://apps.cord.network/?rpc=wss%3A%2F%2Fconfidex-alpha1.cord.network#/explorer) in your browser. Recommended are Chrome, or Firefox browsers.
 
 ### Pre-Requisite
+
 Docker [Install Docker](https://docs.docker.com/engine/install/)
+
+Once docker is installed, run below command
+
+```
+docker pull dhiway/cord:develop
+```
+
 
 ### Create an account and ask for membership.
 
@@ -50,6 +58,10 @@ This above command gives the output of public information of nodeKey, something 
 ### Send the account information (public info) to council
 
 Send the information to us through [the google form](https://forms.gle/DXyZR9xj4LseJy1H9)
+
+* AccountId should be from - `docker run -i dhiway/cord:develop key inspect $SECRET` where SECRET is **'Secret seed'** field from the key generate command.
+
+* Node Key should be from - `docker run -i -v $(pwd):/data dhiway/cord:develop key inspect-node-key --file /data/node.key` command.
 
 
 ## Add account as member (membership)
@@ -111,3 +123,12 @@ cord key generate-session-keys --chain ./confidex-alpha.json  --base-path $(pwd)
 
 ![Voting](./images/voting.png)
 
+
+# Run DEMO Script to show 'Score' on ledger
+
+
+```
+cd demo-script/
+npm install
+npm run demo-score
+```
