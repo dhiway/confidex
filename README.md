@@ -105,7 +105,7 @@ Once the logs have messages like below you are successfully started.
 
 More information on what are the parameters to add for running different type of nodes are present in [CORD Documentation](https://docs.cord.network).
 
-For becoming 'Validator', one needs approval for the given account to be added as the 'authority'.
+For becoming 'Validator', one needs approval for the given account to be added as the 'authorityMembership'.
 
 ![Authority](./images/add_authority_nodes.png)
 
@@ -114,10 +114,10 @@ After approval, one needs to start the same cord command with extra parameters `
 After starting, one needs to do a 'generate-session-keys' from the secret of the account generated above.
 
 ```
-cord key generate-session-keys --chain ./confidex-alpha.json  --base-path $(pwd)  --suri '0x1ef83609b52ffb52e926c10a2cb0e08d75d52698597c4f4da65ae872e38a4523'
+docker run -i -v $(pwd):/data dhiway/cord:develop key generate-session-keys --chain /data/confidex-alpha.json  --base-path /data  --suri $SECRET
 ```
 
-(notice the `suri` option is same as secret used for account).
+(notice the `suri` option is same as secret seed used for account).
 
 ## Council activities, and voting for council's motions.
 
