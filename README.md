@@ -37,6 +37,7 @@ Notice that every execution of `cord key generate` would generate a random key. 
 #### Install polkadot extension
 
 One can install [Polkadot.JS browser extension](https://polkadot.js.org/extension/) which helps in managing the accounts on the laptop.
+Import the account created from the above into polkadot extension here using the steps mentioned [here](https://docs.cord.network/cord/createaccounts/)
 
 
 #### Generate **'node key'**
