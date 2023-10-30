@@ -1,0 +1,16 @@
+{
+  "name": "confidex-demo",
+  "version": "0.0.1",
+  "repository": "https://github.com/dhiway/confidex",
+  "scripts": {
+    "demo-score": "tsx --no-cache src/demo-score.ts"
+  },
+  "dependencies": {
+    "@cord.network/sdk": "0.9.0-confidex1",
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "tsx": "^3.4.3",
+    "typescript": "^4.8.3"
+  }
+}
