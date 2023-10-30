@@ -73,7 +73,7 @@ After this is voted successfully by the council, one can start the node. Notice 
 
 Anyone can join the network after the council votes and closes the motion with successful membership and 'wellKnownNode' addition based on the specific keys of the user.
 
-To join the network, one should be using the chain specification file provided in [this repository](https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json). Follow below steps to get the instance started on the node.
+To join the network, one should be using the chain specification file provided in confidex-alpha.json [this repository](https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json) (do 'Save Link As' to download the file). Follow below steps to get the instance started on the node.
 
 ```
 $ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json
