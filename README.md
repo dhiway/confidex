@@ -13,6 +13,8 @@ Dhiway's [CORD Explorer](https://apps.cord.network) is a key component in managi
 
 ### Create an account and ask for membership.
 
+You can check [this document](https://docs.cord.network/cord/createaccounts/) for more details of account creation.
+
 Below is the way one would generate an account on CLI.
 
 ```
@@ -57,7 +59,20 @@ Send the information to us through [the google form](https://forms.gle/DXyZR9xj4
 
 ## Add account as member (membership)
 
+An existing council member should be making a proposal to add an account as a member.
+
+[!Membership](./images/network-membership.png)
+
+This step is required if one wants to add an account to 'write' into ledger.
+
 ## Add node as well-known node, with the given account.
+
+If anyone wants to add a node, the nodeId (the public part of node.key generated with steps like earlier).
+
+[!NetworkNode](./images/well-known-node.png)
+
+After this is voted successfully by the council, one can start the node. Notice that, one account can have only one nodeId. So, if one wants to run 3 nodes, 3 accounts needs to be created.
+
 
 ## Starting a node
 
@@ -81,7 +96,11 @@ Once the logs have messages like below you are successfully started.
 
 ## Adding a new validator into ledger
 
-One has to go through another set of account and node-id creation before validator.
+More information on what are the parameters to add for running different type of nodes are present in [CORD Documentation](https://docs.cord.network).
+
+For becoming 'Validator', one needs approval for the given account to be added as the 'authority'.
+
+[!Authority](./images/add_authority_nodes.png)
 
 After approval, one needs to start the same cord command with extra parameters `--validator --pruning=archive`.
 
@@ -91,7 +110,9 @@ After starting, one needs to do a 'generate-session-keys' from the secret of the
 cord key generate-session-keys --chain ./confidex-alpha.json  --base-path $(pwd)  --suri '0x1ef83609b52ffb52e926c10a2cb0e08d75d52698597c4f4da65ae872e38a4523'
 ```
 
+(notice the `suri` option is same as secret used for account).
 
 ## Council activities, and voting for council's motions.
 
-<SCREENSHOTs of EXPLORER>
+[!Voting](./images/voting.png)
+
