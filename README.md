@@ -10,6 +10,8 @@ In this document we will try to provide information on how to start and manage t
 
 Dhiway's [CORD Explorer](https://apps.cord.network) is a key component in managing the ledger. As part of the Confidex network, one can open [this link](https://apps.cord.network/?rpc=wss%3A%2F%2Fconfidex-alpha1.cord.network#/explorer) in your browser. Recommended are Chrome, or Firefox browsers.
 
+### Pre-Requisite
+Docker [Install Docker](https://docs.docker.com/engine/install/)
 
 ### Create an account and ask for membership.
 
@@ -18,7 +20,7 @@ You can check [this document](https://docs.cord.network/cord/createaccounts/) fo
 Below is the way one would generate an account on CLI.
 
 ```
-$ cord key generate -w 24                         
+$ docker run -i dhiway/cord:develop key generate -w 24
 Secret phrase:       climb extend beyond thing romance eyebrow double ocean knee rebuild under cat spare equip furnace manual play million frame spatial double boring crop else
   Network ID:        substrate
   Secret seed:       0x1ef83609b52ffb52e926c10a2cb0e08d75d52698597c4f4da65ae872e38a4523
@@ -28,11 +30,7 @@ Secret phrase:       climb extend beyond thing romance eyebrow double ocean knee
   SS58 Address:      5EkbvZ2xdbAzhZKs154UrnYPp6hffq4FJ7xvZ58HWMLvvec3
 ```
 
-This works when one has the CLI accessible in shell. Or one can use below command for without binary.
-
-`docker run -i dhiway/cord:develop key generate -w 24`
-
-Notice that every execution of `cord key generate` would generate a random key. It is very crucial to store the information in a secure way for future use. Specially the **'secret seed'** from the above command, so one can generate the same keys in any machine/application of user's choice.
+Notice that every execution of the above command would generate a random key. It is very crucial to store the information in a secure way for future use. Specially the **'secret seed'** from the above command, so one can generate the same keys in any machine/application of user's choice.
 
 #### Install polkadot extension
 
@@ -42,10 +40,6 @@ One can install [Polkadot.JS browser extension](https://polkadot.js.org/extensio
 #### Generate **'node key'**
 
 In a ledger, each process is not just identified by 'IP:port', but with a specific node-key too, so IP address can change for the given process over time, but node-key is considered as the exact process w.r.to ledger.
-
-`cord key generate-node-key --file ./node.key`
-
-If you have docker:
 
 `docker run -i -v $(pwd):/data dhiway/cord:develop key generate-node-key --file /data/node.key`
 
