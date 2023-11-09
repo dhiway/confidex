@@ -1,5 +1,5 @@
 > Pre-Requisite
-> Create Account and Node Key, Add account to network
+> Create [Account](https://github.com/dhiway/confidex/blob/main/Account.md) and [Node Key](https://github.com/dhiway/confidex/blob/main/Node.md), [Add account to network](https://github.com/dhiway/confidex/blob/main/Adding%20Account%20And%20Node%20to%20Network.md)
 
 
 ## Adding a new validator into ledger
