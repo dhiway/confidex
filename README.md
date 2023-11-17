@@ -157,7 +157,7 @@ Once the logs have messages like below you are successfully started.
 2023-10-29 15:22:58 💤 Idle (8 peers), best: #32155 (0xcc33…bb8a), finalized #32152 (0x1395…62a1), ⬇ 10.2kiB/s ⬆ 5.8kiB/s    
 ```
 
-## Adding a new validator into ledger ([Validator.md](https://github.com/dhiway/confidex/blob/main/Validator.md))
+## Adding a new validator into ledger ([Validator.md](./Validator.md))
 
 ```
 $ docker ps
