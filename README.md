@@ -23,7 +23,7 @@ docker pull dhiway/cord:develop
 ```
 
 
-### Create an account and ask for membership.
+### Create an account and ask for membership ( [Account.md](./Account.md) ).
 > [!IMPORTANT]
 > Account is associated with only one node, so for creating 'N' nodes, you need 'N' different accounts
 
@@ -50,7 +50,7 @@ One can install [Polkadot.JS browser extension](https://polkadot.js.org/extensio
 Import the account created from the above into polkadot extension here using the steps mentioned [here](https://docs.cord.network/cord/createaccounts/)
 
 
-#### Generate **'node key'**
+#### Generate **'node key'** ([Node.md](./Node.md))
 
 > [!IMPORTANT]
 > A 'node key' is associated with only one node, so for creating 'N' nodes, you need 'N' node keys
@@ -63,7 +63,7 @@ In a ledger, each process is not just identified by 'IP:port', but with a specif
 This above command gives the output of public information of nodeKey, something like `12D3KooWMzmZ2g7LBPQuTBsb2HVTszsAToSzXuJJNQzHvbPKWbnq`. This also needs to be stored securely. Also note, similar to key generate, `generate-node-key` too generates a random key for every invocation.
 
 
-### Send the account information (public info) to council
+### Send the account information (public info) to council ([Adding Account And Node to Network.md](./Adding%20Account%20And%20Node%20to%20Network.md))
 
 Send the information to us through [the google form](https://forms.gle/DXyZR9xj4LseJy1H9)
 
@@ -89,7 +89,7 @@ If anyone wants to add a node, the nodeId (the public part of node.key generated
 After this is voted successfully by the council, one can start the node. Notice that, one account can have only one nodeId. So, if one wants to run 3 nodes, 3 accounts needs to be created.
 
 
-## Starting a data node
+## Starting a data node ([DataNote.md](./DataNode.md))
 A data node contains all the nodes from genesis, it should be used for reads
 
 ```
@@ -123,7 +123,7 @@ Once the logs have messages like below you are successfully started.
 2023-10-29 15:22:58 💤 Idle (8 peers), best: #32155 (0xcc33…bb8a), finalized #32152 (0x1395…62a1), ⬇ 10.2kiB/s ⬆ 5.8kiB/s    
 ```
 
-## Starting a RPC node (used for writes)
+## Starting a RPC node (used for writes) ([RPCNode.md](./RPCNode.md))
 A RPC node contains only latest 256 blocks, this node should be used for writes
 ```
 Note: Anyone can join the network after the council votes and closes the motion with successful membership and 'wellKnownNode' addition based on the specific keys of the user.
@@ -157,7 +157,7 @@ Once the logs have messages like below you are successfully started.
 2023-10-29 15:22:58 💤 Idle (8 peers), best: #32155 (0xcc33…bb8a), finalized #32152 (0x1395…62a1), ⬇ 10.2kiB/s ⬆ 5.8kiB/s    
 ```
 
-## Adding a new validator into ledger
+## Adding a new validator into ledger ([Validator.md](./Validator.md))
 
 ```
 $ docker ps
