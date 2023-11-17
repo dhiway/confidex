@@ -63,7 +63,7 @@ In a ledger, each process is not just identified by 'IP:port', but with a specif
 This above command gives the output of public information of nodeKey, something like `12D3KooWMzmZ2g7LBPQuTBsb2HVTszsAToSzXuJJNQzHvbPKWbnq`. This also needs to be stored securely. Also note, similar to key generate, `generate-node-key` too generates a random key for every invocation.
 
 
-### Send the account information (public info) to council ([Adding Account And Node to Network.md](https://github.com/dhiway/confidex/blob/main/Adding%20Account%20And%20Node%20to%20Network.md))
+### Send the account information (public info) to council ([Adding Account And Node to Network.md](./Adding%20Account%20And%20Node%20to%20Network.md))
 
 Send the information to us through [the google form](https://forms.gle/DXyZR9xj4LseJy1H9)
 
