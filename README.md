@@ -89,7 +89,7 @@ If anyone wants to add a node, the nodeId (the public part of node.key generated
 After this is voted successfully by the council, one can start the node. Notice that, one account can have only one nodeId. So, if one wants to run 3 nodes, 3 accounts needs to be created.
 
 
-## Starting a data node ([DataNote.md](https://github.com/dhiway/confidex/blob/main/DataNode.md))
+## Starting a data node ([DataNote.md](./DataNode.md))
 A data node contains all the nodes from genesis, it should be used for reads
 
 ```
