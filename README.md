@@ -23,7 +23,7 @@ docker pull dhiway/cord:develop
 ```
 
 
-### Create an account and ask for membership ( [Account.md](https://github.com/dhiway/confidex/blob/main/Account.md) ).
+### Create an account and ask for membership ( [Account.md](./Account.md) ).
 > [!IMPORTANT]
 > Account is associated with only one node, so for creating 'N' nodes, you need 'N' different accounts
 
