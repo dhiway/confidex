@@ -1,5 +1,5 @@
 > Pre-Requisite:
-> Create [Account](https://github.com/dhiway/confidex/blob/main/Account.md) and [Node Key](https://github.com/dhiway/confidex/blob/main/Node.md), [Add account to network](https://github.com/dhiway/confidex/blob/main/Adding%20Account%20And%20Node%20to%20Network.md)
+> Create [Account](./Account.md) and [Node Key](./Node.md), [Add account to network](./Adding%20Account%20And%20Node%20to%20Network.md)
 
 ## Starting a RPC node (used for writes)
 A RPC node contains only latest 256 blocks, this node should be used for writes
