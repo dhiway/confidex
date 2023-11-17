@@ -50,7 +50,7 @@ One can install [Polkadot.JS browser extension](https://polkadot.js.org/extensio
 Import the account created from the above into polkadot extension here using the steps mentioned [here](https://docs.cord.network/cord/createaccounts/)
 
 
-#### Generate **'node key'** ([Node.md](https://github.com/dhiway/confidex/blob/main/Node.md))
+#### Generate **'node key'** ([Node.md](./Node.md))
 
 > [!IMPORTANT]
 > A 'node key' is associated with only one node, so for creating 'N' nodes, you need 'N' node keys
