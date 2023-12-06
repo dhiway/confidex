@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "repository": "https://github.com/dhiway/confidex",
   "scripts": {
-    "demo-score": "tsx --no-cache src/demo-score.ts"
+    "demo-score": "tsx --no-cache src/network-score-test.ts"
   },
   "dependencies": {
-    "@cord.network/sdk": "0.9.0-confidex1",
+    "@cord.network/sdk": "^0.9.1",
     "yargs": "^17.2.1"
   },
   "devDependencies": {
