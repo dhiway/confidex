@@ -19,7 +19,7 @@ Secret phrase:       climb extend beyond thing romance eyebrow double ocean knee
 
 Notice that every execution of the above command would generate a random key. It is very crucial to store the information in a secure way for future use. Specially the **'secret seed'** from the above command, so one can generate the same keys in any machine/application of user's choice.
 
-#### Install polkadot extension
+#### Install browser extension
 
-One can install [Polkadot.JS browser extension](https://polkadot.js.org/extension/) which helps in managing the accounts on the laptop.
-Import the account created from the above into polkadot extension here using the steps mentioned [here](https://docs.cord.network/cord/createaccounts/)
+One can install [Account management browser extension](https://polkadot.js.org/extension/) which helps in managing the accounts on the laptop.
+Import the account created from the above into extension here using the steps mentioned [here](https://docs.cord.network/cord/createaccounts/)

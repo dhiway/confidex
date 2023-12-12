@@ -44,10 +44,10 @@ Secret phrase:       climb extend beyond thing romance eyebrow double ocean knee
 
 Notice that every execution of the above command would generate a random key. It is very crucial to store the information in a secure way for future use. Specially the **'secret seed'** from the above command, so one can generate the same keys in any machine/application of user's choice.
 
-#### Install polkadot extension
+#### Install browser extension
 
-One can install [Polkadot.JS browser extension](https://polkadot.js.org/extension/) which helps in managing the accounts on the laptop.
-Import the account created from the above into polkadot extension here using the steps mentioned [here](https://docs.cord.network/cord/createaccounts/)
+One can install [browser extension](https://polkadot.js.org/extension/) which helps in managing the accounts on the laptop.
+Import the account created from the above into extension here using the steps mentioned [here](https://docs.cord.network/cord/createaccounts/)
 
 
 #### Generate **'node key'** ([Node.md](./Node.md))
@@ -189,7 +189,10 @@ Once the session keys are generated, one needs to set the session keys using RPC
 
 ```
 $ export SESSIONKEYS=$('Session Keys:' field from above)
-$ npx @polkadot/api-cli --seed ${SECRET}  tx.session.setKeys ${SESSIONKEYS} "0x00" --endpoint ws://127.0.0.1:9944
+$ git clone https://github.com/dhiway/cord-session-setkey
+$ cd cord-session-setkey
+$ yarn
+$ yarn set-key
 ```
 
 ![Authority](./images/add_authority_nodes.png)

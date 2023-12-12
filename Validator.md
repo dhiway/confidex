@@ -34,5 +34,8 @@ Once the session keys are generated, one needs to set the session keys using RPC
 
 ```
 $ export SESSIONKEYS=$('Session Keys:' field from above)
-$ npx @polkadot/api-cli --seed ${SECRET}  tx.session.setKeys ${SESSIONKEYS} "0x00" --endpoint ws://127.0.0.1:9944
+$ git clone https://github.com/dhiway/cord-session-setkey
+$ cd cord-session-setkey
+$ yarn
+$ yarn set-key
 ```
