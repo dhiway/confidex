@@ -7,9 +7,9 @@
 ```
 $ docker ps
 ## make sure no cord process is running
-$ docker run -p 9944:9944 --name cord-validator --detach -v $(PWD):/data dhiway/cord:develop --name Confidex-${ORG_ID}-validator --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external --validator --pruning=archive
+$ docker run -p 9944:9944 --name cord-validator --detach -v $(pwd):/data dhiway/cord:develop --name Confidex-${ORG_ID}-validator --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external --validator --pruning=archive
 ```
-> PWD - Current Working Directory
+> $(pwd) - Current Working Directory
 > ORG_ID - Enter your organisation name here - Ex:'Confidex'
 
 More information on what are the parameters to add for running different type of nodes are present in [CORD Documentation](https://docs.cord.network).
