@@ -19,7 +19,7 @@ Docker
 Once docker is installed, run below command
 
 ```
-docker pull dhiway/cord:develop
+docker pull dhiway/cord:0.9.0
 ```
 
 
@@ -32,7 +32,7 @@ You can check [this document](https://docs.cord.network/cord/createaccounts/) fo
 Below is the way one would generate an account on CLI.
 
 ```
-$ docker run -i dhiway/cord:develop key generate -w 24 -n cord
+$ docker run -i dhiway/cord:0.9.0 key generate -w 24 -n cord
 Secret phrase:       climb extend beyond thing romance eyebrow double ocean knee rebuild under cat spare equip furnace manual play million frame spatial double boring crop else
   Network ID:        cord
   Secret seed:       0x1ef83609b52ffb52e926c10a2cb0e08d75d52698597c4f4da65ae872e38a4523
@@ -58,18 +58,18 @@ Import the account created from the above into extension here using the steps me
 
 In a ledger, each process is not just identified by 'IP:port', but with a specific node-key too, so IP address can change for the given process over time, but node-key is considered as the exact process w.r.to ledger.
 
-`docker run -i -v $(pwd):/data dhiway/cord:develop key generate-node-key --file /data/node.key`
+`docker run -i -v $(pwd):/data dhiway/cord:0.9.0 key generate-node-key --file /data/node.key`
 
 This above command gives the output of public information of nodeKey, something like `12D3KooWMzmZ2g7LBPQuTBsb2HVTszsAToSzXuJJNQzHvbPKWbnq`. This also needs to be stored securely. Also note, similar to key generate, `generate-node-key` too generates a random key for every invocation.
 
 
-### Send the account information (public info) to council ([Adding Account And Node to Network.md](./Adding%20Account%20And%20Node%20to%20Network.md))
+### Send the account information (public info) to council ([Adding_Account_And_Node_to_Network.md](./Adding%20Account%20And%20Node%20to%20Network.md))
 
 Send the information to us through [the google form](https://forms.gle/DXyZR9xj4LseJy1H9)
 
-* AccountId should be from - `docker run -i dhiway/cord:develop key inspect $SECRET` where SECRET is **'Secret seed'** field from the key generate command.
+* AccountId should be from - `docker run -i dhiway/cord:0.9.0 key inspect $SECRET` where SECRET is **'Secret seed'** field from the key generate command.
 
-* Node Key should be from - `docker run -i -v $(pwd):/data dhiway/cord:develop key inspect-node-key --file /data/node.key` command.
+* Node Key should be from - `docker run -i -v $(pwd):/data dhiway/cord:0.9.0 key inspect-node-key --file /data/node.key` command.
 
 
 ## Add account as member (membership)
@@ -103,7 +103,7 @@ or Download the confidex-alpha.json from the browser and skip the first command
 On a GNU/Linux node:
 ```
 $ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json
-$ docker run --network host --name cord --detach -v $(pwd):/data dhiway/cord:develop --name Confidex-${OrgName} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --pruning=archive
+$ docker run --network host --name cord --detach -v $(pwd):/data dhiway/cord:0.9.0 --name Confidex-${OrgName} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --pruning=archive
 $ docker logs --since 1m -f cord
 ```
 
@@ -111,7 +111,7 @@ On a Mac instance:
 ```
 $ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json
 $ export ORG_ID="DHIWAY" # this can be changed as per your org
-$ docker run -p 9944:9944 --name cord --detach -v $(pwd):/data dhiway/cord:develop --name Confidex-${ORG_ID} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external
+$ docker run -p 9944:9944 --name cord --detach -v $(pwd):/data dhiway/cord:0.9.0 --name Confidex-${ORG_ID} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external
 $ docker logs --since 1m -f cord
 ```
 
@@ -137,7 +137,7 @@ or Download the confidex-alpha.json from the browser and skip the first command
 On a GNU/Linux node:
 ```
 $ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json
-$ docker run --network host --name cord --detach -v $(pwd):/data dhiway/cord:develop --name Confidex-${OrgName} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data
+$ docker run --network host --name cord --detach -v $(pwd):/data dhiway/cord:0.9.0 --name Confidex-${OrgName} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data
 $ docker logs --since 1m -f cord
 ```
 
@@ -145,7 +145,7 @@ On a Mac instance:
 ```
 $ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json
 $ export ORG_ID="DHIWAY" # this can be changed as per your org
-$ docker run -p 9944:9944 --name cord --detach -v $(pwd):/data dhiway/cord:develop --name Confidex-${ORG_ID} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external
+$ docker run -p 9944:9944 --name cord --detach -v $(pwd):/data dhiway/cord:0.9.0 --name Confidex-${ORG_ID} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external
 $ docker logs --since 1m -f cord
 ```
 
@@ -162,11 +162,11 @@ Once the logs have messages like below you are successfully started.
 ```
 $ docker ps
 ## make sure no cord process is running
-$ docker run -p 9944:9944 --name cord-validator --detach -v $(pwd):/data dhiway/cord:develop --name Confidex-${ORG_ID}-validator --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external --validator --pruning=archive
+$ docker run -p 9944:9944 --name cord-validator --detach -v $(pwd):/data dhiway/cord:0.9.0 --name Confidex-${ORG_ID}-validator --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external --validator --pruning=archive
 ```
 More information on what are the parameters to add for running different type of nodes are present in [CORD Documentation](https://docs.cord.network).
 
-NOTE: A node which started without `--pruning=archive`, you may need to perform `docker run -v $(pwd):/data dhiway/cord:develop purge-chain --chain /data/confidex-alpha.json --base-path /data` before running this.
+NOTE: A node which started without `--pruning=archive`, you may need to perform `docker run -v $(pwd):/data dhiway/cord:0.9.0 purge-chain --chain /data/confidex-alpha.json --base-path /data` before running this.
 
 For becoming 'Validator', there are 2 important steps:
 
@@ -177,7 +177,7 @@ For becoming 'Validator', there are 2 important steps:
 After starting the process, one needs to do a 'generate-session-keys' from the secret of the account generated above.
 
 ```
-docker run -i -v $(pwd):/data dhiway/cord:develop key generate-session-keys --chain /data/confidex-alpha.json  --base-path /data  --suri $SECRET
+docker run -i -v $(pwd):/data dhiway/cord:0.9.0 key generate-session-keys --chain /data/confidex-alpha.json  --base-path /data  --suri $SECRET
 grandpa: 5GhwzstFiBGozFCHqzXo9TCNvGJbXYf9mdjhx1H8W2UcPkXz
 babe: 5HWYN2LpFFxgs6cYEWNkwwuyC8MraS4kaUeCYHo6fDnm9dQT
 im_online: 5HWYN2LpFFxgs6cYEWNkwwuyC8MraS4kaUeCYHo6fDnm9dQT
