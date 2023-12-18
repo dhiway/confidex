@@ -211,3 +211,15 @@ cd demo-script/
 npm install
 npm run demo-score
 ```
+
+
+# Check the API doc
+
+```
+cd api/
+npm install
+npm run build
+npm run dev
+```
+
+open the link http://127.0.0.1:3000/docs to get the documentation
