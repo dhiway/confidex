@@ -1,6 +1,5 @@
-> Pre-Requisite
-> Create Account and Node Key, Add account to network
-
+> Pre-Requisite:
+> Create [Account](./Account.md) and [Node Key](./Node.md), [Add account to network](./Adding_Account_And_Node_to_Network.md)
 
 ## Adding a new validator into ledger
 
