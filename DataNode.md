@@ -12,18 +12,27 @@ To join the network, one should be using the chain specification file 'confidex-
 Note: if you do not have wget, install it using 'brew install wget' 
 or Download the confidex-alpha.json from the browser and skip the first command
 
-On a GNU/Linux node:
+**On a GNU/Linux node:**
 ```
-$ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json
-$ docker run --network host --name cord --detach -v $(pwd):/data dhiway/cord:0.9.0 --name Confidex-${OrgName} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --pruning=archive
+$ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json -P /data
+```
+Make sure the confidex-alpha.json file is under the `/data` folder, along with the `node.key`
+```
+$ export ORG_ID="DHIWAY" # this can be changed as per your org
+
+$ docker run --network host --name cord --detach -v /data:/data dhiway/cord:develop --name Confidex-${ORG_ID} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --pruning=archive
+
 $ docker logs --since 1m -f cord
 ```
 
 On a Mac instance:
 ```
-$ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json
+$ wget -c https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json -P /data
+```
+Make sure the confidex-alpha.json file is under the `/data` folder, along with the `node.key`
+```
 $ export ORG_ID="DHIWAY" # this can be changed as per your org
-$ docker run -p 9944:9944 --name cord --detach -v $(pwd):/data dhiway/cord:0.9.0 --name Confidex-${ORG_ID} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external
+$ docker run -p 9944:9944 --name cord --detach -v /data:/data dhiway/cord:develop --name Confidex-${ORG_ID} --chain /data/confidex-alpha.json  --node-key-file /data/node.key --base-path /data --unsafe-rpc-external
 $ docker logs --since 1m -f cord
 ```
 
