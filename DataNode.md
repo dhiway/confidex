@@ -1,5 +1,5 @@
 > Pre-Requisite:
-> Create [Account](https://github.com/dhiway/confidex/blob/main/Account.md) and [Node Key](https://github.com/dhiway/confidex/blob/main/Node.md), [Add account to network](https://github.com/dhiway/confidex/blob/main/Adding%20Account%20And%20Node%20to%20Network.md)
+> Create [Account](https://github.com/dhiway/confidex/blob/main/Account.md) and [Node Key](https://github.com/dhiway/confidex/blob/main/Node.md), [Add account to network](./Adding_Account_And_Node_to_Network.md)
 
 ## Starting a data node
 A data node contains all the nodes from genesis, it should be used for reads
