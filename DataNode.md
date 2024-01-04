@@ -9,8 +9,8 @@ Note: Anyone can join the network after the council votes and closes the motion 
 ```
 To join the network, one should be using the chain specification file 'confidex-alpha.json' provided in [this repository](https://github.com/dhiway/confidex/). Follow below steps to download the file and start the instance on the node.
 
-Note: if you do not have wget, install it using 'brew install wget' 
-or Download the confidex-alpha.json from the browser and skip the first command
+>**Note:** if you do not have wget, install it using 'brew install wget' 
+>or Download the [confidex-alpha.json](https://raw.githubusercontent.com/dhiway/confidex/main/confidex-alpha.json) from the browser and skip the first command
 
 **On a GNU/Linux node:**
 ```
