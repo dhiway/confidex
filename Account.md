@@ -7,7 +7,7 @@ You can check [this document](https://docs.cord.network/cord/createaccounts/) fo
 Below is the way one would generate an account on CLI.
 
 ```
-$ docker run -i dhiway/cord:0.9.0 key generate -w 24 -n cord
+$ docker run -i dhiway/cord:develop key generate -w 24 -n cord
 Secret phrase:       climb extend beyond thing romance eyebrow double ocean knee rebuild under cat spare equip furnace manual play million frame spatial double boring crop else
   Network ID:        cord
   Secret seed:       0x1ef83609b52ffb52e926c10a2cb0e08d75d52698597c4f4da65ae872e38a4523

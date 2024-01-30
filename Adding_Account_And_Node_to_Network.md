@@ -1,13 +1,13 @@
 > Pre-Requisite:
-> Create [Account](./Account.md) and [Node Key](./Node.md), [Add account to network](./Adding%20Account%20And%20Node%20to%20Network.md)
+> Create [Account](./Account.md) and [Node Key](./Node.md), [Add account to network](./Adding_Account_And_Node_to_Network.md)
 
 ### Send the account information (public info) to council
 
 Send the information to us through [the google form](https://forms.gle/DXyZR9xj4LseJy1H9)
 
-* AccountId should be from - `docker run -i dhiway/cord:0.9.0 key inspect $SECRET` where SECRET is **'Secret seed'** field from the key generate command.
+* AccountId should be from - `docker run -i dhiway/cord:develop key inspect $SECRET` where SECRET is **'Secret seed'** field from the key generate command.
 
-* Node Key should be from - `docker run -i -v $(pwd):/data dhiway/cord:0.9.0 key inspect-node-key --file /data/node.key` command.
+* Node Key should be from - `docker run -i -v /data:/data dhiway/cord:develop key inspect-node-key --file /data/node.key` command.
 
 
 ## Add account as member (membership)
