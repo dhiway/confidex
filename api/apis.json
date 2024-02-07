@@ -21,23 +21,23 @@
             "description": "Demo server"
         },
         {
-            "url": "http://localhost:5001/",
+            "url": "http://localhost:4000/",
             "description": "Local server"
         }
     ],
 
     "paths": {
-        "/login": {
+        "/write": {
             "post": {
                 "tags": ["Rating"],
-                "description": "User Login",
-                "operationId": "userLogin",
+                "description": "Write the ratings to the chain",
+                "operationId": "writeRatings",
                 "requestBody": {
-                    "description": "Login details",
+                    "description": "Write the ratings to the chain. Notice that this can take 1 or more entries from the NP (Network Participant) and submit it to the API (which inturn will write to the chain).",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Login"
+                                "$ref": "#/components/schemas/Write_ratings"
                             }
                         }
                     },
@@ -45,14 +45,14 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Login user",
+                        "description": "Acknowledgement with tx id",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "message": {
-                                            "$ref": "#/components/schemas/200_Res_Login"
+                                            "$ref": "#/components/schemas/200_Res"
                                         }
                                     }
                                 }
@@ -72,18 +72,17 @@
                 }
             }
         },
-
-        "/write-ratings": {
+	"/on_write": {
             "post": {
                 "tags": ["Rating"],
-                "description": "Write the ratings to the chain",
-                "operationId": "writeRatings",
+                "description": "Inform the client about success or failure of the write rating",
+                "operationId": "onWriteRatings",
                 "requestBody": {
-                    "description": "Write the ratings to the chain",
+                    "description": "Callback of write rating operation to the chain. Considering the /write call will have multiple entries, this can collate all the entries and send the response, upon completion.",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Write_ratings"
+                                "$ref": "#/components/schemas/On_write_ratings"
                             }
                         }
                     },
@@ -91,7 +90,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "New Score added",
+                        "description": "Callback with tx id, rating identifier etc",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -119,54 +118,13 @@
             }
         },
 
-        "/amend-ratings": {
+         "/update": {
             "post": {
                 "tags": ["Rating"],
-                "description": "Revoke ratings to the chain",
-                "operationId": "revokeRatings",
-                "requestBody": {
-                    "description": "revoke the ratings",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/RevokeRating"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "201": {
-                        "description": "Revoked Score",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/200_Res_Revoke"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid parameters",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Error"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-        "/write-revised-ratings": {
-            "put": {
-                "tags": ["Rating"],
-                "description": "Update the rating entry",
+                "description": "Update ratings in the chain. This can happen due to 2 reasons. 1 is when the user herself changes the given rating over the period (possible for seller to settle bad rating with the buyer), or some discrepancies are found during the auditing.",
                 "operationId": "updateRatings",
                 "requestBody": {
-                    "description": "Update the ratings",
+                    "description": "update the ratings",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -177,12 +135,52 @@
                     "required": true
                 },
                 "responses": {
-                    "200": {
-                        "description": "New Score added",
+                    "201": {
+                        "description": "Updated Score",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/200_Res"
+                                    "$ref": "#/components/schemas/200_Res_Update"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid parameters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/on_update": {
+            "post": {
+                "tags": ["Rating"],
+                "description": "Callback of the update operation on the chain.",
+                "operationId": "onUpdateRatings",
+                "requestBody": {
+                    "description": "update the ratings",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OnUpdateRating"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Updated Score",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/200_Res_OnUpdate"
                                 }
                             }
                         }
@@ -201,38 +199,18 @@
             }
         },
 
-        "/read-aggregate-score/{entityUid}/{ratingType}": {
-            "get": {
+        "/read": {
+            "post": {
                 "tags": ["Rating"],
-                "description": "Read aggregate score",
-                "operationId": "scoreShow",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "entityUid",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "Entity Identifier"
-                    },
-                    {
-                        "in": "path",
-                        "name": "ratingType",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "Rating type"
-                    }
-                ],
+                "description": "Read aggregate score, read all given entities ratings, more details based on parameters",
+                "operationId": "read",
                 "responses": {
                     "200": {
-                        "description": "Details of the aggregate score",
+                        "description": "Details of the rating",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/200_Res_Aggregate"
+                                    "$ref": "#/components/schemas/200_Res_Read"
                                 }
                             }
                         }
@@ -250,30 +228,18 @@
                 }
             }
         },
-
-        "/check-chain-space-usage/{chainSpaceUri}": {
-            "get": {
+        "/on_read": {
+            "post": {
                 "tags": ["Rating"],
-                "description": "Check the chainspace usage",
-                "operationId": "chainUsage",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "chainSpaceUri",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true,
-                        "description": "chainSpace Identifier"
-                    }
-                ],
+                "description": "Response / Callback to the read calls.",
+                "operationId": "onRead",
                 "responses": {
                     "200": {
-                        "description": "Chain space usage",
+                        "description": "Details of the rating",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/200_Res_Usage"
+                                    "$ref": "#/components/schemas/200_Res_Read"
                                 }
                             }
                         }
@@ -397,7 +363,20 @@
                 }
             },
 
-            "200_Res_Revoke": {
+            "200_Res_Update": {
+                "type": "object",
+                "properties": {
+                    "uri": {
+                        "type": "string",
+                        "example": "rating:cord:r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
+                    },
+                    "ack": {
+                        "type": "string",
+                        "example": "Rating Revoke (Debit) successful"
+                    }
+                }
+            },
+            "200_Res_OnUpdate": {
                 "type": "object",
                 "properties": {
                     "uri": {
@@ -454,7 +433,7 @@
                 }
             },
 
-            "200_Res_Aggregate": {
+            "200_Res_Read": {
                 "type": "object",
                 "properties": {
                     "ack": {
@@ -489,15 +468,6 @@
                 }
             },
 
-            "200_Res_Login": {
-                "type": "object",
-                "properties": {
-                    "ack": {
-                        "$ref": "#/components/schemas/Ack"
-                    }
-                }
-            },
-
             "200_Res": {
                 "type": "object",
                 "properties": {
@@ -521,19 +491,19 @@
                 }
             },
 
-            "RevokeRating": {
+            "UpdateRating": {
                 "type": "object",
                 "properties": {
                     "context": {
                         "$ref": "#/components/schemas/Context"
                     },
                     "message": {
-                        "$ref": "#/components/schemas/Message-Revoke"
+                        "$ref": "#/components/schemas/Message-Update"
                     }
                 }
             },
 
-            "Message-Revoke": {
+            "Message-Update": {
                 "type": "object",
                 "properties": {
                     "messageId": {
@@ -573,20 +543,30 @@
                     }
                 }
             },
-
-            "Login": {
+            "On_write_ratings": {
                 "type": "object",
                 "properties": {
                     "context": {
                         "$ref": "#/components/schemas/Context"
                     },
                     "message": {
-                        "$ref": "#/components/schemas/Login_Message"
+                        "$ref": "#/components/schemas/Message"
                     }
                 }
             },
 
             "Update_ratings": {
+                "type": "object",
+                "properties": {
+                    "context": {
+                        "$ref": "#/components/schemas/Context"
+                    },
+                    "message": {
+                        "$ref": "#/components/schemas/UpdateMessage"
+                    }
+                }
+            },
+            "OnUpdateRating": {
                 "type": "object",
                 "properties": {
                     "context": {
@@ -618,16 +598,10 @@
                     "core_version": {
                         "type": "string"
                     },
-                    "bap_id": {
+                    "confidex_agency_did": {
                         "type": "string"
                     },
-                    "bap_uri": {
-                        "type": "string"
-                    },
-                    "bpp_id": {
-                        "type": "string"
-                    },
-                    "bpp_uri": {
+                    "confidex_did": {
                         "type": "string"
                     },
                     "transaction_id": {
@@ -669,26 +643,16 @@
                 }
             },
 
-            "Login_Message": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "example": "Jack"
-                    },
-                    "email": {
-                        "type": "string",
-                        "example": "jack@gmail.com"
-                    }
-                }
-            },
-
             "UpdateMessage": {
                 "type": "object",
                 "properties": {
                     "entry": {
                         "$ref": "#/components/schemas/UpdateEntry"
                     },
+		    "referenceId": {
+                        "type": "string",
+                        "example": "rating:cord:-a614-467f-8ac9-8c897bb34a57"
+		    },
                     "messageId": {
                         "type": "string",
                         "example": "msg-2780214b-a614-467f-8ac9-8c897bb34a57"
