@@ -22,9 +22,9 @@
 
 | Ports| Needed for |
 |---|---|
-| 22 | SSH (22) is required for setup and any debug/maintenance activity |
-| 80, 443 | For application access, it is recommended to have nginx (webserver, HTTP-80, HTTPS-443) frontend the requests. So, port 80 and 443 open is required|
-| 30333 | We need port 30333 open for blockchain internal traffic |
+| 22 | SSH (22) is required for setup and any debug/maintenance activity, This is needed for nodes to which we need a SSH connection |
+| 80, 443 | For application access, it is recommended to have nginx (webserver, HTTP-80, HTTPS-443) frontend the requests. So, port 80 and 443 open is required. Typically for RPC nodes|
+| 30333 | We need port 30333 open for blockchain internal traffic, for all nodes in the chain |
 
 
 
