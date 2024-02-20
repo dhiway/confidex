@@ -4,7 +4,7 @@
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | **CPU**  | 4  | 2  | 4 | 2 |
 | **Memory(GB)**  | 32  | 8 | 32 | 8 |
-| **Storage**  | 1 TB external SSD drive attachable disk and 40 GB boot disk  | 50 GB  | 1 TB (The disk must be attachable) | 50 GB |
+| **Storage**  | 1 TB external SSD drive attachable disk and 40 GB boot disk  | 50 GB  | 1 TB (The disk must be attachable) NVMe| 50 GB |
 | **Min Instances**  | 2  | 1 | 3 | 2 |
 
 
