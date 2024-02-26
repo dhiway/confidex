@@ -27,11 +27,11 @@
     ],
 
     "paths": {
-        "/write": {
+        "/publish": {
             "post": {
                 "tags": ["Rating"],
-                "description": "Write the ratings to the chain",
-                "operationId": "writeRatings",
+                "description": "Publish the ratings to the chain, for the given transaction / message ID",
+                "operationId": "publishRatings",
                 "requestBody": {
                     "description": "Write the ratings to the chain. Notice that this can take 1 or more entries from the NP (Network Participant) and submit it to the API (which inturn will write to the chain).",
                     "content": {
@@ -45,7 +45,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Acknowledgement with tx id",
+                        "description": "Acknowledgement with rating identifier along with transaction ID",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -72,13 +72,13 @@
                 }
             }
         },
-	"/on_write": {
+	"/on_publish": {
             "post": {
                 "tags": ["Rating"],
-                "description": "Inform the client about success or failure of the write rating",
-                "operationId": "onWriteRatings",
+                "description": "Inform the client about success or failure of the publish rating",
+                "operationId": "onPublishRatings",
                 "requestBody": {
-                    "description": "Callback of write rating operation to the chain. Considering the /write call will have multiple entries, this can collate all the entries and send the response, upon completion.",
+                    "description": "Callback of publish rating operation to the chain. Considering the /write call will have multiple entries, this can collate all the entries and send the response, upon completion.",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -118,17 +118,17 @@
             }
         },
 
-         "/update": {
+         "/revise": {
             "post": {
                 "tags": ["Rating"],
-                "description": "Update ratings in the chain. This can happen due to 2 reasons. 1 is when the user herself changes the given rating over the period (possible for seller to settle bad rating with the buyer), or some discrepancies are found during the auditing.",
-                "operationId": "updateRatings",
+                "description": "Revise ratings in the chain. This can happen due to 2 reasons. 1 is when the user herself changes the given rating over the period (possible for seller to settle bad rating with the buyer), or some discrepancies are found during the auditing.",
+                "operationId": "reviseRatings",
                 "requestBody": {
-                    "description": "update the ratings",
+                    "description": "revise the ratings",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Update_ratings"
+                                "$ref": "#/components/schemas/Revise_ratings"
                             }
                         }
                     },
@@ -158,11 +158,11 @@
                 }
             }
         },
-        "/on_update": {
+        "/on_revise": {
             "post": {
                 "tags": ["Rating"],
-                "description": "Callback of the update operation on the chain.",
-                "operationId": "onUpdateRatings",
+                "description": "Callback of the revise operation on the chain.",
+                "operationId": "onReviseRatings",
                 "requestBody": {
                     "description": "update the ratings",
                     "content": {
@@ -199,14 +199,14 @@
             }
         },
 
-        "/read": {
+        "/query": {
             "post": {
                 "tags": ["Rating"],
                 "description": "Read aggregate score, read all given entities ratings, more details based on parameters",
-                "operationId": "read",
+                "operationId": "Query",
                 "responses": {
                     "200": {
-                        "description": "Details of the rating",
+                        "description": "Details of the aggregate score",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -228,14 +228,14 @@
                 }
             }
         },
-        "/on_read": {
+        "/on_query": {
             "post": {
                 "tags": ["Rating"],
-                "description": "Response / Callback to the read calls.",
-                "operationId": "onRead",
+                "description": "Response / Callback to the query call",
+                "operationId": "onQuery",
                 "responses": {
                     "200": {
-                        "description": "Details of the rating",
+                        "description": "Aggregated Score details",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -585,26 +585,17 @@
                         "type": "string",
                         "example": "local_retail"
                     },
-                    "country": {
-                        "type": "string"
-                    },
-                    "city": {
-                        "type": "string"
-                    },
                     "action": {
                         "type": "string",
                         "example": "on_rating"
                     },
-                    "core_version": {
-                        "type": "string"
-                    },
-                    "confidex_agency_did": {
+                    "version": {
                         "type": "string"
                     },
                     "confidex_did": {
                         "type": "string"
                     },
-                    "transaction_id": {
+                    "registry_id": {
                         "type": "string"
                     },
                     "message_id": {
