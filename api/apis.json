@@ -37,7 +37,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Write_ratings"
+                                "$ref": "#/components/schemas/PublishRating"
                             }
                         }
                     },
@@ -45,7 +45,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Acknowledgement with rating identifier along with transaction ID",
+                        "description": "Acknowledgement with ID, which can be used for referring /On_Pubish callback",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -76,13 +76,13 @@
             "post": {
                 "tags": ["Rating"],
                 "description": "Inform the client about success or failure of the publish rating",
-                "operationId": "onPublishRatings",
+                "operationId": "onPublishRating",
                 "requestBody": {
                     "description": "Callback of publish rating operation to the chain. Considering the /write call will have multiple entries, this can collate all the entries and send the response, upon completion.",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/On_write_ratings"
+                                "$ref": "#/components/schemas/OnPublishRating"
                             }
                         }
                     },
@@ -90,14 +90,14 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Callback with tx id, rating identifier etc",
+                        "description": "Callback with Rating Identifier, rating identifier etc",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
                                         "message": {
-                                            "$ref": "#/components/schemas/200_Res"
+                                            "$ref": "#/components/schemas/OnPublishResult_20x"
                                         }
                                     }
                                 }
@@ -128,7 +128,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Revise_ratings"
+                                "$ref": "#/components/schemas/ReviseRating"
                             }
                         }
                     },
@@ -140,7 +140,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/200_Res_Update"
+                                    "$ref": "#/components/schemas/200_Res"
                                 }
                             }
                         }
@@ -162,13 +162,13 @@
             "post": {
                 "tags": ["Rating"],
                 "description": "Callback of the revise operation on the chain.",
-                "operationId": "onReviseRatings",
+                "operationId": "onReviseRating",
                 "requestBody": {
                     "description": "update the ratings",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/OnUpdateRating"
+                                "$ref": "#/components/schemas/OnReviseRating"
                             }
                         }
                     },
@@ -180,7 +180,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/200_Res_OnUpdate"
+                                    "$ref": "#/components/schemas/OnReviseResult_20x"
                                 }
                             }
                         }
@@ -204,13 +204,24 @@
                 "tags": ["Rating"],
                 "description": "Read aggregate score, read all given entities ratings, more details based on parameters",
                 "operationId": "Query",
+                "requestBody": {
+                    "description": "query the score",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/QueryRating"
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Details of the aggregate score",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/200_Res_Read"
+                                    "$ref": "#/components/schemas/200_Res"
                                 }
                             }
                         }
@@ -233,6 +244,17 @@
                 "tags": ["Rating"],
                 "description": "Response / Callback to the query call",
                 "operationId": "onQuery",
+                "requestBody": {
+                    "description": "query the ratings / score",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OnQueryRating"
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "responses": {
                     "200": {
                         "description": "Aggregated Score details",
@@ -274,91 +296,6 @@
                         "type": "string",
                         "description": "Error message",
                         "example": "Error"
-                    }
-                }
-            },
-            "UserId": {
-                "type": "string",
-                "description": "User Id",
-                "example": "u1f1b9b3d-c07d-4c8e-901f-6445aa6aef8e"
-            },
-            "OrgId": {
-                "type": "string",
-                "description": "Organization ID",
-                "example": "o5725409b-7912-40c9-b7cd-8b2e607cf3f3"
-            },
-            "OrgName": {
-                "type": "string",
-                "description": "Organization name",
-                "example": "University of XYZ"
-            },
-            "SchemaId": {
-                "type": "string",
-                "description": "Schema Id",
-                "example": "s1f1b9b3d-c07d-4c8e-901f-6445aa6aef8e"
-            },
-            "SpaceName": {
-                "type": "string",
-                "description": "Space name",
-                "example": "Event XYZ Participation"
-            },
-            "SpaceActive": {
-                "type": "boolean",
-                "description": "Space active status",
-                "example": true
-            },
-            "SpaceId": {
-                "type": "string",
-                "description": "Space ID",
-                "example": "5725409b-7912-40c9-b7cd-8b2e607cf3f3"
-            },
-            "SpaceDescription": {
-                "type": "string",
-                "description": "Space Description",
-                "example": "This space contains records of participation certificate"
-            },
-            "SpaceTags": {
-                "type": "array",
-                "description": "Space Tags",
-                "example": "['Course 1', 'Quick Learner']"
-            },
-            "SchemaRequest": {
-                "type": "object",
-                "properties": {
-                    "schema": {
-                        "type": "object",
-                        "properties": {
-                            "description": {
-                                "$ref": "#/components/schemas/SpaceDescription"
-                            },
-                            "title": {
-                                "$ref": "#/components/schemas/SpaceName"
-                            },
-                            "properties": {
-                                "type": "object"
-                            },
-                            "context": {
-                                "type": "string",
-                                "example": "http://json-schema.org/draft-07/schema#"
-                            }
-                        }
-                    }
-                }
-            },
-            "Schema": {
-                "type": "object",
-                "properties": {
-                    "identity": {
-                        "$ref": "#/components/schemas/SpaceId"
-                    },
-                    "title": {
-                        "$ref": "#/components/schemas/SpaceName"
-                    },
-                    "description": {
-                        "$ref": "#/components/schemas/SpaceDescription"
-                    },
-                    "properties": {
-                        "type": "object"
                     }
                 }
             },
@@ -487,93 +424,96 @@
                     "did": {
                         "type": "string",
                         "example": "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
-                    }
+                    },
+		    "message_id": {
+			"type": "string"
+		    }
                 }
             },
-
-            "UpdateRating": {
+            "OnPublishResult_20x": {
                 "type": "object",
                 "properties": {
-                    "context": {
-                        "$ref": "#/components/schemas/Context"
+                    "status": {
+                        "type": "boolean",
+                        "example": true
                     },
-                    "message": {
-                        "$ref": "#/components/schemas/Message-Update"
-                    }
-                }
-            },
-
-            "Message-Update": {
-                "type": "object",
-                "properties": {
-                    "messageId": {
-                        "type": "string",
-                        "example": "msg-2780214b-a614-467f-8ac9-8c897bb34a57"
-                    },
-                    "entryDigest": {
-                        "type": "string",
-                        "example": "0xaf2e4a04dc5d0a9f680207902283fc67cf1fe16f8f2ac31d10bfcac1d646ac36"
-                    },
-                    "referenceId": {
-                        "type": "string",
-                        "example": "rating:cord:r33rMi45NbJoEfz5yATYzX3uMUMjf97zo24e5fAvNF4ixtixd"
-                    },
-                    "providerSignature": {
-                        "$ref": "#/components/schemas/ProviderSignature"
-                    },
-                    "entityUid": {
-                        "type": "string",
-                        "example": "286cf1b1-3e16-448f-b675-3b232e82174d"
-                    },
-                    "providerDid": {
+                    "did": {
                         "type": "string",
                         "example": "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+                    },
+		    "message_id": {
+			"type": "string"
+		    },
+		    "rating_identifier": {
+			"type": "string",
+			"example": "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
+		    }
+                }
+            },
+
+            "PublishRating": {
+                "type": "object",
+                "properties": {
+                    "context": {
+                        "$ref": "#/components/schemas/Context"
+                    },
+                    "message": {
+                        "$ref": "#/components/schemas/PublishMessage"
                     }
                 }
             },
 
-            "Write_ratings": {
+            "OnPublishRating": {
                 "type": "object",
                 "properties": {
                     "context": {
                         "$ref": "#/components/schemas/Context"
                     },
                     "message": {
-                        "$ref": "#/components/schemas/Message"
-                    }
-                }
-            },
-            "On_write_ratings": {
-                "type": "object",
-                "properties": {
-                    "context": {
-                        "$ref": "#/components/schemas/Context"
-                    },
-                    "message": {
-                        "$ref": "#/components/schemas/Message"
+                        "$ref": "#/components/schemas/OnPublishMessage"
                     }
                 }
             },
 
-            "Update_ratings": {
+            "OnReviseResult_20x": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "did": {
+                        "type": "string",
+                        "example": "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+                    },
+		    "message_id": {
+			"type": "string"
+		    },
+		    "rating_identifier": {
+			"type": "string",
+			"example": "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
+		    }
+                }
+            },
+            "ReviseRating": {
                 "type": "object",
                 "properties": {
                     "context": {
                         "$ref": "#/components/schemas/Context"
                     },
                     "message": {
-                        "$ref": "#/components/schemas/UpdateMessage"
+                        "$ref": "#/components/schemas/ReviseMessage"
                     }
                 }
             },
-            "OnUpdateRating": {
+            "OnReviseRating": {
                 "type": "object",
                 "properties": {
                     "context": {
                         "$ref": "#/components/schemas/Context"
                     },
                     "message": {
-                        "$ref": "#/components/schemas/UpdateMessage"
+                        "$ref": "#/components/schemas/OnReviseMessage"
                     }
                 }
             },
@@ -583,22 +523,40 @@
                 "properties": {
                     "domain": {
                         "type": "string",
-                        "example": "local_retail"
+                        "example": "seller-rating"
                     },
                     "action": {
                         "type": "string",
-                        "example": "on_rating"
+                        "example": "/on_publish"
                     },
                     "version": {
-                        "type": "string"
+                        "type": "string",
+			"example": "0.0.1"
+                    },
+                    "entity_uid": {
+                        "type": "string",
+			"example": "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+                    },
+                    "entity_id": {
+                        "type": "string",
+			"example": "Gupta Kirana Store"
+                    },
+                    "provider_uid": {
+                        "type": "string",
+			"example": "446c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+                    },
+                    "provider_id": {
+                        "type": "string",
+			"example": "All in One - Market Place"
                     },
                     "confidex_did": {
                         "type": "string"
                     },
                     "registry_id": {
-                        "type": "string"
+                        "type": "string",
+			"example": "Confidex - Rating Provider Registry's ID"
                     },
-                    "message_id": {
+                    "transaction_id": {
                         "type": "string"
                     },
                     "timestamp": {
@@ -610,23 +568,19 @@
                     },
                     "ttl": {
                         "type": "string"
-                    }
+                    },
+		    "location": {
+			"type": "object",
+			"example": "currently empty, but can be used in future for different contexts of network"
+		    }
                 }
             },
 
-            "Message": {
+            "PublishMessage": {
                 "type": "object",
                 "properties": {
-                    "entry": {
-                        "$ref": "#/components/schemas/Entry"
-                    },
-                    "messageId": {
-                        "type": "string",
-                        "example": "msg-2780214b-a614-467f-8ac9-8c897bb34a57"
-                    },
-                    "entryDigest": {
-                        "type": "string",
-                        "example": "0xaf2e4a04dc5d0a9f680207902283fc67cf1fe16f8f2ac31d10bfcac1d646ac36"
+                    "rating": {
+                        "$ref": "#/components/schemas/PublishEntry"
                     },
                     "providerSignature": {
                         "$ref": "#/components/schemas/ProviderSignature"
@@ -634,49 +588,25 @@
                 }
             },
 
-            "UpdateMessage": {
+            "ReviseMessage": {
                 "type": "object",
                 "properties": {
-                    "entry": {
-                        "$ref": "#/components/schemas/UpdateEntry"
+                    "rating": {
+                        "$ref": "#/components/schemas/ReviseEntry"
                     },
 		    "referenceId": {
                         "type": "string",
                         "example": "rating:cord:-a614-467f-8ac9-8c897bb34a57"
 		    },
-                    "messageId": {
-                        "type": "string",
-                        "example": "msg-2780214b-a614-467f-8ac9-8c897bb34a57"
-                    },
-                    "entryDigest": {
-                        "type": "string",
-                        "example": "0xaf2e4a04dc5d0a9f680207902283fc67cf1fe16f8f2ac31d10bfcac1d646ac36"
-                    },
                     "providerSignature": {
                         "$ref": "#/components/schemas/ProviderSignature"
                     }
                 }
             },
 
-            "Entry": {
+            "PublishEntry": {
                 "type": "object",
                 "properties": {
-                    "entityUid": {
-                        "type": "string",
-                        "example": "286cf1b1-3e16-448f-b675-3b232e82174d"
-                    },
-                    "entityId": {
-                        "type": "string",
-                        "example": "Gupta Kirana Store"
-                    },
-                    "providerUid": {
-                        "type": "string",
-                        "example": "96bb9f75-0ff8-4ef8-8e2b-0d709e2c0fed"
-                    },
-                    "providerId": {
-                        "type": "string",
-                        "example": "GoFrugal"
-                    },
                     "entityType": {
                         "type": "string",
                         "example": "Retail"
@@ -689,36 +619,16 @@
                         "type": "number",
                         "example": 100
                     },
-                    "providerDid": {
-                        "type": "string",
-                        "example": "3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
-                    },
-                    "totalEncodedRating": {
+                    "totalRating": {
                         "type": "number",
-                        "example": 3200
+                        "example": 320
                     }
                 }
             },
 
-            "UpdateEntry": {
+            "ReviseEntry": {
                 "type": "object",
                 "properties": {
-                    "entityUid": {
-                        "type": "string",
-                        "example": "286cf1b1-3e16-448f-b675-3b232e82174d"
-                    },
-                    "entityId": {
-                        "type": "string",
-                        "example": "Gupta Kirana Store"
-                    },
-                    "providerUid": {
-                        "type": "string",
-                        "example": "96bb9f75-0ff8-4ef8-8e2b-0d709e2c0fed"
-                    },
-                    "providerId": {
-                        "type": "string",
-                        "example": "GoFrugal"
-                    },
                     "entityType": {
                         "type": "string",
                         "example": "Retail"
@@ -731,17 +641,9 @@
                         "type": "number",
                         "example": 80
                     },
-                    "referenceId": {
-                        "type": "string",
-                        "example": "r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
-                    },
-                    "providerDid": {
-                        "type": "string",
-                        "example": "3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
-                    },
-                    "totalEncodedRating": {
+                    "totalRating": {
                         "type": "number",
-                        "example": 2800
+                        "example": 280
                     }
                 }
             },
@@ -756,241 +658,6 @@
                     "keyUri": {
                         "type": "string",
                         "example": "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF#0xace0acca34668bd9a824457c1a494cf3f4cb4f68c87b0a65cf80f67da2d1d50a"
-                    }
-                }
-            },
-
-            "SchemaListing": {
-                "type": "object",
-                "properties": {
-                    "count": {
-                        "type": "number",
-                        "description": "Count of spaces in this request",
-                        "example": "5"
-                    },
-                    "page": {
-                        "type": "number",
-                        "description": "page of this request (used in pagination) [0-n]",
-                        "example": "0"
-                    },
-                    "pageSize": {
-                        "type": "number",
-                        "description": "max size of spaces array (used in pagination) [1-n]",
-                        "example": "20"
-                    },
-                    "schemas": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Schema"
-                        }
-                    }
-                }
-            },
-            "SpaceRequest": {
-                "type": "object",
-                "properties": {
-                    "space": {
-                        "type": "object",
-                        "properties": {
-                            "title": {
-                                "$ref": "#/components/schemas/SpaceName"
-                            },
-                            "description": {
-                                "$ref": "#/components/schemas/SpaceDescription"
-                            }
-                        }
-                    }
-                }
-            },
-            "SpaceListing": {
-                "type": "object",
-                "properties": {
-                    "count": {
-                        "type": "number",
-                        "description": "Count of spaces in this request",
-                        "example": "5"
-                    },
-                    "page": {
-                        "type": "number",
-                        "description": "page of this request (used in pagination) [0-n]",
-                        "example": "0"
-                    },
-                    "pageSize": {
-                        "type": "number",
-                        "description": "max size of spaces array (used in pagination) [1-n]",
-                        "example": "20"
-                    },
-                    "spaces": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Space"
-                        }
-                    }
-                }
-            },
-            "Space": {
-                "type": "object",
-                "properties": {
-                    "identity": {
-                        "$ref": "#/components/schemas/SpaceId"
-                    },
-                    "title": {
-                        "$ref": "#/components/schemas/SpaceName"
-                    },
-                    "description": {
-                        "$ref": "#/components/schemas/SpaceDescription"
-                    },
-                    "active": {
-                        "$ref": "#/components/schemas/SpaceActive"
-                    },
-                    "schema": {
-                        "$ref": "#/components/schemas/SchemaId"
-                    }
-                }
-            },
-            "RecordId": {
-                "type": "string",
-                "description": "Record Id",
-                "example": "138a8cca-0404-11ed-ac97-cb7be2aeb26e"
-            },
-            "RecordPublicId": {
-                "type": "string",
-                "description": "Record Id",
-                "example": "138a8cca-0404-11ed-ac97-cb7be2aeb26e"
-            },
-            "RecordTitle": {
-                "type": "string",
-                "description": "Record Title",
-                "example": "Student Name"
-            },
-            "RecordRevoked": {
-                "type": "boolean",
-                "description": "Record Active Status",
-                "example": false
-            },
-            "RecordHash": {
-                "type": "string",
-                "description": "Hash of the Content",
-                "example": "a2e996e30ff823a507943864a9a7db3c168617acb845addb947eaf277f83ec4d"
-            },
-            "RecordSignature": {
-                "type": "string",
-                "description": "Signature of the Content",
-                "example": "0x006f43832156cbc303463e94eef7631f75638319fe91add8bc170ca33836b29998251077b92ec57d199e60c94b3757e4189ab9bc331ecb8ad22135bfe9b1653e0a"
-            },
-            "RecordTransactionHash": {
-                "type": "string",
-                "description": "Record Transaction Hash",
-                "example": "0xc33442028e179c347515890d9a53f7b827811b254cdaa441d468fe0bd256b334"
-            },
-            "RecordContent": {
-                "type": "object",
-                "description": "Record Content",
-                "properties": {
-                    "key": {
-                        "type": "string",
-                        "description": "URL to Redirect",
-                        "example": "value"
-                    }
-                }
-            },
-            "RecordRequest": {
-                "type": "object",
-                "properties": {
-                    "title": {
-                        "$ref": "#/components/schemas/RecordTitle"
-                    },
-                    "publish": {
-                        "type": "boolean",
-                        "description": "Publish on Chain or not",
-                        "example": false
-                    },
-                    "send_email": {
-                        "type": "boolean",
-                        "description": "Send Email about the credential issue",
-                        "example": false
-                    },
-                    "issue_message": {
-                        "type": "string",
-                        "description": "Message from issuer to recipient",
-                        "example": "Congratulations on your degree completion"
-                    },
-                    "content": {
-                        "$ref": "#/components/schemas/RecordContent"
-                    }
-                }
-            },
-            "RecordListing": {
-                "type": "object",
-                "properties": {
-                    "count": {
-                        "type": "number",
-                        "description": "Count of records in this request",
-                        "example": "5"
-                    },
-                    "page": {
-                        "type": "number",
-                        "description": "page of this request (used in pagination) [0-n]",
-                        "example": "0"
-                    },
-                    "pageSize": {
-                        "type": "number",
-                        "description": "max size of records array (used in pagination) [1-n]",
-                        "example": "20"
-                    },
-                    "records": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Record"
-                        }
-                    }
-                }
-            },
-            "Record": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "$ref": "#/components/schemas/RecordId"
-                    },
-                    "publicId": {
-                        "$ref": "#/components/schemas/RecordPublicId"
-                    },
-                    "title": {
-                        "$ref": "#/components/schemas/RecordTitle"
-                    },
-                    "schemaId": {
-                        "$ref": "#/components/schemas/SchemaId"
-                    },
-                    "revoked": {
-                        "$ref": "#/components/schemas/RecordRevoked"
-                    },
-                    "active": {
-                        "$ref": "#/components/schemas/RecordRevoked"
-                    },
-                    "hash": {
-                        "$ref": "#/components/schemas/RecordHash"
-                    },
-                    "signature": {
-                        "$ref": "#/components/schemas/RecordSignature"
-                    },
-                    "transactionHash": {
-                        "$ref": "#/components/schemas/RecordTransactionHash"
-                    },
-                    "url": {
-                        "type": "string",
-                        "description": "Verification URL for the record",
-                        "example": "https://dway.io/m/e248dfa8-0409-11ed-ba3b-138cbf9c1d66?api=1"
-                    }
-                }
-            },
-            "RecordVerify": {
-                "type": "object",
-                "description": "Record Verification Content",
-                "properties": {
-                    "vc": {
-                        "type": "object",
-                        "description": "VC output from record Create",
-                        "example": "{}"
                     }
                 }
             }
