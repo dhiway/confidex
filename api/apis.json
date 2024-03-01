@@ -300,111 +300,6 @@
                 }
             },
 
-            "200_Res_Update": {
-                "type": "object",
-                "properties": {
-                    "uri": {
-                        "type": "string",
-                        "example": "rating:cord:r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
-                    },
-                    "ack": {
-                        "type": "string",
-                        "example": "Rating Revoke (Debit) successful"
-                    }
-                }
-            },
-            "200_Res_OnUpdate": {
-                "type": "object",
-                "properties": {
-                    "uri": {
-                        "type": "string",
-                        "example": "rating:cord:r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
-                    },
-                    "ack": {
-                        "type": "string",
-                        "example": "Rating Revoke (Debit) successful"
-                    }
-                }
-            },
-
-            "200_Res_Usage": {
-                "type": "object",
-                "properties": {
-                    "ack": {
-                        "$ref": "#/components/schemas/Ack_Get_Usage"
-                    }
-                }
-            },
-
-            "Ack_Get_Usage": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "Success"
-                    },
-                    "uri": {
-                        "type": "string",
-                        "example": "space:cord:c347wX2up174dtXXrv1weWqQwHNtqvfc2Lgh1kYZVYdgemvvr"
-                    },
-                    "creatorUri": {
-                        "type": "string",
-                        "example": "did:cord:3v3UZ7yxssQSwgwyhMKcDjqBhJgKnDH9yeiXqbiNJ6yFd4cT"
-                    },
-                    "txnCapacity": {
-                        "type": "number",
-                        "example": 1000
-                    },
-                    "txnUsage": {
-                        "type": "number",
-                        "example": 4
-                    },
-                    "approved": {
-                        "type": "boolean",
-                        "example": true
-                    },
-                    "archive": {
-                        "type": "boolean",
-                        "example": false
-                    }
-                }
-            },
-
-            "200_Res_Read": {
-                "type": "object",
-                "properties": {
-                    "ack": {
-                        "$ref": "#/components/schemas/Ack_Get_Aggregate"
-                    }
-                }
-            },
-
-            "Ack_Get_Aggregate": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "Success"
-                    },
-                    "entityUid": {
-                        "type": "string",
-                        "example": "286cf1b1-3e16-448f-b675-3b232e82174d"
-                    },
-                    "ratingType": {
-                        "type": "string",
-                        "example": "Overall"
-                    },
-                    "countOfTxn": {
-                        "type": "number",
-                        "example": 80
-                    },
-                    "totalRating": {
-                        "type": "number",
-                        "example": 280
-                    }
-                }
-            },
-
             "200_Res": {
                 "type": "object",
                 "properties": {
@@ -533,14 +428,6 @@
                         "type": "string",
 			"example": "0.0.1"
                     },
-                    "entity_uid": {
-                        "type": "string",
-			"example": "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
-                    },
-                    "entity_id": {
-                        "type": "string",
-			"example": "Gupta Kirana Store"
-                    },
                     "provider_uid": {
                         "type": "string",
 			"example": "446c67bd-9aa7-4aef-8d62-c69e3a669ce0"
@@ -550,13 +437,15 @@
 			"example": "All in One - Market Place"
                     },
                     "confidex_did": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
                     },
                     "registry_id": {
                         "type": "string",
 			"example": "Confidex - Rating Provider Registry's ID"
                     },
                     "transaction_id": {
+			"description": "The transaction ID to be kept same across revisions",
                         "type": "string"
                     },
                     "timestamp": {
@@ -580,7 +469,11 @@
                 "type": "object",
                 "properties": {
                     "rating": {
-                        "$ref": "#/components/schemas/PublishEntry"
+			"description": "List of entity ratings",
+			"type": "array",
+			"items": {
+                            "$ref": "#/components/schemas/PublishEntry"
+			}
                     },
                     "providerSignature": {
                         "$ref": "#/components/schemas/ProviderSignature"
@@ -592,11 +485,15 @@
                 "type": "object",
                 "properties": {
                     "rating": {
-                        "$ref": "#/components/schemas/ReviseEntry"
+			"description": "List of entity rating to be revised",
+			"type": "array",
+			"items": {
+                            "$ref": "#/components/schemas/ReviseEntry"
+			}
                     },
 		    "referenceId": {
                         "type": "string",
-                        "example": "rating:cord:-a614-467f-8ac9-8c897bb34a57"
+			"example": "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
 		    },
                     "providerSignature": {
                         "$ref": "#/components/schemas/ProviderSignature"
@@ -607,6 +504,14 @@
             "PublishEntry": {
                 "type": "object",
                 "properties": {
+                    "entity_uid": {
+                        "type": "string",
+			"example": "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+                    },
+                    "entity_id": {
+                        "type": "string",
+			"example": "Gupta Kirana Store"
+                    },
                     "entityType": {
                         "type": "string",
                         "example": "Retail"
@@ -632,6 +537,112 @@
                     "entityType": {
                         "type": "string",
                         "example": "Retail"
+                    },
+                    "ratingType": {
+                        "type": "string",
+                        "example": "Overall"
+                    },
+                    "countOfTxn": {
+                        "type": "number",
+                        "example": 80
+                    },
+                    "totalRating": {
+                        "type": "number",
+                        "example": 280
+                    }
+                }
+            },
+
+
+            "200_Res_Update": {
+                "type": "object",
+                "properties": {
+                    "uri": {
+                        "type": "string",
+                        "example": "rating:cord:r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
+                    },
+                    "ack": {
+                        "type": "string",
+                        "example": "Rating Revoke (Debit) successful"
+                    }
+                }
+            },
+            "200_Res_OnUpdate": {
+                "type": "object",
+                "properties": {
+                    "uri": {
+                        "type": "string",
+                        "example": "rating:cord:r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
+                    },
+                    "ack": {
+                        "type": "string",
+                        "example": "Rating Revoke (Debit) successful"
+                    }
+                }
+            },
+
+            "200_Res_Usage": {
+                "type": "object",
+                "properties": {
+                    "ack": {
+                        "$ref": "#/components/schemas/Ack_Get_Usage"
+                    }
+                }
+            },
+
+            "Ack_Get_Usage": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "Success"
+                    },
+                    "uri": {
+                        "type": "string",
+                        "example": "space:cord:c347wX2up174dtXXrv1weWqQwHNtqvfc2Lgh1kYZVYdgemvvr"
+                    },
+                    "creatorUri": {
+                        "type": "string",
+                        "example": "did:cord:3v3UZ7yxssQSwgwyhMKcDjqBhJgKnDH9yeiXqbiNJ6yFd4cT"
+                    },
+                    "txnCapacity": {
+                        "type": "number",
+                        "example": 1000
+                    },
+                    "txnUsage": {
+                        "type": "number",
+                        "example": 4
+                    },
+                    "approved": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "archive": {
+                        "type": "boolean",
+                        "example": false
+                    }
+                }
+            },
+
+            "200_Res_Read": {
+                "type": "object",
+                "properties": {
+                    "ack": {
+                        "$ref": "#/components/schemas/Ack_Get_Aggregate"
+                    }
+                }
+            },
+
+            "Ack_Get_Aggregate": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "Success"
+                    },
+                    "entityUid": {
+                        "type": "string",
+                        "example": "286cf1b1-3e16-448f-b675-3b232e82174d"
                     },
                     "ratingType": {
                         "type": "string",
