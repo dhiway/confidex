@@ -16,7 +16,7 @@ async function main() {
   )
   console.log(`\n🌐 Network Score Initial Setup`)
 
-  console.log(`\n🎎 Particpants `)
+  console.log(`\n🎎 Participants `)
   const { account: networkAuthorIdentity } = await createAccount(
     Cord.Utils.Crypto.mnemonicGenerate()
   )
