@@ -38,7 +38,7 @@ export async function ensureStoredRegistry(
     console.log('Registry already stored. Skipping creation')
     return txRegistry
   } catch {
-    console.log('Regisrty not present. Creating it now...')
+    console.log('Registry not present. Creating it now...')
     // Authorize the tx.
     const schemaId = Cord.Schema.idToChain(schemaUri)
     // To create a registry without a schema, use the following line instead:
@@ -87,7 +87,7 @@ export async function addRegistryAdminDelegate(
     console.log('Registry Authorization already stored. Skipping addition')
     return authId
   } catch {
-    console.log('Regisrty Authorization not present. Creating it now...')
+    console.log('Registry Authorization not present. Creating it now...')
     // Authorize the tx.
     const registryId = Cord.Registry.uriToIdentifier(registryUri)
     const delegateId = Cord.Did.toChain(adminAuthority)
@@ -135,7 +135,7 @@ export async function addRegistryDelegate(
     console.log('Registry Authorization already stored. Skipping addition')
     return authId
   } catch {
-    console.log('Regisrty Authorization not present. Creating it now...')
+    console.log('Registry Authorization not present. Creating it now...')
     // Authorize the tx.
     const registryId = Cord.Registry.uriToIdentifier(registryUri)
     const delegateId = Cord.Did.toChain(registryDelegate)
