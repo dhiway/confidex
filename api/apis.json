@@ -97,7 +97,7 @@
                                     "type": "object",
                                     "properties": {
                                         "message": {
-                                            "$ref": "#/components/schemas/OnPublishResult_20x"
+                                            "$ref": "#/components/schemas/200_Res"
                                         }
                                     }
                                 }
@@ -180,7 +180,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/OnReviseResult_20x"
+                                    "$ref": "#/components/schemas/200_Res"
                                 }
                             }
                         }
@@ -261,7 +261,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/200_Res_Read"
+                                    "$ref": "#/components/schemas/200_Res"
                                 }
                             }
                         }
@@ -365,7 +365,7 @@
                         "$ref": "#/components/schemas/Context"
                     },
                     "message": {
-                        "$ref": "#/components/schemas/OnPublishMessage"
+                        "$ref": "#/components/schemas/OnPublishResult_20x"
                     }
                 }
             },
@@ -408,7 +408,7 @@
                         "$ref": "#/components/schemas/Context"
                     },
                     "message": {
-                        "$ref": "#/components/schemas/OnReviseMessage"
+                        "$ref": "#/components/schemas/OnReviseResult_20x"
                     }
                 }
             },
