@@ -97,7 +97,7 @@ async function main() {
     await Cord.Registry.verifyStored(txRegistry)
     console.log('Registry already stored. Skipping creation')
   } catch {
-    console.log('Regisrty not present. Creating it now...')
+    console.log('Registry not present. Creating it now...')
     // Authorize the tx.
     const tx = api.tx.registry.create(txRegistry.details, null)
     const extrinsic = await Cord.Did.authorizeTx(
@@ -196,7 +196,7 @@ async function main() {
     delegateOneKeys.assertionMethod
   )
 
-  console.log('\n👨🏻‍⚖️ API verfies the packet\n')
+  console.log('\n👨🏻‍⚖️ API verifies the packet\n')
   Crypto.verify(
     JSON.stringify(transformedJournalEntryArray),
     signature,
@@ -205,7 +205,7 @@ async function main() {
   console.log('\n✅ Packet verified!\n')
 
   console.log(
-    '☎️  API utilizses the verified transformedJournalEntryArray \n to preparing rating input and anchors it to the chain'
+    '☎️  API utilizes the verified transformedJournalEntryArray \n to preparing rating input and anchors it to the chain'
   )
 
   for (let j: number = 0; j < transformedJournalEntryArray.length; j++) {
@@ -229,7 +229,7 @@ async function main() {
       )
       await Cord.Chain.signAndSubmitTx(authorizedStreamTx, authorIdentity)
       console.log(
-        `\n✅ Rating ${j + 1} has been achored to the blockchain\n`,
+        `\n✅ Rating ${j + 1} has been anchored to the blockchain\n`,
         outputFromScore.identifier
       )
     } catch (error) {
