@@ -29,7 +29,7 @@
     "paths": {
         "/publish": {
             "post": {
-                "tags": ["Rating"],
+                "tags": ["Rating API Server"],
                 "description": "Publish the ratings to the chain, for the given transaction / message ID",
                 "operationId": "publishRatings",
                 "requestBody": {
@@ -74,7 +74,7 @@
         },
 	"/on_publish": {
             "post": {
-                "tags": ["Rating"],
+                "tags": ["Rating API Client (NP)"],
                 "description": "Inform the client about success or failure of the publish rating",
                 "operationId": "onPublishRating",
                 "requestBody": {
@@ -120,7 +120,7 @@
 
          "/revise": {
             "post": {
-                "tags": ["Rating"],
+                "tags": ["Rating API Server"],
                 "description": "Revise ratings in the chain. This can happen due to 2 reasons. 1 is when the user herself changes the given rating over the period (possible for seller to settle bad rating with the buyer), or some discrepancies are found during the auditing.",
                 "operationId": "reviseRatings",
                 "requestBody": {
@@ -160,7 +160,7 @@
         },
         "/on_revise": {
             "post": {
-                "tags": ["Rating"],
+                "tags": ["Rating API Client (NP)"],
                 "description": "Callback of the revise operation on the chain.",
                 "operationId": "onReviseRating",
                 "requestBody": {
@@ -201,7 +201,7 @@
 
         "/query": {
             "post": {
-                "tags": ["Rating"],
+                "tags": ["Rating API Server"],
                 "description": "Read aggregate score, read all given entities ratings, more details based on parameters",
                 "operationId": "Query",
                 "requestBody": {
@@ -241,7 +241,7 @@
         },
         "/on_query": {
             "post": {
-                "tags": ["Rating"],
+                "tags": ["Rating API Client (NP)"],
                 "description": "Response / Callback to the query call",
                 "operationId": "onQuery",
                 "requestBody": {
@@ -448,6 +448,10 @@
 			"description": "The transaction ID to be kept same across revisions",
                         "type": "string"
                     },
+                    "message_id": {
+			"description": "The message ID is unique to every call, and should be used to match the callback",
+                        "type": "string"
+                    },
                     "timestamp": {
                         "type": "string",
                         "example": "2021-06-29T10:52:01.620Z"
@@ -474,9 +478,6 @@
 			"items": {
                             "$ref": "#/components/schemas/PublishEntry"
 			}
-                    },
-                    "providerSignature": {
-                        "$ref": "#/components/schemas/ProviderSignature"
                     }
                 }
             },
@@ -494,10 +495,7 @@
 		    "referenceId": {
                         "type": "string",
 			"example": "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
-		    },
-                    "providerSignature": {
-                        "$ref": "#/components/schemas/ProviderSignature"
-                    }
+		    }
                 }
             },
 
@@ -553,77 +551,6 @@
                 }
             },
 
-
-            "200_Res_Update": {
-                "type": "object",
-                "properties": {
-                    "uri": {
-                        "type": "string",
-                        "example": "rating:cord:r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
-                    },
-                    "ack": {
-                        "type": "string",
-                        "example": "Rating Revoke (Debit) successful"
-                    }
-                }
-            },
-            "200_Res_OnUpdate": {
-                "type": "object",
-                "properties": {
-                    "uri": {
-                        "type": "string",
-                        "example": "rating:cord:r36Q2YiBTn1eWRBSpR3L6gxfaNkPsD8REYYojS7JnaXBC8vXe"
-                    },
-                    "ack": {
-                        "type": "string",
-                        "example": "Rating Revoke (Debit) successful"
-                    }
-                }
-            },
-
-            "200_Res_Usage": {
-                "type": "object",
-                "properties": {
-                    "ack": {
-                        "$ref": "#/components/schemas/Ack_Get_Usage"
-                    }
-                }
-            },
-
-            "Ack_Get_Usage": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "Success"
-                    },
-                    "uri": {
-                        "type": "string",
-                        "example": "space:cord:c347wX2up174dtXXrv1weWqQwHNtqvfc2Lgh1kYZVYdgemvvr"
-                    },
-                    "creatorUri": {
-                        "type": "string",
-                        "example": "did:cord:3v3UZ7yxssQSwgwyhMKcDjqBhJgKnDH9yeiXqbiNJ6yFd4cT"
-                    },
-                    "txnCapacity": {
-                        "type": "number",
-                        "example": 1000
-                    },
-                    "txnUsage": {
-                        "type": "number",
-                        "example": 4
-                    },
-                    "approved": {
-                        "type": "boolean",
-                        "example": true
-                    },
-                    "archive": {
-                        "type": "boolean",
-                        "example": false
-                    }
-                }
-            },
-
             "200_Res_Read": {
                 "type": "object",
                 "properties": {
@@ -655,21 +582,12 @@
                     "totalRating": {
                         "type": "number",
                         "example": 280
-                    }
-                }
-            },
-
-            "ProviderSignature": {
-                "type": "object",
-                "properties": {
-                    "signature": {
-                        "type": "string",
-                        "example": "0x29665e65e3221894aa1f67735bbfb74065c31209f8f58c5f4c16f6e5bfeaa5462f0115fe3efc768e44d1e3626ef5e26ce938320e5e2340dcf4c8af0cde80c603"
                     },
-                    "keyUri": {
-                        "type": "string",
-                        "example": "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF#0xace0acca34668bd9a824457c1a494cf3f4cb4f68c87b0a65cf80f67da2d1d50a"
-                    }
+		    "score": {
+			"type": "number",
+			"example": 3.75
+		    }
+		    
                 }
             }
         }
