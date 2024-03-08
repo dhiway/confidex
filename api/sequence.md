@@ -24,6 +24,7 @@ sequenceDiagram
 
 ```
 
+![Publish](./publish_flow.png)
 
 ## /revise
 
@@ -50,6 +51,8 @@ sequenceDiagram
   Seller Platform (NP)-->>Rating API: ACK
 
 ```
+![Revise](./revise_flow.png)
+
 
 ## /query
 
@@ -74,3 +77,5 @@ sequenceDiagram
   Rating API ->>Buyer Platform: /on_query
   Buyer Platform-->>Rating API: ACK
 ```
+![Query](./query_flow.png)
+
