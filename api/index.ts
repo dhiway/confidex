@@ -2,15 +2,13 @@ import fs from "fs";
 import swaggerUi from "swagger-ui-express";
 import express from 'express';
 import http from 'http';
+import YAML from 'yamljs';
 
 const { PORT } = process.env;
 
-const openApiDocumentation = JSON.parse(
-  fs.readFileSync("./apis.json").toString()
-);
-
+const swaggerDocument = YAML.load('./apis.yaml');
 const app = express();
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(openApiDocumentation));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const server = http.createServer(app);
 
