@@ -1,0 +1,388 @@
+openapi: "3.0.1"
+info: 
+  version: "0.0.2"
+  title: "Rating APIs"
+  description: "API interface for CORD SDK"
+  termsOfService: "http://studio.dhiway.com/page/terms-and-conditions"
+  contact: 
+    name: "Dhiway Networks"
+    email: "info@dhiway.com"
+    url: "https://dhiway.com"
+  license: 
+    name: "Apache v2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0"
+servers: 
+- url: "https://agent.demo.dhiway.com"
+  description: "Demo server"
+- url: "http://localhost:4000/"
+  description: "Local server"
+paths: 
+  /publish: 
+    post: 
+      tags: 
+      - "Rating API Server"
+      description: "Publish the ratings to the chain, for the given transaction / message ID"
+      operationId: "publishRatings"
+      requestBody: 
+        description: "Write the ratings to the chain. Notice that this can take 1 or more entries from the NP (Network Participant) and submit it to the API (which inturn will write to the chain)."
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/PublishRating"
+        required: "true"
+      responses: 
+        201: 
+          description: "Acknowledgement with ID, which can be used for referring /On_Pubish callback"
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+                properties: 
+                  message: 
+                    $ref: "#/components/schemas/200_Res"
+        400: 
+          description: "Invalid parameters"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Error"
+  /on_publish: 
+    post: 
+      tags: 
+      - "Rating API Client (NP)"
+      description: "Inform the client about success or failure of the publish rating"
+      operationId: "onPublishRating"
+      requestBody: 
+        description: "Callback of publish rating operation to the chain. Considering the /write call will have multiple entries, this can collate all the entries and send the response, upon completion."
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/OnPublishRating"
+        required: "true"
+      responses: 
+        201: 
+          description: "Callback with Rating Identifier, rating identifier etc"
+          content: 
+            application/json: 
+              schema: 
+                type: "object"
+                properties: 
+                  message: 
+                    $ref: "#/components/schemas/200_Res"
+        400: 
+          description: "Invalid parameters"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Error"
+  /revise: 
+    post: 
+      tags: 
+      - "Rating API Server"
+      description: "Revise ratings in the chain. This can happen due to 2 reasons. 1 is when the user herself changes the given rating over the period (possible for seller to settle bad rating with the buyer), or some discrepancies are found during the auditing."
+      operationId: "reviseRatings"
+      requestBody: 
+        description: "revise the ratings"
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/ReviseRating"
+        required: "true"
+      responses: 
+        201: 
+          description: "Updated Score"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/200_Res"
+        400: 
+          description: "Invalid parameters"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Error"
+  /on_revise: 
+    post: 
+      tags: 
+      - "Rating API Client (NP)"
+      description: "Callback of the revise operation on the chain."
+      operationId: "onReviseRating"
+      requestBody: 
+        description: "update the ratings"
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/OnReviseRating"
+        required: "true"
+      responses: 
+        201: 
+          description: "Updated Score"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/200_Res"
+        400: 
+          description: "Invalid parameters"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Error"
+  /query: 
+    post: 
+      tags: 
+      - "Rating API Server"
+      description: "Read aggregate score, read all given entities ratings, more details based on parameters"
+      operationId: "Query"
+      requestBody: 
+        description: "query the score"
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/QueryRating"
+        required: "true"
+      responses: 
+        200: 
+          description: "Details of the aggregate score"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/200_Res"
+        400: 
+          description: "Invalid parameters"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Error"
+  /on_query: 
+    post: 
+      tags: 
+      - "Rating API Client (NP)"
+      description: "Response / Callback to the query call"
+      operationId: "onQuery"
+      requestBody: 
+        description: "query the ratings / score"
+        content: 
+          application/json: 
+            schema: 
+              $ref: "#/components/schemas/OnQueryRating"
+        required: "true"
+      responses: 
+        200: 
+          description: "Aggregated Score details"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/200_Res"
+        400: 
+          description: "Invalid parameters"
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Error"
+components: 
+  securitySchemes: 
+    bearerAuth: 
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "token"
+  schemas: 
+    Error: 
+      type: "object"
+      properties: 
+        error: 
+          type: "string"
+          description: "Error message"
+          example: "Error"
+    200_Res: 
+      type: "object"
+      properties: 
+        ack: 
+          $ref: "#/components/schemas/Ack"
+    Ack: 
+      type: "object"
+      properties: 
+        status: 
+          type: "boolean"
+          example: "true"
+        did: 
+          type: "string"
+          example: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+        message_id: 
+          type: "string"
+    OnPublishResult_20x: 
+      type: "object"
+      properties: 
+        status: 
+          type: "boolean"
+          example: "true"
+        did: 
+          type: "string"
+          example: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+        message_id: 
+          type: "string"
+        rating_identifier: 
+          type: "string"
+          example: "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
+    PublishRating: 
+      type: "object"
+      properties: 
+        context: 
+          $ref: "#/components/schemas/Context"
+        message: 
+          $ref: "#/components/schemas/PublishMessage"
+    OnPublishRating: 
+      type: "object"
+      properties: 
+        context: 
+          $ref: "#/components/schemas/Context"
+        message: 
+          $ref: "#/components/schemas/OnPublishResult_20x"
+    OnReviseResult_20x: 
+      type: "object"
+      properties: 
+        status: 
+          type: "boolean"
+          example: "true"
+        did: 
+          type: "string"
+          example: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+        message_id: 
+          type: "string"
+        rating_identifier: 
+          type: "string"
+          example: "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
+    ReviseRating: 
+      type: "object"
+      properties: 
+        context: 
+          $ref: "#/components/schemas/Context"
+        message: 
+          $ref: "#/components/schemas/ReviseMessage"
+    OnReviseRating: 
+      type: "object"
+      properties: 
+        context: 
+          $ref: "#/components/schemas/Context"
+        message: 
+          $ref: "#/components/schemas/OnReviseResult_20x"
+    Context: 
+      type: "object"
+      properties: 
+        domain: 
+          type: "string"
+          example: "seller-rating"
+        action: 
+          type: "string"
+          example: "/on_publish"
+        version: 
+          type: "string"
+          example: "0.0.1"
+        provider_uid: 
+          type: "string"
+          example: "446c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+        provider_id: 
+          type: "string"
+          example: "All in One - Market Place"
+        confidex_did: 
+          type: "string"
+          example: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+        registry_id: 
+          type: "string"
+          example: "Confidex - Rating Provider Registry's ID"
+        transaction_id: 
+          description: "The transaction ID to be kept same across revisions"
+          type: "string"
+        message_id: 
+          description: "The message ID is unique to every call, and should be used to match the callback"
+          type: "string"
+        timestamp: 
+          type: "string"
+          example: "2021-06-29T10:52:01.620Z"
+        key: 
+          type: "string"
+        ttl: 
+          type: "string"
+        location: 
+          type: "object"
+          example: "currently empty, but can be used in future for different contexts of network"
+    PublishMessage: 
+      type: "object"
+      properties: 
+        rating: 
+          description: "List of entity ratings"
+          type: "array"
+          items: 
+            $ref: "#/components/schemas/PublishEntry"
+    ReviseMessage: 
+      type: "object"
+      properties: 
+        rating: 
+          description: "List of entity rating to be revised"
+          type: "array"
+          items: 
+            $ref: "#/components/schemas/ReviseEntry"
+        referenceId: 
+          type: "string"
+          example: "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
+    PublishEntry: 
+      type: "object"
+      properties: 
+        entity_uid: 
+          type: "string"
+          example: "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+        entity_id: 
+          type: "string"
+          example: "Gupta Kirana Store"
+        entityType: 
+          type: "string"
+          example: "Retail"
+        ratingType: 
+          type: "string"
+          example: "Overall"
+        countOfTxn: 
+          type: "number"
+          example: "100"
+        totalRating: 
+          type: "number"
+          example: "320"
+    ReviseEntry: 
+      type: "object"
+      properties: 
+        entityType: 
+          type: "string"
+          example: "Retail"
+        ratingType: 
+          type: "string"
+          example: "Overall"
+        countOfTxn: 
+          type: "number"
+          example: "80"
+        totalRating: 
+          type: "number"
+          example: "280"
+    200_Res_Read: 
+      type: "object"
+      properties: 
+        ack: 
+          $ref: "#/components/schemas/Ack_Get_Aggregate"
+    Ack_Get_Aggregate: 
+      type: "object"
+      properties: 
+        status: 
+          type: "string"
+          example: "Success"
+        entityUid: 
+          type: "string"
+          example: "286cf1b1-3e16-448f-b675-3b232e82174d"
+        ratingType: 
+          type: "string"
+          example: "Overall"
+        countOfTxn: 
+          type: "number"
+          example: "80"
+        totalRating: 
+          type: "number"
+          example: "280"
+        score: 
+          type: "number"
+          example: "3.75"
