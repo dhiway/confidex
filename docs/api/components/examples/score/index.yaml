@@ -21,4 +21,12 @@ on_revise:
     - summary: on_revise
       description: TBD
       value:
-        $ref: "./on_issue_status/on_issue_status.yaml"        
+        $ref: "./on_issue_status/on_issue_status.yaml"    
+query:
+   examples:
+    - summary: query
+      description: TBD
+      value:
+        $ref: "./query/query.yaml"    
+
+      
