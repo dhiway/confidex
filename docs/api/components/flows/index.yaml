@@ -1,0 +1,11 @@
+- $ref: "./on-demand/on-demand-ride-assign-on_confirm.yaml"
+- $ref: "./on-demand/on-demand-ride-assign-post-on_confirm.yaml"
+- $ref: "./on-demand/on-demand-ride-cancellation-by-rider.yaml"
+- $ref: "./on-demand/on-demand-ride-cancellation-by-driver.yaml"
+- $ref: "./on-demand/on-demand-payment-confirmation.yaml"
+- $ref: "./on-demand/score-credit-entry.yaml"
+- $ref: "./on-demand/score-revise-entry.yaml"
+- $ref: "./on-demand/score-query.yaml"
+
+
+
