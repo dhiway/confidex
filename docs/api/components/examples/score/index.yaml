@@ -9,7 +9,7 @@ on_publish:
     - summary: on_publish
       description: On Publish
       value:
-        $ref: "./on_issue/on_issue.yaml"
+        $ref: "./on_publish/on_publish.yaml"
 revise:
    examples:
     - summary: revise
