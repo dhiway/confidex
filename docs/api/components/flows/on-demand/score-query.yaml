@@ -1,0 +1,18 @@
+summary: Query
+details: 
+  - description: Detailed process of Market Place querying the entry
+    mermaid: >-
+      sequenceDiagram
+        participant MARKET PLACE
+        participant API
+        participant CORD.JS
+        participant CONFIDEX
+        MARKET PLACE->>API:/query
+        note over MARKET PLACE,API: Input: rating identifier, ScoreRatingTypeOf
+        API->>CORD.JS: Call Cord.Score.fetchFromChain()
+        CORD.JS->>CONFIDEX: Call api.query.score.aggregateScore()
+        CONFIDEX->>CORD.JS: Encoded score
+        CORD.JS->>CORD.JS: Decode the encoded score
+        CORD.JS->>API: Decoded Score
+        API->>MARKET PLACE: (/on_query) Decoded Score
+        MARKET PLACE->>API: ACK
