@@ -1,0 +1,24 @@
+publish:
+  examples:
+    - summary: publish
+      description: Publish Rating
+      value:
+        $ref: "./issue/issue.yaml"
+on_publish:
+   examples:
+    - summary: on_publish
+      description: On Publish
+      value:
+        $ref: "./on_issue/on_issue.yaml"
+revise:
+   examples:
+    - summary: revise
+      description: TBD
+      value:
+        $ref: "./issue_status/issue_status.yaml"
+on_revise:
+   examples:
+    - summary: on_revise
+      description: TBD
+      value:
+        $ref: "./on_issue_status/on_issue_status.yaml"        
