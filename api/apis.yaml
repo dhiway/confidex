@@ -53,7 +53,7 @@ paths:
     post:
       tags:
       - "Rating API Server"
-      description: "Revise ratings in the chain. This can happen due to 2 reasons. 1 is when the user herself changes the given rating over the period (possible for seller to settle bad rating with the buyer), or some discrepancies are found during the auditing."
+      description: "Revise ratings in the chain. This can happen due to 2 reasons. 1 is when the user themself changes the given rating over the period (possible for seller to settle bad rating with the buyer), or some discrepancies are found during the auditing."
       operationId: "reviseRatings"
       requestBody:
         description: "revise the ratings"
@@ -289,7 +289,7 @@ components:
             Indicates the display properties of the tag group. If display is set
             to false, then the group will not be displayed. If it is set to
             true, it should be displayed. However, group-level display
-            properties can be overriden by individual tag-level display
+            properties can be overridden by individual tag-level display
             property. As this schema is purely for catalog display purposes, it
             is not recommended to send this value during search.
           type: boolean
