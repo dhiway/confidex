@@ -15,7 +15,7 @@ revise:
     - summary: revise
       description: TBD
       value:
-        $ref: "./issue_status/issue_status.yaml"
+        $ref: "./revise/revise.yaml"
 on_revise:
    examples:
     - summary: on_revise

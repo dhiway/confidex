@@ -732,21 +732,27 @@ x-examples:
             description: TBD
             value:
               context:
-                domain: ONDC:FIS12
-                country: IND
-                city: '*'
-                action: issue_status
-                core_version: 1.0.0
-                bap_id: buyerapp.com
-                bap_uri: https://buyerapp.com/ondc
-                bpp_id: sellerapp.com
-                bpp_uri: https://sellerapp.com/ondc
-                transaction_id: T1
-                message_id: M2
-                timestamp: '2023-01-15T10:30:00.469Z'
-                ttl: PT30S
+                domain: seller-rating
+                action: /revise
+                version: 0.0.1
+                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                provider_id: All in One - Market Place
+                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
+                registry_id: Confidex - Rating Provider Registry's ID
+                transaction_id: string
+                message_id: string
+                timestamp: '2021-06-29T10:52:01.620Z'
+                key: string
+                ttl: string
+                location:
+                  country: India
               message:
-                issue_id: '1'
+                rating:
+                  - entityType: Retail
+                    ratingType: Overall
+                    countOfTxn: 80
+                    totalRating: 280
+                referenceId: rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn
       on_revise:
         examples:
           - summary: on_revise
