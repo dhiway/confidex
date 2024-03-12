@@ -1,0 +1,23 @@
+context:
+  domain: seller-rating
+  action: /on_publish
+  version: 0.0.1
+  provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+  provider_id: All in One - Market Place
+  confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
+  registry_id: Confidex - Rating Provider Registry's ID
+  transaction_id: string
+  timestamp: "2021-06-29T10:52:01.620Z"
+  key: string
+  ttl: string
+  location: {country: "India"}
+  rating:
+    - entity_uid: "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+      entity_id: Gupta Kirana Store
+      entityType: Retail
+      ratingType: Overall
+      countOfTxn: 100
+      totalRating: 320
+  providerSignature:
+    signature: "0x29665e65e3221894aa1f67735bbfb74065c31209f8f58c5f4c16f6e5bfeaa5462f0115fe3efc768e44d1e3626ef5e26ce938320e5e2340dcf4c8af0cde80c603"
+    keyUri: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF#0xace0acca34668bd9a824457c1a494cf3f4cb4f68c87b0a65cf80f67da2d1d50a

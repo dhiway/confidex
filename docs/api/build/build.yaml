@@ -630,65 +630,31 @@ x-examples:
             description: Publish Rating
             value:
               context:
-                domain: ONDC:FIS12
-                country: IND
-                city: '*'
-                action: issue
-                core_version: 1.0.0
-                bap_id: buyerapp.com
-                bap_uri: https://preprod-ondc.addble.com
-                bpp_id: sellerapp.com
-                bpp_uri: https://beta.mystore.in/ondc/1.0/
-                transaction_id: T1
-                message_id: M1
-                timestamp: '2023-01-15T10:00:00.469Z'
-                ttl: PT30S
-              message:
-                issue:
-                  id: '1'
-                  category: FULFILMENT
-                  sub_category: FLM01
-                  complainant_info:
-                    person:
-                      name: Sam Manuel
-                    contact:
-                      phone: '9879879870'
-                      email: sam@yahoo.com
-                  order_details:
-                    id: 4597f703-e84f-431e-a96a-d147cfa142f9
-                    state: SANCTIONED
-                    provider_id: P1
-                  description:
-                    short_desc: Delay in disbursement/not disbursed
-                    Long_desc: Loan not disbursed by the lender
-                    additional_desc:
-                      url: https://buyerapp.com/additonal-details/desc.txt
-                      content_type: text/plain
-                    images:
-                      - http://buyerapp.com/addtional-details/img1.png
-                      - http://buyerapp.com/addtional-details/img2.png
-                  source:
-                    network_participant_id: buyerapp.com/ondc
-                    type: CONSUMER
-                  expected_response_time:
-                    duration: PT2H
-                  expected_resolution_time:
-                    duration: P1D
-                  status: OPEN
-                  issue_type: ISSUE
-                  issue_actions:
-                    complainant_actions:
-                      - complainant_action: OPEN
-                        short_desc: Complaint created
-                        updated_at: '2023-01-15T10:00:00.469Z'
-                        updated_by:
-                          org:
-                            name: buyerapp.com::ONDC:FIS12
-                          contact:
-                            phone: '9450394039'
-                            email: buyerapp@interface.com
-                  created_at: '2023-01-15T10:00:00.469Z'
-                  updated_at: '2023-01-15T10:00:00.469Z'
+                domain: seller-rating
+                action: /on_publish
+                version: 0.0.1
+                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                provider_id: All in One - Market Place
+                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
+                registry_id: Confidex - Rating Provider Registry's ID
+                transaction_id: string
+                timestamp: '2021-06-29T10:52:01.620Z'
+                key: string
+                ttl: string
+                location:
+                  Country: India
+                rating:
+                  - entity_uid: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                    entity_id: Gupta Kirana Store
+                    entityType: Retail
+                    ratingType: Overall
+                    countOfTxn: 100
+                    totalRating: 320
+                providerSignature:
+                  signature: >-
+                    0x29665e65e3221894aa1f67735bbfb74065c31209f8f58c5f4c16f6e5bfeaa5462f0115fe3efc768e44d1e3626ef5e26ce938320e5e2340dcf4c8af0cde80c603
+                  keyUri: >-
+                    did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF#0xace0acca34668bd9a824457c1a494cf3f4cb4f68c87b0a65cf80f67da2d1d50a
       on_publish:
         examples:
           - summary: on_publish
