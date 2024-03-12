@@ -1,0 +1,19 @@
+context:
+  domain: seller-rating
+  action: "/on_revise"
+  version: "0.0.1"
+  provider_uid: "446c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+  provider_id: "All in One - Market Place"
+  confidex_did: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+  registry_id: "Confidex - Rating Provider Registry's ID"
+  transaction_id: "string"
+  message_id: "string"
+  timestamp: "2021-06-29T10:52:01.620Z"
+  key: "string"
+  ttl: "string"
+  location: {"country":"India"}
+message:
+  status: true
+  did: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+  message_id: "string"
+  rating_identifier: "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
