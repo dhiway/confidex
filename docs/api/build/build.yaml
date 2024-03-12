@@ -781,6 +781,33 @@ x-examples:
                     long_desc: For this complaint, loan is now disbursed
                     action_triggered: CANCEL
                     refund_amount: '100'
+      on_query:
+        examples:
+          - summary: on_query
+            description: TBD
+            value:
+              context:
+                domain: seller-rating
+                action: /on_query
+                version: 0.0.1
+                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                provider_id: All in One - Market Place
+                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
+                registry_id: Confidex - Rating Provider Registry's ID
+                transaction_id: string
+                message_id: string
+                timestamp: '2021-06-29T10:52:01.620Z'
+                key: string
+                ttl: string
+                location:
+                  country: India
+              message:
+                scores:
+                  - entityUid: 286cf1b1-3e16-448f-b675-3b232e82174d
+                    entityName: string
+                    score: 3.7
+                    totalRating: 280
+                    countOfTxn: 73
       query:
         examples:
           - summary: query
