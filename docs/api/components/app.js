@@ -17,8 +17,8 @@ const process = require("process");
 
 const args = process.argv.slice(2);
 // var example_set = args[0]
-// var flow_set = args[1]
-var base_yaml = "./beckn_yaml.yaml"; //args[0];
+var flow_set = args[1]
+var base_yaml = "./rating_yaml.yaml"; //args[0];
 var example_yaml = "./index.yaml"; //args[1];
 var outputPath = "../build/build.yaml";
 var uiPath = "../../ui/build.js";
@@ -30,24 +30,21 @@ const markdownFiles = checkMDFiles();
 writeFilenamesToYaml(markdownFiles);
 compareFiles();
 getSwaggerYaml("example_set", outputPath);
-const { buildAttribiutes } = require('./build-attributes.js')
-const { buildErrorCodes } = require('./build-error-code.js')
-const { buildTlc } = require('./build-tlc.js')
+// const { buildAttribiutes } = require('./build-attributes.js')
+// const { buildErrorCodes } = require('./build-error-code.js')
+// const { buildTlc } = require('./build-tlc.js')
 
 const SKIP_VALIDATION = {
   flows: "skip1",
   examples: "skip2",
   enums: "skip3",
   tags: "skip4",
-  attributes: "skip5",
-  exampleAttributes: "skip6"
 };
 
 const BUILD = {
   attributes: "attributes",
-  error: "errorCode",
-  tlc: "tlc",
-  checkAttributes: "checkAttributes"
+  // error: "errorCode",
+  // tlc: "tlc"
 };
 
 async function baseYMLFile(file) {
@@ -179,11 +176,12 @@ async function checkObjectKeys(currentExamplePos, currentSchemaPos, logObject) {
 }
 
 async function validateEnumsTags(exampleEnums, schemaMap) {
+  console.log(exampleEnums);
   for (const example of Object.keys(exampleEnums)) {
     const currentExample = exampleEnums[example];
     const currentSchema = schemaMap[example];
 
-    //context & message loop
+    //context & mesage loop
     for (const currentExamples of Object.keys(currentExample)) {
       const currentSchemaPos =
         currentSchema?.properties[currentExamples]?.properties ||
@@ -281,11 +279,11 @@ async function getSwaggerYaml(example_set, outputPath) {
     const { paths } = baseYAML;
     let hasTrueResult = false; // Flag variable
     let schemaMap = {};
-    
+    /*
     if (process.argv.includes(BUILD.attributes)) {
       await buildAttribiutes()
     }
-
+    */
     if (process.argv.includes(BUILD.error)) {
       await buildErrorCodes()
     }
@@ -299,7 +297,7 @@ async function getSwaggerYaml(example_set, outputPath) {
         paths[path]?.post?.requestBody?.content?.["application/json"]?.schema;
       schemaMap[path.substring(1)] = pathSchema;
     }
-
+    
     if (!process.argv.includes(SKIP_VALIDATION.flows)) {
       hasTrueResult = await validateFlows(flows, schemaMap);
     }
@@ -308,24 +306,17 @@ async function getSwaggerYaml(example_set, outputPath) {
     }
 
     //move to separate files
-    if (!process.argv.includes(SKIP_VALIDATION.enums) && !hasTrueResult) {
-      hasTrueResult = await validateEnumsTags(enums, schemaMap);
-    }
-    if (!process.argv.includes(SKIP_VALIDATION.tags) && !hasTrueResult) {
-      hasTrueResult = await validateTags(tags, schemaMap);
-    }
+    // if (!process.argv.includes(SKIP_VALIDATION.enums) && !hasTrueResult) {
+    //   hasTrueResult = await validateEnumsTags(enums, schemaMap);
+    // }
+    // if (!process.argv.includes(SKIP_VALIDATION.tags) && !hasTrueResult) {
+    //   hasTrueResult = await validateTags(tags, schemaMap);
+    // }
 
-    if (!process.argv.includes(SKIP_VALIDATION.attributes) && !hasTrueResult) {
-      hasTrueResult = await validateAttributes(attributes, schemaMap);
-    }
+    // if (!process.argv.includes(SKIP_VALIDATION.attributes) && !hasTrueResult) {
+    //   hasTrueResult = await validateAttributes(attributes, schemaMap);
+    // }
 
-    if (!process.argv.includes(SKIP_VALIDATION.exampleAttributes) && !hasTrueResult) {
-      await validateExamplesAttributes(exampleSets, attributes)
-    }
-
-    if (process.argv.includes(BUILD.checkAttributes) && !hasTrueResult) {
-        await checkAttributes(exampleSets, attributes)
-    }
     if (hasTrueResult) return;
 
     if (!hasTrueResult) {
@@ -344,192 +335,6 @@ async function getSwaggerYaml(example_set, outputPath) {
   }
 }
 
-async function validateObject(example, attribute, endPoint) {
-  let mandatoryRequiredKeys = [];
-
-  findMandatoryRequiredKeys(attribute, mandatoryRequiredKeys);
-  checkKeysExistence(example, mandatoryRequiredKeys, endPoint);
-
-  return true;
-}
-
-function handleError(keys, endPoint) {
-  throw new Error(
-    `Key path ${keys.join(
-      "."
-    )} does not exist in the example object at ${endPoint}`
-  );
-}
-
-const checkKeysExistence = (example, mandatoryRequiredKeys, endPoint) => {
-  if (example === null || typeof example !== "object") {
-    handleError(`Invalid example object at ${endPoint}`);
-  }
-
-  for (let keys of mandatoryRequiredKeys) {
-    let currentObj = example;
-    let isArray = false;
-    let currentIndex = 0;
-    let currentKeys = [];
-
-    if(keys.includes("_description")){
-      continue;
-    }
-    for (let key of keys) {
-      if (Array.isArray(currentObj)) {
-        isArray = true;
-        currentKeys = keys.slice(currentIndex);
-        break;
-      }
-
-      if (!currentObj.hasOwnProperty(key)) {
-        handleError(keys, endPoint);
-      }
-
-      currentObj = currentObj[key];
-      currentIndex++;
-    }
-
-    if (isArray) {
-      handleIfObjectIsArray(currentKeys, currentObj, endPoint);
-    }
-  }
-};
-
-function handleIfObjectIsArray(keys, currentObj, endPoint) {
-  if (Array.isArray(currentObj)) {
-    for (let obj of currentObj) {
-      if (typeof obj === "object") {
-        checkKeysExistence(obj, [keys], endPoint);
-      } else if (Array.isArray(obj)) {
-        handleIfObjectIsArray(keys, obj, endPoint);
-      }
-    }
-  }
-}
-
-function findMandatoryRequiredKeys(obj, result, parentKeys = []) {
-  //&& obj[key] === "string"
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      if (typeof obj[key] === "object") {
-        findMandatoryRequiredKeys(obj[key], result, [...parentKeys, key]);
-      } else if (key === "required" && obj[key]?.toLowerCase() == "mandatory") {
-        result.push([...parentKeys]);
-      }
-    }
-  }
-}
-  
-const iterateObject = (example, mandatoryRequiredKeys, endPoint) => { 
-  for ( const attribs of Object.keys(attrib)){
-    //console.log('attribs', attribs, attrib[attribs])
-    if( typeof attrib[attribs] === "object" && attrib[attribs]?.required){
-      if(getExample[attribs]){
-        console.log('value against attribute found', attribs);
-      }
-    }else{
-      if(typeof attrib[attribs] === "object" && !attrib[attribs]?.required){
-        if(typeof attrib[attribs]){
-          iterateObject()
-        }
-      }
-    }
-}
-
-}
-
-async function validateExamplesAttributes(exampleSets, attributes) {
-  try {
-    for (const exampleSet of Object.keys(exampleSets)) {
-      //check if attributes found for particular example.
-      if (attributes.hasOwnProperty(exampleSet)) {
-        const { example_set } = exampleSets[exampleSet] || {};
-        const { attribute_set } = attributes[exampleSet] || {};
-        for (const example_sets of Object.keys(example_set)) {
-          const { examples } = example_set[example_sets] || []
-          for (const example of examples) {
-              //sending only matched examples=attribute set like search=search
-              if(attribute_set[example_sets]){
-                const currentAttribute = attribute_set[example_sets]
-                await validateObject(example?.value, currentAttribute, example_sets)
-              }else{
-                console.log(`attribute not found for ${example_sets}`)
-              }
-              
-          }
-          
-        }
-      }
-    }
-  } catch (error) {
-    console.log("Error validating examples with attributes", error);
-  }
-}
-
-async function checkAttributes(exampleSets, attributes) {
-    //console.log('exampleSets', exampleSets, attributes)
-    try {
-      for (const exampleSet of Object.keys(exampleSets)) {
-      
-        if(attributes.hasOwnProperty(exampleSet)){
-          const { example_set } = exampleSets[exampleSet] || {};
-          const { attribute_set } = attributes[exampleSet] || {};
-          for (const example_sets of Object.keys(example_set)) {
-            const { examples } = example_set[example_sets] || []
-            for (const example of examples) {
-              //sending only matched examples=attribute set like search=search
-              if(attribute_set[example_sets]){
-                const currentAttribute = attribute_set[example_sets]
-                  // if(example_sets == "on_init")
-                await comapreObjects(example?.value, currentAttribute, example_sets)
-              }else{
-                console.log(`attribute not found for ${example_sets}`)
-              }
-              
-          }
-          }
-        }else{
-          console.log(`example not found against attributes ${exampleSet}`)
-        }
-              
-      }
-    }
-     catch(error){
-      console.log(`Error checking attributes, ${error}`)
-     } 
-}
-
-async function comapreObjects(examples, attributes, example_sets) {
-  for (const key in examples) {
-    if (key !== "tags")
-      if (
-        typeof examples[key] === "object" &&
-        typeof attributes[key] === "object"
-      ) {
-        // console.log('key',key)
-        // console.log('typeof examples[key]', typeof examples[key], typeof attributes[key])
-        if (!attributes[key]) {
-          console.log(`null value found for, ${key} in  ${example_sets}`);
-        } else if (Array.isArray(examples[key])) {
-          for (let i = 0; i < examples[key]?.length; i++) {
-            const exampleItem = examples[key][i];
-            const attributeItem = attributes[key];
-            //use if array has no keys like: category_ids
-            if (typeof exampleItem === "string" && attributeItem) {
-              //found
-            } else {
-              await comapreObjects(exampleItem, attributeItem, example_sets);
-            }
-          }
-        } else {
-          await comapreObjects(examples[key], attributes[key], example_sets);
-        }
-      } else if (!attributes.hasOwnProperty(key)) {
-        console.log(`keys not found, ${key} in  ${example_sets}`);
-      }
-  }
-}
 function cleanup() {
   try {
     fs.unlinkSync(tempPath);
@@ -570,7 +375,6 @@ function addEnumTag(base, layer) {
   base["x-tlc"] = layer["tlc"];
   base["x-featureui"] = layer["feature-ui"]
   base["x-sandboxui"] = layer["sandbox-ui"]
-  base["x-testcasesui"] = layer["testcases-ui"]
 
 }
 

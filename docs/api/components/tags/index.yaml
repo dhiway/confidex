@@ -1,38 +1,11 @@
-search:
+publish:
   message:
-    intent:
-      payment: &payments
-        $ref: "./tag-group.yaml#/payments"     
-on_search:
-  message:
-    catalog:
-      providers:
-        items: &items
-          $ref: "./tag-group.yaml#/items"
-        payments: *payments
-# select: 
-#   message:
-#     order:
-#       fulfillments: *fulfillments
-on_select: 
-  message:
-    order:
-      items: *items
-      fulfillments: &fulfillments
-        $ref: './tag-group.yaml#/fulfillments'
-
-init:
-  message:
-    order:
-      payments: *payments
-on_init: &ref0
-  message:
-    order:
-      items: *items
-      payments: *payments
-      fulfillments: *fulfillments
-confirm: *ref0       
-on_confirm: *ref0
-on_status: *ref0
-on_cancel: *ref0
-on_update: *ref0
+    rating:
+      tags: 
+        - code: GENERAL_INFO              
+          description : Describes the general information of the rating like rating, count, entity name
+          reference: <PR/Issue/Discussion Links md format text>
+          list:
+            - code: RATING_COUNT
+              description : Number of ratings received for an entity
+              reference: <PR/Issue/Discussion Links md format text>

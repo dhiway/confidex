@@ -1,0 +1,21 @@
+publish:
+  message: &message
+    rating:
+      entityType:
+        - code: Overall
+          description: Overall Experience
+          reference: <PR/Issue/Discussion Links md format text
+        - code: Delivery
+          description: Delivery Experience
+          reference: <PR/Issue/Discussion Links md format text  
+
+revise:
+  message: *message
+
+query:
+  message: *message
+
+on_query:
+  message: *message
+ 
+  

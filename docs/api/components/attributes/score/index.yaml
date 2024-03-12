@@ -1,0 +1,37 @@
+publish:
+  message:
+    rating:
+      id:
+        required: true
+        type: false
+        owner: false
+        usage: false
+        description: false
+
+on_publish:
+  message:
+    rating:
+      id:
+        required: false
+        type: false
+        owner: false
+        usage: false
+        description: false
+revise:
+  message:
+    rating:
+      id:
+        required: false
+        type: false
+        owner: false
+        usage: false
+        description: false
+on_revise:
+  message:
+    rating:
+      id:
+        required: false
+        type: false
+        owner: false
+        usage: false
+        description: false
