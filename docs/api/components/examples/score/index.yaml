@@ -3,7 +3,7 @@ publish:
     - summary: publish
       description: Publish Rating
       value:
-        $ref: "./issue/issue.yaml"
+        $ref: "./publish/publish.yaml"
 on_publish:
    examples:
     - summary: on_publish
