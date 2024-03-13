@@ -27,11 +27,11 @@ async function readBuildFile(branchName) {
   }
 }
 
-function upadteContract() {
+function updateContract() {
   const selectedOption = document.getElementById("contract-dropdown")?.value;
   readBuildFile(selectedOption);
 }
 
 window.onload = function () {
-  upadteContract();
+  updateContract();
 };
