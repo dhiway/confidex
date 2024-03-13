@@ -50,7 +50,6 @@ details:
         CORD.JS->>CONFIDEX: Anchors the extrinsic to the chain
         CONFIDEX->>CORD.JS: Rating Identifier
         CORD.JS->>API: Rating Identifier
-        API->>MARKET PLACE: Rating Identifier
 
         API->>CORD.JS: revisedEntry
         CORD.JS->>CORD.JS: verify and transform entry
