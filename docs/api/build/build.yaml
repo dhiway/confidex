@@ -620,7 +620,7 @@ x-flows:
             MARKET PLACE->>API: ACK
 x-examples:
   score:
-    summary: Rating API Implemention
+    summary: Rating API Implementation
     description: Rating Example
     example_set:
       publish:
