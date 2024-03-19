@@ -620,7 +620,7 @@ x-flows:
             MARKET PLACE->>API: ACK
 x-examples:
   score:
-    summary: Rating API Implementation
+    summary: Rating API Implemention
     description: Rating Example
     example_set:
       publish:
@@ -629,24 +629,25 @@ x-examples:
             description: Publish Rating
             value:
               context:
-                domain: seller-rating
-                action: /publish
-                version: 0.0.1
-                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                domain: ONDC:NTS12
+                action: publish
+                version: 1.0.0
+                provider_uri: string
+                publisher_id: bpp_id
+                publisher_uri: bpp_uri
                 provider_id: All in One - Market Place
-                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
                 registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: string
                 message_id: string
                 timestamp: '2021-06-29T10:52:01.620Z'
-                key: string
                 ttl: string
                 location:
                   country: India
               message:
                 rating:
-                  - entity_uid: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
-                    entity_id: Gupta Kirana Store
+                  - entity_id: >-
+                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+                    entity_name: Gupta Kirana Store
                     entityType: Retail
                     ratingType: Overall
                     countOfTxn: 100
@@ -657,42 +658,39 @@ x-examples:
             description: On Publish
             value:
               context:
-                domain: seller-rating
-                action: /on_publish
-                version: 0.0.1
-                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                domain: ONDC:NTS12
+                action: on_publish
+                version: 1.0.0
+                provider_uri: string
+                publisher_id: bpp_id
+                publisher_uri: bpp_uri
                 provider_id: All in One - Market Place
-                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
                 registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: string
                 message_id: string
                 timestamp: '2021-06-29T10:52:01.620Z'
-                key: string
                 ttl: string
                 location:
                   country: India
               message:
                 status: true
-                did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
-                message_id: string
-                referenceId: rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn
       revise:
         examples:
           - summary: revise
             description: TBD
             value:
               context:
-                domain: seller-rating
-                action: /revise
-                version: 0.0.1
-                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                domain: ONDC:NTS12
+                action: revise
+                version: 1.0.0
+                provider_uri: string
+                publisher_id: bpp_id
+                publisher_uri: bpp_uri
                 provider_id: All in One - Market Place
-                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
                 registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: string
                 message_id: string
                 timestamp: '2021-06-29T10:52:01.620Z'
-                key: string
                 ttl: string
                 location:
                   country: India
@@ -702,55 +700,53 @@ x-examples:
                     ratingType: Overall
                     countOfTxn: 80
                     totalRating: 280
-                referenceId: rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn
+                transaction_id: string
       on_revise:
         examples:
           - summary: on_revise
             description: TBD
             value:
               context:
-                domain: seller-rating
-                action: /on_revise
-                version: 0.0.1
-                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                domain: ONDC:NTS12
+                action: on_revise
+                version: 1.0.0
+                provider_uri: string
+                publisher_id: bpp_id
+                publisher_uri: bpp_uri
                 provider_id: All in One - Market Place
-                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
                 registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: string
                 message_id: string
                 timestamp: '2021-06-29T10:52:01.620Z'
-                key: string
                 ttl: string
                 location:
                   country: India
               message:
                 status: true
-                did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
-                message_id: string
-                rating_identifier: rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn
       on_query:
         examples:
           - summary: on_query
             description: TBD
             value:
               context:
-                domain: seller-rating
-                action: /on_query
-                version: 0.0.1
-                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                domain: ONDC:NTS12
+                action: on_query
+                version: 1.0.0
+                provider_uri: string
+                publisher_id: bpp_id
+                publisher_uri: bpp_uri
                 provider_id: All in One - Market Place
-                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
                 registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: string
                 message_id: string
                 timestamp: '2021-06-29T10:52:01.620Z'
-                key: string
                 ttl: string
                 location:
                   country: India
               message:
                 scores:
-                  - entityUid: 286cf1b1-3e16-448f-b675-3b232e82174d
+                  - entity_id: >-
+                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
                     entityName: string
                     score: 3.7
                     totalRating: 280
@@ -761,23 +757,24 @@ x-examples:
             description: TBD
             value:
               context:
-                domain: seller-rating
-                action: /query
-                version: 0.0.1
-                provider_uid: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                domain: ONDC:NTS12
+                action: query
+                version: 1.0.0
+                provider_uri: string
+                publisher_id: bpp_id
+                publisher_uri: bpp_uri
                 provider_id: All in One - Market Place
-                confidex_did: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
                 registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: string
                 message_id: string
                 timestamp: '2021-06-29T10:52:01.620Z'
-                key: string
                 ttl: string
                 location:
                   country: India
               message:
                 entity_list:
-                  - entityUid: 286cf1b1-3e16-448f-b675-3b232e82174d
+                  - entity_id: >-
+                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
                     ratingType: Overall
                     entityType: Retail
 x-attributes:
