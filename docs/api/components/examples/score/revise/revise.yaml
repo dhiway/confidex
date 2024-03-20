@@ -1,22 +1,21 @@
 context:
-  domain: "seller-rating"
-  action: "/revise"
-  version: "0.0.1"
-  provider_uid: "446c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+  domain: "ONDC:NTS12"
+  action: "revise"
+  version: "1.0.0"
   provider_id: "All in One - Market Place"
-  confidex_did: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+  provider_uri: "string"
+  publisher_id: "bpp_id"
+  publisher_uri: "bpp_uri"
   registry_id: "Confidex - Rating Provider Registry's ID"
   transaction_id: "string"
   message_id: "string"
   timestamp: "2021-06-29T10:52:01.620Z"
-  key: "string"
   ttl: "string"
-  location: {"country" : "India"}
+  location: {"code":"IND"}
 
 message:
   rating:
-    - entityType: "Retail"
-      ratingType: "Overall"
+    - ratingType: "Overall"
       countOfTxn: 80
       totalRating: 280
-  referenceId: "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
+  transaction_id: "string"

@@ -95,13 +95,16 @@ function displayTable() {
   console.log("selectedValue3", selectedValue3)
   // Get the table data
   let data = getAttribute(parsedData[selectedValue1], selectedValue2.split("."))
+  console.log("data",data)
   var tableData = data.find(obj => {
     if (obj["code"] == selectedValue3)
       return obj
   });
+  console.log("tableData",tableData)
 
   // Get the table body element
   var tableBody = document.getElementById('result-table');
+  // console.log("tableBody",tableBody)
   if (tableBody && tableBody != {}) tableBody.innerHTML = '';
   insertRow(tableBody, "ENUM", tableData.code)
   insertRow(tableBody, "Description", tableData.description)
@@ -119,6 +122,7 @@ function insertRow(tableBody, key, value) {
 }
 
 function fetchData(url) {
+  console.log('url',url)
   return fetch(url)
     .then(response => response.text())
     .then(yamlData => jsyaml.load(yamlData));
