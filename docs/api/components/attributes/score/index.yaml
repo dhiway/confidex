@@ -1,37 +1,124 @@
 publish:
   message:
     rating:
-      id:
+      " entity_id\n":
         required: true
-        type: false
-        owner: false
-        usage: false
-        description: false
-
+        usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+        owner: X
+        description: Describes the entity ID
+        type: String
+      " entity_name\n":
+        required: true
+        usage: Gupta krishna Stores
+        owner: 'Y'
+        description: Describes the entity name
+        type: String
+      " ratingType\n":
+        required: true
+        usage: Overall
+        owner: Z
+        description: Describes the type of rating
+        type: String
+      " countOfTxn\n":
+        required: true
+        usage: 100
+        owner: A
+        description: Describes the total number of transactions
+        type: Integer
+      " totalRating\n":
+        required: true
+        usage: 200
+        owner: B
+        description: Describes the total rating
+        type: Integer
 on_publish:
   message:
-    rating:
-      id:
-        required: false
-        type: false
-        owner: false
-        usage: false
-        description: false
+    status:
+      required: true
+      type: Boolean
+      owner: false
+      usage: true
+      description: Describes the status of the publish
 revise:
   message:
     rating:
-      id:
-        required: false
-        type: false
+      " ratingType\n":
+        required: true
+        type: String
+        owner: false
+        usage: Overall
+        description: Describes the type of rating
+      " countOfTxn\n":
+        required: true
+        type: Integer
         owner: false
         usage: false
-        description: false
+        description: Describes the total number of transactions
+      " totalRating\n":
+        required: true
+        type: Integer
+        owner: false
+        usage: false
+        description: Describes the total rating
+    transaction_id:
+      required: true
+      type: String
+      owner: false
+      usage: false
+      description: Describes the transaction ID
 on_revise:
   message:
-    rating:
-      id:
-        required: false
-        type: false
+    status:
+      required: true
+      type: Boolean
+      owner: false
+      usage: true
+      description: Describes the status of the publish
+query:
+  message:
+    ' entity_list':
+      "entity_id\n":
+        required: true
+        type: String
         owner: false
-        usage: false
-        description: false
+        usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+        description: Describes the entity ID
+      " ratingType\n\n":
+        required: true
+        type: String
+        owner: false
+        usage: Overall
+        description: Describes the rating type
+on_query:
+  message:
+    ' scores':
+      " entity_id\n\n":
+        required: true
+        type: String
+        owner: false
+        usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+        description: Describes the entity ID
+      " entityName\n":
+        required: true
+        type: String
+        owner: false
+        usage: Gupta Krishna Store
+        description: Describes the entity name
+      " score\n":
+        required: true
+        type: Number
+        owner: false
+        usage: 1.5
+        description: Describes the aggregate score
+      " totalRating\n":
+        required: true
+        type: Integer
+        owner: false
+        usage: 200
+        description: Describes the total rating
+      " countOfTxn\n":
+        required: true
+        type: Integer
+        owner: false
+        usage: 150
+        description: Describes the total number of transactions

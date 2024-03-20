@@ -30,7 +30,7 @@ const markdownFiles = checkMDFiles();
 writeFilenamesToYaml(markdownFiles);
 compareFiles();
 getSwaggerYaml("example_set", outputPath);
-// const { buildAttribiutes } = require('./build-attributes.js') // ToDo
+const { buildAttribiutes } = require('./build-attributes.js') // ToDo
 // const { buildErrorCodes } = require('./build-error-code.js')
 // const { buildTlc } = require('./build-tlc.js')
 
