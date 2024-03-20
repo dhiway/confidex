@@ -4,31 +4,31 @@ publish:
       " entity_id\n":
         required: true
         type: String
-        owner: X
+        owner: BPP
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         description: 'Describes the ID of the seller '
       " entity_name\n":
         required: true
         type: String
-        owner: 'Y'
+        owner: BPP
         usage: Gupta krishna Stores
         description: Describes the name of the seller
       " ratingType\n":
         required: true
         type: String
-        owner: Z
+        owner: BPP
         usage: Overall
         description: Describes the type of rating like overall or just the delivery
       " countOfTxn\n":
         required: true
         type: Integer
-        owner: A
+        owner: BPP
         usage: 100
         description: Describes the total number of transactions
       " totalRating\n":
         required: true
         type: Integer
-        owner: B
+        owner: BPP
         usage: 200
         description: Describes the total rating
 on_publish:
@@ -36,7 +36,7 @@ on_publish:
     status:
       required: true
       type: Boolean
-      owner: false
+      owner: BPP
       usage: true
       description: Describes the status of the publish
 revise:
@@ -45,33 +45,33 @@ revise:
       " ratingType\n":
         required: true
         type: String
-        owner: false
+        owner: BPP
         usage: Overall
         description: Describes the type of rating like overall or just the delivery
       " countOfTxn\n":
         required: true
         type: Integer
-        owner: false
-        usage: false
+        owner: BPP
+        usage: 100
         description: Describes the total number of transactions
       " totalRating\n":
         required: true
         type: Integer
-        owner: false
-        usage: false
+        owner: BPP
+        usage: 300
         description: Describes the total rating
     transaction_id:
       required: true
       type: String
-      owner: false
-      usage: false
+      owner: BPP
+      usage: 30222f89-383f-42af-bde0-6150a4f146a2
       description: Describes the transaction ID
 on_revise:
   message:
     status:
       required: true
       type: Boolean
-      owner: false
+      owner: BPP
       usage: true
       description: Describes the status of the publish
 query:
@@ -80,13 +80,13 @@ query:
       "entity_id\n":
         required: true
         type: String
-        owner: false
+        owner: BPP
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         description: Describes the entity ID
       " ratingType\n\n":
         required: true
         type: String
-        owner: false
+        owner: BPP
         usage: Overall
         description: Describes the type of rating like overall or just the delivery
 on_query:
@@ -95,30 +95,30 @@ on_query:
       " entity_id\n\n":
         required: true
         type: String
-        owner: false
+        owner: BPP
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         description: 'Describes the ID of the seller '
       " entityName\n":
         required: true
         type: String
-        owner: false
+        owner: BPP
         usage: Gupta Krishna Store
         description: Describes the name of the seller
       " score\n":
         required: true
         type: Number
-        owner: false
+        owner: BPP
         usage: 1.5
         description: Describes the aggregate score
       " totalRating\n":
         required: true
         type: Integer
-        owner: false
+        owner: BPP
         usage: 200
         description: Describes the total rating
       " countOfTxn\n":
         required: true
         type: Integer
-        owner: false
+        owner: BPP
         usage: 150
         description: Describes the total number of transactions
