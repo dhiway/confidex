@@ -7,13 +7,16 @@ async function buildAttribiutes() {
   const workSheetsFromBuffer = xlsx.parse(`../../Attributesheet_IGM.xlsx`);
   for (let i = 0; i < workSheetsFromBuffer.length; i++) {
     const array = workSheetsFromBuffer[i];
+    console.log("array",array)
     const filterArray = array.data.filter((subArr) => subArr.length > 0);
     const response = formObject(filterArray);
+    console.log('response',response)
     const addArrtibuteName = {
       [array?.name]: response,
     };
     attributes = { ...attributes, ...addArrtibuteName };
   }
+  console.log("attributes",attributes)
   if (Object.keys(attributes)?.length) {
     const attributesYaml = yaml.dump(attributes);
     fs.writeFileSync(`./attributes/score/index.yaml`, attributesYaml);

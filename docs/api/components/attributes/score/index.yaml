@@ -3,34 +3,34 @@ publish:
     rating:
       " entity_id\n":
         required: true
-        usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-        owner: X
-        description: 'Describes the ID of the seller '
         type: String
+        owner: X
+        usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+        description: 'Describes the ID of the seller '
       " entity_name\n":
         required: true
-        usage: Gupta krishna Stores
-        owner: 'Y'
-        description: Describes the name of the seller
         type: String
+        owner: 'Y'
+        usage: Gupta krishna Stores
+        description: Describes the name of the seller
       " ratingType\n":
         required: true
-        usage: Overall
-        owner: Z
-        description: Describes the type of rating like overall or just the delivery
         type: String
+        owner: Z
+        usage: Overall
+        description: Describes the type of rating like overall or just the delivery
       " countOfTxn\n":
         required: true
-        usage: 100
-        owner: A
-        description: Describes the total number of transactions
         type: Integer
+        owner: A
+        usage: 100
+        description: Describes the total number of transactions
       " totalRating\n":
         required: true
-        usage: 200
-        owner: B
-        description: Describes the total rating
         type: Integer
+        owner: B
+        usage: 200
+        description: Describes the total rating
 on_publish:
   message:
     status:
