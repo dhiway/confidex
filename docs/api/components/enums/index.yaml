@@ -1,21 +1,64 @@
 publish:
+  context: &context
+    location:
+      country:
+        code: 
+          - code: IND
+            description: Represents the country
+            reference: <PR/Issue/Discussion Links md format text>
+    action: 
+      - code: publish
+        description: Provider app indicate the publish intent
+        reference: <PR/Issue/Discussion Links md format text>
   message: &message
     rating:
-      entityType:
+      ratingType:
         - code: Overall
           description: Overall Experience
-          reference: <PR/Issue/Discussion Links md format text
+          reference: <PR/Issue/Discussion Links md format text>
         - code: Delivery
           description: Delivery Experience
-          reference: <PR/Issue/Discussion Links md format text  
+          reference: <PR/Issue/Discussion Links md format text>
 
 revise:
+  context:
+    <<: *context
+    action:
+      - code: revise
+        description: Provider app indicate the revise intent
+        reference: <PR/Issue/Discussion Links md format text>
   message: *message
 
 query:
+  context:
+    <<: *context
+    action: 
+      - code: query
+        description: Provider app indicate the query intent
+        reference: <PR/Issue/Discussion Links md format text>
   message: *message
 
 on_query:
+  context:
+    <<: *context
+    action: 
+      - code: on_query
+        description: Publisher app indicate the on_query intent
+        reference: <PR/Issue/Discussion Links md format text>
   message: *message
- 
-  
+
+on_publish:
+  context:
+    <<: *context
+    action: 
+      - code: on_publish
+        description: Publisher app indicate the on_publish intent
+        reference: <PR/Issue/Discussion Links md format text>
+
+on_revise:
+  context:
+    <<: *context
+    action: 
+      - code: on_revise
+        description: Publisher app indicate the on_revise intent
+        reference: <PR/Issue/Discussion Links md format text>
