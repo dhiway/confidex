@@ -10,7 +10,7 @@ paths:
     post:
       tags:
       - "Rating API Server"
-      description: "Publish the ratings to the chain, for the given transaction / message ID"
+      description: "Publish the ratings to the chain, for the entity with given transaction / message ID "
       operationId: "publishRatings"
       requestBody:
         description: "Write the ratings to the chain. Notice that this can take 1 or more entries from the NP (Network Participant) and submit it to the API (which inturn will write to the chain)."
@@ -61,7 +61,7 @@ paths:
     post:
       tags:
       - "Rating API Client (NP)"
-      description: "Callback of the revise operation on the chain."
+      description: "update the status of the revise operation on the chain."
       operationId: "onReviseRating"
       requestBody:
         description: "update the ratings"
@@ -218,70 +218,6 @@ components:
                 - text/plain
                 - text/html
                 - application/json
-    Tag:
-      description: >-
-        Describes a tag. This is used to contain extended metadata. This object
-        can be added as a property to any schema to describe extended
-        attributes. For BAPs, tags can be sent during search to optimize and
-        filter search results. BPPs can use tags to index their catalog to allow
-        better search functionality. Tags are sent by the BPP as part of the
-        catalog response in the `on_search` callback. Tags are also meant for
-        display purposes. Upon receiving a tag, BAPs are meant to render them as
-        name-value pairs. This is particularly useful when rendering tabular
-        information about a product or service.
-      type: object
-      additionalProperties: false
-      properties:
-        descriptor:
-          description: Description of the Tag, can be used to store detailed information.
-          allOf:
-            - $ref: '#/components/schemas/Descriptor'
-        value:
-          description: >-
-            The value of the tag. This set by the BPP and rendered as-is by the
-            BAP.
-          type: string
-        display:
-          description: >-
-            This value indicates if the tag is intended for display purposes. If
-            set to `true`, then this tag must be displayed. If it is set to
-            `false`, it should not be displayed. This value can override the
-            group display value.
-          type: boolean
-    TagGroup:
-      description: >-
-        A collection of tag objects with group level attributes. For detailed
-        documentation on the Tags and Tag Groups schema go to
-        https://github.com/beckn/protocol-specifications/discussions/316
-      type: object
-      additionalProperties: false
-      properties:
-        display:
-          description: >-
-            Indicates the display properties of the tag group. If display is set
-            to false, then the group will not be displayed. If it is set to
-            true, it should be displayed. However, group-level display
-            properties can be overridden by individual tag-level display
-            property. As this schema is purely for catalog display purposes, it
-            is not recommended to send this value during search.
-          type: boolean
-          default: true
-        descriptor:
-          description: >-
-            Description of the TagGroup, can be used to store detailed
-            information.
-          allOf:
-            - $ref: '#/components/schemas/Descriptor'
-        list:
-          description: >-
-            An array of Tag objects listed under this group. This property can
-            be set by BAPs during search to narrow the `search` and achieve more
-            relevant results. When received during `on_search`, BAPs must render
-            this list under the heading described by the `name` property of this
-            schema.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
 
     OnPublishResult_20x:
       type: "object"
@@ -289,14 +225,6 @@ components:
         status:
           type: "boolean"
           example: "true"
-        did:
-          type: "string"
-          example: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
-        message_id:
-          type: "string"
-        referenceId:
-          type: "string"
-          example: "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
 
     PublishRating:
       type: "object"
@@ -318,14 +246,6 @@ components:
         status:
           type: "boolean"
           example: "true"
-        did:
-          type: "string"
-          example: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
-        message_id:
-          type: "string"
-        rating_identifier:
-          type: "string"
-          example: "rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn"
     ReviseRating:
       type: "object"
       properties:
@@ -356,15 +276,12 @@ components:
           items:
             type: "object"
             properties:
-              entityUid:
+              entityId:
                 type: "string"
                 example: "286cf1b1-3e16-448f-b675-3b232e82174d"
               ratingType:
                 type: "string"
                 example: "Overall"
-              entityType:
-                type: "string"
-                example: "Retail"
     OnQueryRating:
       type: "object"
       properties:
@@ -378,7 +295,7 @@ components:
               items:
                 type: "object"
                 properties:
-                  entityUid:
+                  entityId:
                     type: "string"
                     example: "286cf1b1-3e16-448f-b675-3b232e82174d"
                   entityName:
@@ -405,15 +322,18 @@ components:
         version:
           type: "string"
           example: "0.0.1"
-        provider_uid:
+        provider_uri:
           type: "string"
-          example: "446c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+          example: "https://api.provider-example.com/api/v1"
         provider_id:
           type: "string"
           example: "All in One - Market Place"
-        confidex_did:
+        publisher_uri:
           type: "string"
-          example: "did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF"
+          example: "https://api.provider-example.com/api/v1"
+        publisher_id:
+          type: "string"
+          example: "All in One - Market Place"
         registry_id:
           type: "string"
           example: "Confidex - Rating Provider Registry's ID"
@@ -426,10 +346,9 @@ components:
         timestamp:
           type: "string"
           example: "2021-06-29T10:52:01.620Z"
-        key:
-          type: "string"
         ttl:
           type: "string"
+          exmple: "PT30S"
         location:
           type: "object"
           example: "currently empty, but can be used in future for different contexts of network"
@@ -455,15 +374,12 @@ components:
     PublishEntry:
       type: "object"
       properties:
-        entity_uid:
-          type: "string"
-          example: "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
         entity_id:
           type: "string"
-          example: "Gupta Kirana Store"
-        entityType:
+          example: "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+        entity_name:
           type: "string"
-          example: "Retail"
+          example: "Gupta Kirana Store"
         ratingType:
           type: "string"
           example: "Overall"
@@ -476,9 +392,12 @@ components:
     ReviseEntry:
       type: "object"
       properties:
-        entityType:
+        entity_id:
           type: "string"
-          example: "Retail"
+          example: "226c67bd-9aa7-4aef-8d62-c69e3a669ce0"
+        entity_name:
+          type: "string"
+          example: "Gupta Kirana Store"
         ratingType:
           type: "string"
           example: "Overall"

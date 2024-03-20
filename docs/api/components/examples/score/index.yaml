@@ -1,37 +1,37 @@
 publish:
   examples:
     - summary: publish
-      description: Publish Rating
+      description: Publish Rating of multiple entities from the provider.
       value:
         $ref: "./publish/publish.yaml"
 on_publish:
    examples:
     - summary: on_publish
-      description: On Publish
+      description: Update the status of rating publish on ledger.
       value:
         $ref: "./on_publish/on_publish.yaml"
 revise:
    examples:
     - summary: revise
-      description: TBD
+      description: Revise the previously published rating.
       value:
         $ref: "./revise/revise.yaml"
 on_revise:
    examples:
     - summary: on_revise
-      description: TBD
+      description: Callback of Revise call to get to know the status of the revise call.
       value:
         $ref: "./on_revise/on_revise.yaml"    
 on_query:
    examples:
     - summary: on_query
-      description: TBD
+      description: Callback of the query, which provides the latest aggregated score of the entity.
       value:
         $ref: "./on_query/on_query.yaml"   
 query:
    examples:
     - summary: query
-      description: TBD
+      description: Initiate the query to get the latest aggregated score of set of entitites.
       value:
         $ref: "./query/query.yaml"    
 

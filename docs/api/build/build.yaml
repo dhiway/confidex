@@ -10,7 +10,9 @@ paths:
     post:
       tags:
         - Rating API Server
-      description: Publish the ratings to the chain, for the given transaction / message ID
+      description: >-
+        Publish the ratings to the chain, for the entity with given transaction
+        / message ID 
       operationId: publishRatings
       requestBody:
         description: >-
@@ -68,7 +70,7 @@ paths:
     post:
       tags:
         - Rating API Client (NP)
-      description: Callback of the revise operation on the chain.
+      description: update the status of the revise operation on the chain.
       operationId: onReviseRating
       requestBody:
         description: update the ratings
@@ -230,84 +232,12 @@ components:
                 - text/plain
                 - text/html
                 - application/json
-    Tag:
-      description: >-
-        Describes a tag. This is used to contain extended metadata. This object
-        can be added as a property to any schema to describe extended
-        attributes. For BAPs, tags can be sent during search to optimize and
-        filter search results. BPPs can use tags to index their catalog to allow
-        better search functionality. Tags are sent by the BPP as part of the
-        catalog response in the `on_search` callback. Tags are also meant for
-        display purposes. Upon receiving a tag, BAPs are meant to render them as
-        name-value pairs. This is particularly useful when rendering tabular
-        information about a product or service.
-      type: object
-      additionalProperties: false
-      properties:
-        descriptor:
-          description: Description of the Tag, can be used to store detailed information.
-          allOf:
-            - $ref: '#/components/schemas/Descriptor'
-        value:
-          description: >-
-            The value of the tag. This set by the BPP and rendered as-is by the
-            BAP.
-          type: string
-        display:
-          description: >-
-            This value indicates if the tag is intended for display purposes. If
-            set to `true`, then this tag must be displayed. If it is set to
-            `false`, it should not be displayed. This value can override the
-            group display value.
-          type: boolean
-    TagGroup:
-      description: >-
-        A collection of tag objects with group level attributes. For detailed
-        documentation on the Tags and Tag Groups schema go to
-        https://github.com/beckn/protocol-specifications/discussions/316
-      type: object
-      additionalProperties: false
-      properties:
-        display:
-          description: >-
-            Indicates the display properties of the tag group. If display is set
-            to false, then the group will not be displayed. If it is set to
-            true, it should be displayed. However, group-level display
-            properties can be overridden by individual tag-level display
-            property. As this schema is purely for catalog display purposes, it
-            is not recommended to send this value during search.
-          type: boolean
-          default: true
-        descriptor:
-          description: >-
-            Description of the TagGroup, can be used to store detailed
-            information.
-          allOf:
-            - $ref: '#/components/schemas/Descriptor'
-        list:
-          description: >-
-            An array of Tag objects listed under this group. This property can
-            be set by BAPs during search to narrow the `search` and achieve more
-            relevant results. When received during `on_search`, BAPs must render
-            this list under the heading described by the `name` property of this
-            schema.
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     OnPublishResult_20x:
       type: object
       properties:
         status:
           type: boolean
           example: 'true'
-        did:
-          type: string
-          example: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
-        message_id:
-          type: string
-        referenceId:
-          type: string
-          example: rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn
     PublishRating:
       type: object
       properties:
@@ -328,14 +258,6 @@ components:
         status:
           type: boolean
           example: 'true'
-        did:
-          type: string
-          example: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
-        message_id:
-          type: string
-        rating_identifier:
-          type: string
-          example: rating:cord:r35tLfL1ouJhXLGqnGM4rK9hCM5RQrpjNN47KZ8cEBQbdoKtn
     ReviseRating:
       type: object
       properties:
@@ -365,15 +287,12 @@ components:
           items:
             type: object
             properties:
-              entityUid:
+              entityId:
                 type: string
                 example: 286cf1b1-3e16-448f-b675-3b232e82174d
               ratingType:
                 type: string
                 example: Overall
-              entityType:
-                type: string
-                example: Retail
     OnQueryRating:
       type: object
       properties:
@@ -387,7 +306,7 @@ components:
               items:
                 type: object
                 properties:
-                  entityUid:
+                  entityId:
                     type: string
                     example: 286cf1b1-3e16-448f-b675-3b232e82174d
                   entityName:
@@ -413,15 +332,18 @@ components:
         version:
           type: string
           example: 0.0.1
-        provider_uid:
+        provider_uri:
           type: string
-          example: 446c67bd-9aa7-4aef-8d62-c69e3a669ce0
+          example: https://api.provider-example.com/api/v1
         provider_id:
           type: string
           example: All in One - Market Place
-        confidex_did:
+        publisher_uri:
           type: string
-          example: did:cord:3vYxCfRTWVJM8WYP39KFs2FMtpfBTmSjMexRnqeLbf5dmVQF
+          example: https://api.provider-example.com/api/v1
+        publisher_id:
+          type: string
+          example: All in One - Market Place
         registry_id:
           type: string
           example: Confidex - Rating Provider Registry's ID
@@ -436,10 +358,9 @@ components:
         timestamp:
           type: string
           example: '2021-06-29T10:52:01.620Z'
-        key:
-          type: string
         ttl:
           type: string
+          exmple: PT30S
         location:
           type: object
           example: >-
@@ -467,15 +388,12 @@ components:
     PublishEntry:
       type: object
       properties:
-        entity_uid:
-          type: string
-          example: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
         entity_id:
           type: string
-          example: Gupta Kirana Store
-        entityType:
+          example: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+        entity_name:
           type: string
-          example: Retail
+          example: Gupta Kirana Store
         ratingType:
           type: string
           example: Overall
@@ -488,9 +406,12 @@ components:
     ReviseEntry:
       type: object
       properties:
-        entityType:
+        entity_id:
           type: string
-          example: Retail
+          example: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+        entity_name:
+          type: string
+          example: Gupta Kirana Store
         ratingType:
           type: string
           example: Overall
@@ -505,21 +426,64 @@ servers:
     url: https://virtserver.swaggerhub.com/ONDC/ONDC-Protocol-Rating/0.0.1
 x-enum:
   publish:
-    message: &ref_0
+    context:
+      location: &ref_0
+        country:
+          code:
+            - code: IND
+              description: Represents the country
+              reference: <PR/Issue/Discussion Links md format text>
+      action:
+        - code: publish
+          description: Provider app indicate the publish intent
+          reference: <PR/Issue/Discussion Links md format text>
+    message: &ref_1
       rating:
-        entityType:
+        ratingType:
           - code: Overall
             description: Overall Experience
-            reference: <PR/Issue/Discussion Links md format text
+            reference: <PR/Issue/Discussion Links md format text>
           - code: Delivery
             description: Delivery Experience
-            reference: <PR/Issue/Discussion Links md format text
+            reference: <PR/Issue/Discussion Links md format text>
   revise:
-    message: *ref_0
+    context:
+      location: *ref_0
+      action:
+        - code: revise
+          description: Provider app indicate the revise intent
+          reference: <PR/Issue/Discussion Links md format text>
+    message: *ref_1
   query:
-    message: *ref_0
+    context:
+      location: *ref_0
+      action:
+        - code: query
+          description: Provider app indicate the query intent
+          reference: <PR/Issue/Discussion Links md format text>
+    message: *ref_1
   on_query:
-    message: *ref_0
+    context:
+      location: *ref_0
+      action:
+        - code: on_query
+          description: Publisher app indicate the on_query intent
+          reference: <PR/Issue/Discussion Links md format text>
+    message: *ref_1
+  on_publish:
+    context:
+      location: *ref_0
+      action:
+        - code: on_publish
+          description: Publisher app indicate the on_publish intent
+          reference: <PR/Issue/Discussion Links md format text>
+  on_revise:
+    context:
+      location: *ref_0
+      action:
+        - code: on_revise
+          description: Publisher app indicate the on_revise intent
+          reference: <PR/Issue/Discussion Links md format text>
 x-tags:
   publish:
     message:
@@ -626,23 +590,24 @@ x-examples:
       publish:
         examples:
           - summary: publish
-            description: Publish Rating
+            description: Publish Rating of multiple entities from the provider.
             value:
               context:
                 domain: ONDC:NTS12
                 action: publish
                 version: 1.0.0
                 provider_id: All in One - Market Place
-                provider_uri: string
-                publisher_id: bpp_id
-                publisher_uri: bpp_uri
+                provider_uri: https://api.example.com/api/rating/v1
+                publisher_id: Rating Publisher on Ledger
+                publisher_uri: https://api.publisher-example.com/api/rating/v1
                 registry_id: Confidex - Rating Provider Registry's ID
-                transaction_id: string
-                message_id: string
+                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
                 timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: string
+                ttl: PT30S
                 location:
-                  code: IND
+                  country:
+                    code: IND
               message:
                 rating:
                   - entity_id: >-
@@ -654,121 +619,133 @@ x-examples:
       on_publish:
         examples:
           - summary: on_publish
-            description: On Publish
+            description: Update the status of rating publish on ledger.
             value:
               context:
                 domain: ONDC:NTS12
                 action: on_publish
                 version: 1.0.0
                 provider_id: All in One - Market Place
-                provider_uri: string
-                publisher_id: bpp_id
-                publisher_uri: bpp_uri
+                provider_uri: https://api.example.com/api/rating/v1
+                publisher_id: Rating Publisher on Ledger
+                publisher_uri: https://api.publisher-example.com/api/rating/v1
                 registry_id: Confidex - Rating Provider Registry's ID
-                transaction_id: string
-                message_id: string
+                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
                 timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: string
+                ttl: PT30S
                 location:
-                  code: IND
+                  country:
+                    code: IND
               message:
                 status: true
       revise:
         examples:
           - summary: revise
-            description: TBD
+            description: Revise the previously published rating.
             value:
               context:
                 domain: ONDC:NTS12
                 action: revise
                 version: 1.0.0
                 provider_id: All in One - Market Place
-                provider_uri: string
-                publisher_id: bpp_id
-                publisher_uri: bpp_uri
+                provider_uri: https://api.example.com/api/rating/v1
+                publisher_id: Rating Publisher on Ledger
+                publisher_uri: https://api.publisher-example.com/api/rating/v1
                 registry_id: Confidex - Rating Provider Registry's ID
-                transaction_id: string
-                message_id: string
+                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
                 timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: string
+                ttl: PT30S
                 location:
-                  code: IND
+                  country:
+                    code: IND
               message:
                 rating:
-                  - ratingType: Overall
+                  - entity_id: >-
+                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+                    ratingType: Overall
                     countOfTxn: 80
                     totalRating: 280
-                transaction_id: string
       on_revise:
         examples:
           - summary: on_revise
-            description: TBD
+            description: >-
+              Callback of Revise call to get to know the status of the revise
+              call.
             value:
               context:
                 domain: ONDC:NTS12
                 action: on_revise
                 version: 1.0.0
                 provider_id: All in One - Market Place
-                provider_uri: string
-                publisher_id: bpp_id
-                publisher_uri: bpp_uri
+                provider_uri: https://api.example.com/api/rating/v1
+                publisher_id: Rating Publisher on Ledger
+                publisher_uri: https://api.publisher-example.com/api/rating/v1
                 registry_id: Confidex - Rating Provider Registry's ID
-                transaction_id: string
-                message_id: string
+                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
                 timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: string
+                ttl: PT30S
                 location:
-                  code: IND
+                  country:
+                    code: IND
               message:
                 status: true
       on_query:
         examples:
           - summary: on_query
-            description: TBD
+            description: >-
+              Callback of the query, which provides the latest aggregated score
+              of the entity.
             value:
               context:
                 domain: ONDC:NTS12
                 action: on_query
                 version: 1.0.0
                 provider_id: All in One - Market Place
-                provider_uri: string
-                publisher_id: bpp_id
-                publisher_uri: bpp_uri
+                provider_uri: https://api.example.com/api/rating/v1
+                publisher_id: Rating Publisher on Ledger
+                publisher_uri: https://api.publisher-example.com/api/rating/v1
                 registry_id: Confidex - Rating Provider Registry's ID
-                transaction_id: string
-                message_id: string
+                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
+                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
                 timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: string
+                ttl: PT30S
                 location:
-                  code: IND
+                  country:
+                    code: IND
               message:
                 scores:
                   - entity_id: >-
                       a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-                    entityName: string
+                    entityName: Gupta Kirana Store
                     score: 3.7
                     totalRating: 280
                     countOfTxn: 73
       query:
         examples:
           - summary: query
-            description: TBD
+            description: >-
+              Initiate the query to get the latest aggregated score of set of
+              entitites.
             value:
               context:
                 domain: ONDC:NTS12
-                action: query
+                action: publish
                 version: 1.0.0
                 provider_id: All in One - Market Place
-                provider_uri: string
-                publisher_id: bpp_id
-                publisher_uri: bpp_uri
+                provider_uri: https://api.example.com/api/rating/v1
+                publisher_id: Rating Publisher on Ledger
+                publisher_uri: https://api.publisher-example.com/api/rating/v1
                 registry_id: Confidex - Rating Provider Registry's ID
-                transaction_id: string
-                message_id: string
+                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
+                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
                 timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: string
+                ttl: PT30S
                 location:
-                  code: IND
+                  country:
+                    code: IND
               message:
                 entity_list:
                   - entity_id: >-
@@ -783,121 +760,632 @@ x-attributes:
             " entity_id\n":
               required: true
               type: String
-              owner: BPP
+              owner: Publisher
               usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-              description: 'Describes the ID of the seller '
+              description: >-
+                Provides Persistent ID of the seller / entity, where this is
+                generated based on the below formula. Hash(PREFIX:<Identity>),
+                Example: Hash(“GSTIN:22AAAAA0000A1Z5”), Hash(“PAN:XYZRN1234A”),
+                Hash(“UIDAI:123412341234”) (in this order of availability of
+                documents.
             " entity_name\n":
-              required: true
+              required: false
               type: String
-              owner: BPP
+              owner: Publisher
               usage: Gupta krishna Stores
-              description: Describes the name of the seller
+              description: >-
+                Name of the seller (note, uniqueness is determined by
+                `entity_id` field)
             " ratingType\n":
               required: true
-              type: String
-              owner: BPP
+              type: ENUM
+              owner: Publisher
               usage: Overall
-              description: Describes the type of rating like overall or just the delivery
+              description: >-
+                What is rated in this event: overall experience or just the
+                delivery
             " countOfTxn\n":
               required: true
               type: Integer
-              owner: BPP
+              owner: Publisher
               usage: 100
-              description: Describes the total number of transactions
+              description: total number of rating transactions
             " totalRating\n":
               required: true
-              type: Integer
-              owner: BPP
+              type: Number
+              owner: Publisher
               usage: 200
-              description: Describes the total rating
+              description: >-
+                total rating value (each rating transaction is done on the scale
+                of 0-5)
+        context:
+          location:
+            country:
+              code:
+                required: mandatory
+                type: string
+                owner: Provider
+                usage: IND
+                description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
+          timestamp:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: '2023-03-23T04:41:16Z'
+            description: Describes tme of request generation in RFC3339 format
+          publisher_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-publisher.com
+            description: Describes subscriber ID of the Publisher
+          transaction_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 6743e9e2
+            description: Describes  a unique value which persists across all API calls
+          message_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 13ba8018f176
+            description: >-
+              Describes a unique value which persists during a request /
+              callback cycle.
+          version:
+            required: mandatory
+            type: integer
+            owner: Provider
+            usage: 1.0.0
+            description: >-
+              Describes the version of transaction protocol being used by the
+              sender.
+          action:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: publish
+            description: >-
+              Describes the method being called by the sender and executed at
+              the receiver.
+          publisher_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-publisher.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Publisher for accepting requests
+              from Providers.
+          ttl:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: PT30S
+            description: >-
+              Describes the duration in ISO8601 format after timestamp for which
+              this message holds valid
+          provider_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-provider.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Provider for accepting callbacks
+              from Publishers.
+          provider_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-provider.com
+            description: Describes subscriber ID of the Provider
       on_publish:
         message:
           status:
             required: true
             type: Boolean
-            owner: BPP
+            owner: Publisher
             usage: true
             description: Describes the status of the publish
+        context:
+          location:
+            country:
+              code:
+                required: mandatory
+                type: string
+                owner: Provider
+                usage: IND
+                description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
+          timestamp:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: '2023-03-23T04:41:16Z'
+            description: Describes tme of request generation in RFC3339 format
+          publisher_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-publisher.com
+            description: Describes subscriber ID of the Publisher
+          transaction_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 6743e9e2
+            description: Describes  a unique value which persists across all API calls
+          message_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 13ba8018f176
+            description: >-
+              Describes a unique value which persists during a request /
+              callback cycle.
+          version:
+            required: mandatory
+            type: integer
+            owner: Provider
+            usage: 1.0.0
+            description: >-
+              Describes the version of transaction protocol being used by the
+              sender.
+          action:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: on_publish
+            description: >-
+              Describes the method being called by the sender and executed at
+              the receiver.
+          publisher_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-publisher.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Publisher for accepting requests
+              from Providers.
+          ttl:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: PT30S
+            description: >-
+              Describes the duration in ISO8601 format after timestamp for which
+              this message holds valid
+          provider_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-provider.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Provider for accepting callbacks
+              from Publishers.
+          provider_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-provider.com
+            description: Describes subscriber ID of the Provider
       revise:
         message:
           rating:
-            " ratingType\n":
+            " entity_id\n":
               required: true
               type: String
-              owner: BPP
+              owner: Publisher
+              usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+              description: >-
+                Provides Persistent ID of the seller / entity, where this is
+                generated based on the below formula. Hash(PREFIX:<Identity>),
+                Example: Hash(“GSTIN:22AAAAA0000A1Z5”), Hash(“PAN:XYZRN1234A”),
+                Hash(“UIDAI:123412341234”) (in this order of availability of
+                documents.
+            " ratingType\n":
+              required: true
+              type: ENUM
+              owner: Publisher
               usage: Overall
-              description: Describes the type of rating like overall or just the delivery
+              description: >-
+                What is revised in this event: overall experience or just the
+                delivery
             " countOfTxn\n":
               required: true
               type: Integer
-              owner: BPP
+              owner: Publisher
               usage: 100
-              description: Describes the total number of transactions
+              description: total number of rating transactions
             " totalRating\n":
               required: true
-              type: Integer
-              owner: BPP
-              usage: 300
-              description: Describes the total rating
+              type: Number
+              owner: Publisher
+              usage: 200
+              description: >-
+                total rating value (each rating transaction is done on the scale
+                of 0-5)
+        context:
+          location:
+            country:
+              code:
+                required: mandatory
+                type: string
+                owner: Provider
+                usage: IND
+                description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
+          timestamp:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: '2023-03-23T04:41:16Z'
+            description: Describes tme of request generation in RFC3339 format
+          publisher_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-publisher.com
+            description: Describes subscriber ID of the Publisher
           transaction_id:
-            required: true
-            type: String
-            owner: BPP
-            usage: 30222f89-383f-42af-bde0-6150a4f146a2
-            description: Describes the transaction ID
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 6743e9e2
+            description: Describes  a unique value which persists across all API calls
+          message_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 13ba8018f176
+            description: >-
+              Describes a unique value which persists during a request /
+              callback cycle.
+          version:
+            required: mandatory
+            type: integer
+            owner: Provider
+            usage: 1.0.0
+            description: >-
+              Describes the version of transaction protocol being used by the
+              sender.
+          action:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: revise
+            description: >-
+              Describes the method being called by the sender and executed at
+              the receiver.
+          publisher_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-publisher.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Publisher for accepting requests
+              from Providers.
+          ttl:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: PT30S
+            description: >-
+              Describes the duration in ISO8601 format after timestamp for which
+              this message holds valid
+          provider_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-provider.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Provider for accepting callbacks
+              from Publishers.
+          provider_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-provider.com
+            description: Describes subscriber ID of the Provider
       on_revise:
         message:
           status:
             required: true
             type: Boolean
-            owner: BPP
+            owner: Publisher
             usage: true
             description: Describes the status of the publish
+        context:
+          location:
+            country:
+              code:
+                required: mandatory
+                type: string
+                owner: Provider
+                usage: IND
+                description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
+          timestamp:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: '2023-03-23T04:41:16Z'
+            description: Describes tme of request generation in RFC3339 format
+          publisher_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-publisher.com
+            description: Describes subscriber ID of the Publisher
+          transaction_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 6743e9e2
+            description: Describes  a unique value which persists across all API calls
+          message_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 13ba8018f176
+            description: >-
+              Describes a unique value which persists during a request /
+              callback cycle.
+          version:
+            required: mandatory
+            type: integer
+            owner: Provider
+            usage: 1.0.0
+            description: >-
+              Describes the version of transaction protocol being used by the
+              sender.
+          action:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: on_revise
+            description: >-
+              Describes the method being called by the sender and executed at
+              the receiver.
+          publisher_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-publisher.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Publisher for accepting requests
+              from Providers.
+          ttl:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: PT30S
+            description: >-
+              Describes the duration in ISO8601 format after timestamp for which
+              this message holds valid
+          provider_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-provider.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Provider for accepting callbacks
+              from Publishers.
+          provider_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-provider.com
+            description: Describes subscriber ID of the Provider
       query:
         message:
           ' entity_list':
             "entity_id\n":
               required: true
               type: String
-              owner: BPP
+              owner: Publisher
               usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-              description: Describes the entity ID
+              description: >-
+                Provides Persistent ID of the seller / entity, where this is
+                generated based on the below formula. Hash(PREFIX:<Identity>),
+                Example: Hash(“GSTIN:22AAAAA0000A1Z5”), Hash(“PAN:XYZRN1234A”),
+                Hash(“UIDAI:123412341234”) (in this order of availability of
+                documents.
             " ratingType\n\n":
               required: true
-              type: String
-              owner: BPP
+              type: Enum
+              owner: Publisher
               usage: Overall
               description: Describes the type of rating like overall or just the delivery
+        context:
+          location:
+            country:
+              code:
+                required: mandatory
+                type: string
+                owner: Provider
+                usage: IND
+                description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
+          timestamp:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: '2023-03-23T04:41:16Z'
+            description: Describes tme of request generation in RFC3339 format
+          publisher_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-publisher.com
+            description: Describes subscriber ID of the Publisher
+          transaction_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 6743e9e2
+            description: Describes  a unique value which persists across all API calls
+          message_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 13ba8018f176
+            description: >-
+              Describes a unique value which persists during a request /
+              callback cycle.
+          version:
+            required: mandatory
+            type: integer
+            owner: Provider
+            usage: 1.0.0
+            description: >-
+              Describes the version of transaction protocol being used by the
+              sender.
+          action:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: query
+            description: >-
+              Describes the method being called by the sender and executed at
+              the receiver.
+          publisher_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-publisher.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Publisher for accepting requests
+              from Providers.
+          ttl:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: PT30S
+            description: >-
+              Describes the duration in ISO8601 format after timestamp for which
+              this message holds valid
+          provider_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-provider.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Provider for accepting callbacks
+              from Publishers.
+          provider_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-provider.com
+            description: Describes subscriber ID of the Provider
       on_query:
         message:
           ' scores':
             " entity_id\n\n":
               required: true
               type: String
-              owner: BPP
+              owner: Publisher
               usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
               description: 'Describes the ID of the seller '
             " entityName\n":
               required: true
               type: String
-              owner: BPP
+              owner: Publisher
               usage: Gupta Krishna Store
               description: Describes the name of the seller
             " score\n":
               required: true
               type: Number
-              owner: BPP
+              owner: Publisher
               usage: 1.5
               description: Describes the aggregate score
             " totalRating\n":
               required: true
-              type: Integer
-              owner: BPP
+              type: Number
+              owner: Publisher
               usage: 200
               description: Describes the total rating
             " countOfTxn\n":
               required: true
               type: Integer
-              owner: BPP
+              owner: Publisher
               usage: 150
               description: Describes the total number of transactions
+        context:
+          location:
+            country:
+              code:
+                required: mandatory
+                type: string
+                owner: Provider
+                usage: IND
+                description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
+          timestamp:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: '2023-03-23T04:41:16Z'
+            description: Describes tme of request generation in RFC3339 format
+          publisher_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-publisher.com
+            description: Describes subscriber ID of the Publisher
+          transaction_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 6743e9e2
+            description: Describes  a unique value which persists across all API calls
+          message_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: 13ba8018f176
+            description: >-
+              Describes a unique value which persists during a request /
+              callback cycle.
+          version:
+            required: mandatory
+            type: integer
+            owner: Provider
+            usage: 1.0.0
+            description: >-
+              Describes the version of transaction protocol being used by the
+              sender.
+          action:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: on_query
+            description: >-
+              Describes the method being called by the sender and executed at
+              the receiver.
+          publisher_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-publisher.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Publisher for accepting requests
+              from Providers.
+          ttl:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: PT30S
+            description: >-
+              Describes the duration in ISO8601 format after timestamp for which
+              this message holds valid
+          provider_uri:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: https://api.example-provider.com/pilot/rating/v1
+            description: >-
+              Describes subscriber URL of the Provider for accepting callbacks
+              from Publishers.
+          provider_id:
+            required: mandatory
+            type: string
+            owner: Provider
+            usage: api.example-provider.com
+            description: Describes subscriber ID of the Provider
