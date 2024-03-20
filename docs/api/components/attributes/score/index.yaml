@@ -5,19 +5,19 @@ publish:
         required: true
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         owner: X
-        description: Describes the entity ID
+        description: 'Describes the ID of the seller '
         type: String
       " entity_name\n":
         required: true
         usage: Gupta krishna Stores
         owner: 'Y'
-        description: Describes the entity name
+        description: Describes the name of the seller
         type: String
       " ratingType\n":
         required: true
         usage: Overall
         owner: Z
-        description: Describes the type of rating
+        description: Describes the type of rating like overall or just the delivery
         type: String
       " countOfTxn\n":
         required: true
@@ -47,7 +47,7 @@ revise:
         type: String
         owner: false
         usage: Overall
-        description: Describes the type of rating
+        description: Describes the type of rating like overall or just the delivery
       " countOfTxn\n":
         required: true
         type: Integer
@@ -88,7 +88,7 @@ query:
         type: String
         owner: false
         usage: Overall
-        description: Describes the rating type
+        description: Describes the type of rating like overall or just the delivery
 on_query:
   message:
     ' scores':
@@ -97,13 +97,13 @@ on_query:
         type: String
         owner: false
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-        description: Describes the entity ID
+        description: 'Describes the ID of the seller '
       " entityName\n":
         required: true
         type: String
         owner: false
         usage: Gupta Krishna Store
-        description: Describes the entity name
+        description: Describes the name of the seller
       " score\n":
         required: true
         type: Number
