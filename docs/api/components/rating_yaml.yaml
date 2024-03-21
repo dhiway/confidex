@@ -334,9 +334,6 @@ components:
         publisher_id:
           type: "string"
           example: "All in One - Market Place"
-        registry_id:
-          type: "string"
-          example: "Confidex - Rating Provider Registry's ID"
         transaction_id:
           description: "The transaction ID to be kept same across revisions"
           type: "string"
