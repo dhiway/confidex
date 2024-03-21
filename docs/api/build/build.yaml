@@ -344,9 +344,6 @@ components:
         publisher_id:
           type: string
           example: All in One - Market Place
-        registry_id:
-          type: string
-          example: Confidex - Rating Provider Registry's ID
         transaction_id:
           description: The transaction ID to be kept same across revisions
           type: string
@@ -600,7 +597,6 @@ x-examples:
                 provider_uri: https://api.example.com/api/rating/v1
                 publisher_id: Rating Publisher on Ledger
                 publisher_uri: https://api.publisher-example.com/api/rating/v1
-                registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
                 message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
                 timestamp: '2021-06-29T10:52:01.620Z'
@@ -629,7 +625,6 @@ x-examples:
                 provider_uri: https://api.example.com/api/rating/v1
                 publisher_id: Rating Publisher on Ledger
                 publisher_uri: https://api.publisher-example.com/api/rating/v1
-                registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
                 message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
                 timestamp: '2021-06-29T10:52:01.620Z'
@@ -652,7 +647,6 @@ x-examples:
                 provider_uri: https://api.example.com/api/rating/v1
                 publisher_id: Rating Publisher on Ledger
                 publisher_uri: https://api.publisher-example.com/api/rating/v1
-                registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
                 message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
                 timestamp: '2021-06-29T10:52:01.620Z'
@@ -682,7 +676,6 @@ x-examples:
                 provider_uri: https://api.example.com/api/rating/v1
                 publisher_id: Rating Publisher on Ledger
                 publisher_uri: https://api.publisher-example.com/api/rating/v1
-                registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
                 message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
                 timestamp: '2021-06-29T10:52:01.620Z'
@@ -707,7 +700,6 @@ x-examples:
                 provider_uri: https://api.example.com/api/rating/v1
                 publisher_id: Rating Publisher on Ledger
                 publisher_uri: https://api.publisher-example.com/api/rating/v1
-                registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
                 message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
                 timestamp: '2021-06-29T10:52:01.620Z'
@@ -738,7 +730,6 @@ x-examples:
                 provider_uri: https://api.example.com/api/rating/v1
                 publisher_id: Rating Publisher on Ledger
                 publisher_uri: https://api.publisher-example.com/api/rating/v1
-                registry_id: Confidex - Rating Provider Registry's ID
                 transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
                 message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
                 timestamp: '2021-06-29T10:52:01.620Z'
