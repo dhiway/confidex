@@ -1,27 +1,17 @@
 summary: Publish - (Genesis) Credit Entry
 details: 
-  - description: Detailed process of Market Place publishing the entry
+  - description: Detailed process of publishing the entry
     mermaid: >-
       sequenceDiagram
-           participant MARKET PLACE
-           participant API
-           participant CORD.JS
-           participant CONFIDEX
-           MARKET PLACE->>API: /publish
-           note over MARKET PLACE,API: Sign and send the rating entry
-           API->>MARKET PLACE: Ack
-           API->>CORD.JS: Signed entry
-           CORD.JS->>CORD.JS: Verify and transform entry
-           CORD.JS->>API: transformedEntry
-           API->>CORD.JS:Call Cord.Score.buildFromRatingProperties
-           note over API, CORD.JS: Input: transformedEntry
-           CORD.JS->>CONFIDEX: Call register_rating method
-           CONFIDEX->>CORD.JS: Extrinsic
-           CORD.JS->>API: Extrinsic
-           API->>CORD.JS: Cord.Score.dispatchRatingToChain
-           note over API,CORD.JS: Input: Extrinsic
-           CORD.JS->>CONFIDEX: Anchors the extrinsic to the chain
-           CONFIDEX->>CORD.JS: Rating Identifier
-           CORD.JS->>API: Rating Identifier
-           API->>MARKET PLACE: (/on_publish)Rating Identifier 
-           MARKET PLACE->>API: ACK
+        participant PROVIDER
+        participant PUBLISHER
+        participant CONFIDEX
+
+        PROVIDER ->> PUBLISHER: /publish
+        note over PROVIDER, PUBLISHER: Sign and send the rating entry
+        PUBLISHER ->> PROVIDER: Ack
+        PUBLISHER ->> PUBLISHER:  Verify and transform entry
+        PUBLISHER->>CONFIDEX: Anchors the entry to the chain
+        CONFIDEX->>PUBLISHER: Rating Identifier
+        PUBLISHER->>PROVIDER: Status (/on_publish)
+        PROVIDER ->> PUBLISHER: Ack
