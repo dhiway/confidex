@@ -1,0 +1,10 @@
+summary: On Query
+details: 
+  - description: Detailed process of on_query
+    mermaid: >-
+      sequenceDiagram
+        participant PUBLISHER
+        participant PROVIDER
+
+        PUBLISHER ->> PROVIDER: /on_query (Decoded Score)
+        PROVIDER ->> PUBLISHER: Ack

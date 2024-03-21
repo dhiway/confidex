@@ -1,0 +1,10 @@
+summary: On Revise
+details: 
+  - description: Detailed process of on_revise
+    mermaid: >-
+      sequenceDiagram
+        participant PUBLISHER
+        participant PROVIDER
+
+        PUBLISHER ->> PROVIDER: /on_revise (status of revise)
+        PROVIDER ->> PUBLISHER: Ack

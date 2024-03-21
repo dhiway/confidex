@@ -1,1 +1,7 @@
-- $ref: "./score/index.yaml"
+# - $ref: "./score/index.yaml"
+- $ref: "./score/score-credit-entry.yaml"
+- $ref: "./score/score-revise-entry.yaml"
+- $ref: "./score/score-query.yaml"
+- $ref: "./score/score-on-publish.yaml"
+- $ref: "./score/score-on-revise.yaml"
+- $ref: "./score/score-on-query.yaml"

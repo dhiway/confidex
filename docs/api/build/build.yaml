@@ -496,89 +496,92 @@ x-tags:
                 description: Number of ratings received for an entity
                 reference: <PR/Issue/Discussion Links md format text>
 x-flows:
-  - summary: Rating Flow
+  - summary: Publish - (Genesis) Credit Entry
     details:
-      - description: Detailed process of Market Place publishing the entry
+      - description: Detailed process of publishing the entry
         mermaid: |-
           sequenceDiagram
-               participant MARKET PLACE
-               participant API
-               participant CORD.JS
-               participant CONFIDEX
-               MARKET PLACE->>API: /publish
-               note over MARKET PLACE,API: Sign and send the rating entry
-               API->>MARKET PLACE: Ack
-               API->>CORD.JS: Signed entry
-               CORD.JS->>CORD.JS: Verify and transform entry
-               CORD.JS->>API: transformedEntry
-               API->>CORD.JS:Call Cord.Score.buildFromRatingProperties
-               note over API, CORD.JS: Input: transformedEntry
-               CORD.JS->>CONFIDEX: Call register_rating method
-               CONFIDEX->>CORD.JS: Extrinsic
-               CORD.JS->>API: Extrinsic
-               API->>CORD.JS: Cord.Score.dispatchRatingToChain
-               note over API,CORD.JS: Input: Extrinsic
-               CORD.JS->>CONFIDEX: Anchors the extrinsic to the chain
-               CONFIDEX->>CORD.JS: Rating Identifier
-               CORD.JS->>API: Rating Identifier
-               API->>MARKET PLACE: (/on_publish)Rating Identifier 
-               MARKET PLACE->>API: ACK
+            participant PROVIDER
+            participant PUBLISHER
+            participant CONFIDEX
+
+            PROVIDER ->> PUBLISHER: /publish
+            note over PROVIDER, PUBLISHER: Sign and send the rating entry
+            PUBLISHER ->> PROVIDER: Ack
+            PUBLISHER ->> PUBLISHER:  Verify and transform entry
+            PUBLISHER->>CONFIDEX: Anchors the entry to the chain
+            CONFIDEX->>PUBLISHER: Rating Identifier
+            PUBLISHER->>PROVIDER: Status (/on_publish)
+            PROVIDER ->> PUBLISHER: Ack
+  - summary: Revise - Credit Entry
+    details:
       - description: Detailed process of Market Place revising the entry
         mermaid: |-
           sequenceDiagram
-            participant MARKET PLACE
-            participant API
-            participant CORD.JS
+            participant PROVIDER
+            participant PUBLISHER
             participant CONFIDEX
-            MARKET PLACE ->> API: /revise 
-            note over MARKET PLACE, API: Sign and send RatingEntry, Revised Entry
-            API->>MARKET PLACE: Ack
-            API->>CORD.JS: RatingEntry
-            CORD.JS->>CORD.JS: verify and transform entry
-            CORD.JS ->> API: transformedEntry
-            note over API,CORD.JS: Input: transformedEntry
-            API->>CORD.JS: Call Cord.Score.buildFromRevokeRatingProperties
-            CORD.JS->>CONFIDEX: Call revoke_rating method
-            CONFIDEX->>CORD.JS: Extrinsic
-            CORD.JS->>API: Extrinsic
-            API->>CORD.JS: Call Cord.Score.dispatchRevokeRatingToChain
-            note over API,CORD.JS: Input: Extrinsic
-            CORD.JS->>CONFIDEX: Anchors the extrinsic to the chain
-            CONFIDEX->>CORD.JS: Rating Identifier
-            CORD.JS->>API: Rating Identifier
 
-            API->>CORD.JS: revisedEntry
-            CORD.JS->>CORD.JS: verify and transform entry
-            CORD.JS ->> API: transformedEntry
+            PROVIDER ->> PUBLISHER: /revise
+            note over PROVIDER, PUBLISHER: Sign and send the revised Entry
+            PUBLISHER ->> PROVIDER: Ack
+            PUBLISHER ->> PUBLISHER:  Verify and transform entry
+            PUBLISHER ->> CONFIDEX: Revoke the previous entry
+            CONFIDEX ->> PUBLISHER: Identifier
+            PUBLISHER ->> CONFIDEX: Use the Identifier and publish the revised rating to chain
 
-            API->>CORD.JS: Call Cord.Score.buildFromRatingProperties
-            note over API,CORD.JS: Input: transformedEntry
-            CORD.JS->>CONFIDEX: Call revise_rating method
-            CONFIDEX->>CORD.JS: Extrinsic
-            CORD.JS->>API: Extrinsic
-            API->>CORD.JS: Call Cord.Score.dispatchReviseRatingToChain
-            note over API,CORD.JS: Input: Extrinsic
-            CORD.JS->>CONFIDEX: Anchors the extrinsic to the chain
-            CONFIDEX->>CORD.JS: Rating Identifier
-            CORD.JS->>API: Rating Identifier
-            API->>MARKET PLACE: (/on_revise) Rating Identifier
-            MARKET PLACE->>API: ACK
+            CONFIDEX->>PUBLISHER: Rating Identifier
+            PUBLISHER->>PROVIDER: Status (/on_revise) 
+            PROVIDER ->> PUBLISHER: Ack
+  - summary: Query
+    details:
       - description: Detailed process of Market Place querying the entry
         mermaid: |-
           sequenceDiagram
-            participant MARKET PLACE
-            participant API
-            participant CORD.JS
+            participant PROVIDER
+            participant PUBLISHER
             participant CONFIDEX
-            MARKET PLACE->>API:/query
-            note over MARKET PLACE,API: Input: rating identifier, ScoreRatingTypeOf
-            API->>CORD.JS: Call Cord.Score.fetchFromChain()
-            CORD.JS->>CONFIDEX: Call api.query.score.aggregateScore()
-            CONFIDEX->>CORD.JS: Encoded score
-            CORD.JS->>CORD.JS: Decode the encoded score
-            CORD.JS->>API: Decoded Score
-            API->>MARKET PLACE: (/on_query) Decoded Score
-            MARKET PLACE->>API: ACK
+
+            PROVIDER ->> PUBLISHER: /query
+            note over PROVIDER, PUBLISHER: Sign and send the query
+            PUBLISHER ->> PROVIDER: Ack
+            PUBLISHER ->> PUBLISHER:  Verify the signature
+            PUBLISHER ->> CONFIDEX: Query the chain 
+            CONFIDEX ->> PUBLISHER: Encoded Score
+            PUBLISHER->>PUBLISHER: Decode the encoded score
+
+            PUBLISHER->>PROVIDER: (/on_query) Decoded Score
+            PROVIDER ->> PUBLISHER: Ack
+  - summary: On Publish
+    details:
+      - description: Detailed process of on_publish
+        mermaid: |-
+          sequenceDiagram
+            participant PUBLISHER
+            participant PROVIDER
+
+            PUBLISHER ->> PROVIDER: /on_publish (status of publish)
+            PROVIDER ->> PUBLISHER: Ack
+  - summary: On Revise
+    details:
+      - description: Detailed process of on_revise
+        mermaid: |-
+          sequenceDiagram
+            participant PUBLISHER
+            participant PROVIDER
+
+            PUBLISHER ->> PROVIDER: /on_revise (status of revise)
+            PROVIDER ->> PUBLISHER: Ack
+  - summary: On Query
+    details:
+      - description: Detailed process of on_query
+        mermaid: |-
+          sequenceDiagram
+            participant PUBLISHER
+            participant PROVIDER
+
+            PUBLISHER ->> PROVIDER: /on_query (Decoded Score)
+            PROVIDER ->> PUBLISHER: Ack
 x-examples:
   score:
     summary: Rating API Implementation

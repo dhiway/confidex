@@ -1,0 +1,10 @@
+summary: On Publish
+details: 
+  - description: Detailed process of on_publish
+    mermaid: >-
+      sequenceDiagram
+        participant PUBLISHER
+        participant PROVIDER
+
+        PUBLISHER ->> PROVIDER: /on_publish (status of publish)
+        PROVIDER ->> PUBLISHER: Ack
