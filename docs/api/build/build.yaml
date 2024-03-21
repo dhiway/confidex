@@ -9,7 +9,7 @@ paths:
   /publish:
     post:
       tags:
-        - Rating API Server
+        - Provider API
       description: >-
         Publish the ratings to the chain, for the entity with given transaction
         / message ID 
@@ -30,7 +30,7 @@ paths:
   /on_publish:
     post:
       tags:
-        - Rating API Client (NP)
+        - Publisher API
       description: Inform the client about success or failure of the publish rating
       operationId: onPublishRating
       requestBody:
@@ -49,7 +49,7 @@ paths:
   /revise:
     post:
       tags:
-        - Rating API Server
+        - Provider API
       description: >-
         Revise ratings in the chain. This can happen due to 2 reasons. 1 is when
         the user themself changes the given rating over the period (possible for
@@ -69,7 +69,7 @@ paths:
   /on_revise:
     post:
       tags:
-        - Rating API Client (NP)
+        - Publisher API
       description: update the status of the revise operation on the chain.
       operationId: onReviseRating
       requestBody:
@@ -85,7 +85,7 @@ paths:
   /query:
     post:
       tags:
-        - Rating API Server
+        - Provider API
       description: >-
         Read aggregate score, read all given entities ratings, more details
         based on parameters
@@ -103,7 +103,7 @@ paths:
   /on_query:
     post:
       tags:
-        - Rating API Client (NP)
+        - Publisher API
       description: Response / Callback to the query call
       operationId: onQuery
       requestBody:
