@@ -12,7 +12,7 @@ publish:
         reference: <PR/Issue/Discussion Links md format text>
   message: &message
     rating:
-      ratingType:
+      rating_type:
         - code: Overall
           description: Overall Experience
           reference: <PR/Issue/Discussion Links md format text>

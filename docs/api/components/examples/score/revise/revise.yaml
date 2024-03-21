@@ -16,6 +16,6 @@ context:
 message:
   rating:
     - entity_id: "a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa"
-      ratingType: "Overall"
-      countOfTxn: 80
-      totalRating: 280
+      rating_type: "Overall"
+      count_of_txn: 80
+      total_rating: 280
