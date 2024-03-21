@@ -384,10 +384,10 @@ components:
           items:
             type: "object"
             properties:
-              entityUid:
+              entity_uid:
                 type: "string"
                 example: "286cf1b1-3e16-448f-b675-3b232e82174d"
-              ratingType:
+              rating_type:
                 type: "string"
                 example: "Overall"
               entityType:
@@ -406,18 +406,18 @@ components:
               items:
                 type: "object"
                 properties:
-                  entityUid:
+                  entity_uid:
                     type: "string"
                     example: "286cf1b1-3e16-448f-b675-3b232e82174d"
-                  entityName:
+                  entity_name:
                     type: "string"
                   score:
                     type: "number"
                     example: 3.70
-                  totalRating:
+                  total_rating:
                     type: "number"
                     example: 280
-                  countOfTxn:
+                  count_of_txn:
                     type: "number"
                     example: 73
 
@@ -489,13 +489,13 @@ components:
         entityType:
           type: "string"
           example: "Retail"
-        ratingType:
+        rating_type:
           type: "string"
           example: "Overall"
-        countOfTxn:
+        count_of_txn:
           type: "number"
           example: "100"
-        totalRating:
+        total_rating:
           type: "number"
           example: "320"
     ReviseEntry:
@@ -504,12 +504,12 @@ components:
         entityType:
           type: "string"
           example: "Retail"
-        ratingType:
+        rating_type:
           type: "string"
           example: "Overall"
-        countOfTxn:
+        count_of_txn:
           type: "number"
           example: "80"
-        totalRating:
+        total_rating:
           type: "number"
           example: "280"

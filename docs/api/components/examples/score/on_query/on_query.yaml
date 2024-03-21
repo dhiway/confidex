@@ -16,7 +16,7 @@ context:
 message:
   scores:
     - entity_id: "a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa"
-      entityName: "Gupta Kirana Store"
+      entity_name: "Gupta Kirana Store"
       score: 3.7
-      totalRating: 280
-      countOfTxn: 73
+      total_rating: 280
+      count_of_txn: 73

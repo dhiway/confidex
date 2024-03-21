@@ -17,6 +17,6 @@ message:
   rating:
     - entity_id: "a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa"
       entity_name: "Gupta Kirana Store"
-      ratingType: "Overall"
-      countOfTxn: 100
-      totalRating: 320
+      rating_type: "Overall"
+      count_of_txn: 100
+      total_rating: 320

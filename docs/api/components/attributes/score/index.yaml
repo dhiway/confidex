@@ -20,19 +20,19 @@ publish:
         description: >-
           Name of the seller (note, uniqueness is determined by `entity_id`
           field)
-      " ratingType\n":
+      " rating_type\n":
         required: true
         type: ENUM
         owner: Publisher
         usage: Overall
         description: 'What is rated in this event: overall experience or just the delivery'
-      " countOfTxn\n":
+      " count_of_txn\n":
         required: true
         type: Integer
         owner: Publisher
         usage: 100
         description: total number of rating transactions
-      " totalRating\n":
+      " total_rating\n":
         required: true
         type: Number
         owner: Publisher
@@ -46,31 +46,31 @@ publish:
         code:
           required: mandatory
           type: string
-          owner: Provider
+          owner: Publisher
           usage: IND
           description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
     timestamp:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: api.example-publisher.com
       description: Describes subscriber ID of the Publisher
     transaction_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: 6743e9e2
       description: Describes  a unique value which persists across all API calls
     message_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: 13ba8018f176
       description: >-
         Describes a unique value which persists during a request / callback
@@ -78,13 +78,13 @@ publish:
     version:
       required: mandatory
       type: integer
-      owner: Provider
+      owner: Publisher
       usage: 1.0.0
       description: Describes the version of transaction protocol being used by the sender.
     action:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: publish
       description: >-
         Describes the method being called by the sender and executed at the
@@ -92,7 +92,7 @@ publish:
     publisher_uri:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: https://api.example-publisher.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Publisher for accepting requests from
@@ -100,7 +100,7 @@ publish:
     ttl:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: PT30S
       description: >-
         Describes the duration in ISO8601 format after timestamp for which this
@@ -108,7 +108,7 @@ publish:
     provider_uri:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: https://api.example-provider.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Provider for accepting callbacks from
@@ -116,7 +116,7 @@ publish:
     provider_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: api.example-provider.com
       description: Describes subscriber ID of the Provider
 on_publish:
@@ -139,7 +139,7 @@ on_publish:
     timestamp:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
@@ -171,7 +171,7 @@ on_publish:
     action:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: on_publish
       description: >-
         Describes the method being called by the sender and executed at the
@@ -220,19 +220,19 @@ revise:
           Hash(“GSTIN:22AAAAA0000A1Z5”), Hash(“PAN:XYZRN1234A”),
           Hash(“UIDAI:123412341234”) (in this order of availability of
           documents.
-      " ratingType\n":
+      " rating_type\n":
         required: true
         type: ENUM
         owner: Publisher
         usage: Overall
         description: 'What is revised in this event: overall experience or just the delivery'
-      " countOfTxn\n":
+      " count_of_txn\n":
         required: true
         type: Integer
         owner: Publisher
         usage: 100
         description: total number of rating transactions
-      " totalRating\n":
+      " total_rating\n":
         required: true
         type: Number
         owner: Publisher
@@ -246,31 +246,31 @@ revise:
         code:
           required: mandatory
           type: string
-          owner: Provider
+          owner: Publisher
           usage: IND
           description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
     timestamp:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: api.example-publisher.com
       description: Describes subscriber ID of the Publisher
     transaction_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: 6743e9e2
       description: Describes  a unique value which persists across all API calls
     message_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: 13ba8018f176
       description: >-
         Describes a unique value which persists during a request / callback
@@ -278,13 +278,13 @@ revise:
     version:
       required: mandatory
       type: integer
-      owner: Provider
+      owner: Publisher
       usage: 1.0.0
       description: Describes the version of transaction protocol being used by the sender.
     action:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: revise
       description: >-
         Describes the method being called by the sender and executed at the
@@ -292,7 +292,7 @@ revise:
     publisher_uri:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: https://api.example-publisher.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Publisher for accepting requests from
@@ -300,7 +300,7 @@ revise:
     ttl:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: PT30S
       description: >-
         Describes the duration in ISO8601 format after timestamp for which this
@@ -308,7 +308,7 @@ revise:
     provider_uri:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: https://api.example-provider.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Provider for accepting callbacks from
@@ -316,7 +316,7 @@ revise:
     provider_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: api.example-provider.com
       description: Describes subscriber ID of the Provider
 on_revise:
@@ -339,7 +339,7 @@ on_revise:
     timestamp:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
@@ -371,7 +371,7 @@ on_revise:
     action:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: on_revise
       description: >-
         Describes the method being called by the sender and executed at the
@@ -420,7 +420,7 @@ query:
           Hash(“GSTIN:22AAAAA0000A1Z5”), Hash(“PAN:XYZRN1234A”),
           Hash(“UIDAI:123412341234”) (in this order of availability of
           documents.
-      " ratingType\n\n":
+      " rating_type\n\n":
         required: true
         type: Enum
         owner: Publisher
@@ -432,31 +432,31 @@ query:
         code:
           required: mandatory
           type: string
-          owner: Provider
+          owner: Publisher
           usage: IND
           description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
     timestamp:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: api.example-publisher.com
       description: Describes subscriber ID of the Publisher
     transaction_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: 6743e9e2
       description: Describes  a unique value which persists across all API calls
     message_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: 13ba8018f176
       description: >-
         Describes a unique value which persists during a request / callback
@@ -464,13 +464,13 @@ query:
     version:
       required: mandatory
       type: integer
-      owner: Provider
+      owner: Publisher
       usage: 1.0.0
       description: Describes the version of transaction protocol being used by the sender.
     action:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: query
       description: >-
         Describes the method being called by the sender and executed at the
@@ -478,7 +478,7 @@ query:
     publisher_uri:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: https://api.example-publisher.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Publisher for accepting requests from
@@ -486,7 +486,7 @@ query:
     ttl:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: PT30S
       description: >-
         Describes the duration in ISO8601 format after timestamp for which this
@@ -494,7 +494,7 @@ query:
     provider_uri:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: https://api.example-provider.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Provider for accepting callbacks from
@@ -502,7 +502,7 @@ query:
     provider_id:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: api.example-provider.com
       description: Describes subscriber ID of the Provider
 on_query:
@@ -514,7 +514,7 @@ on_query:
         owner: Publisher
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         description: 'Describes the ID of the seller '
-      " entityName\n":
+      " entity_name\n":
         required: true
         type: String
         owner: Publisher
@@ -526,13 +526,14 @@ on_query:
         owner: Publisher
         usage: 1.5
         description: Describes the aggregate score
-      " totalRating\n":
+      " total_rating\n":
         required: true
         type: Number
         owner: Publisher
         usage: 200
         description: Describes the total rating
-      " countOfTxn\n":
+    rating:
+      " count_of_txn\n":
         required: true
         type: Integer
         owner: Publisher
@@ -550,7 +551,7 @@ on_query:
     timestamp:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
@@ -582,7 +583,7 @@ on_query:
     action:
       required: mandatory
       type: string
-      owner: Provider
+      owner: Publisher
       usage: on_query
       description: >-
         Describes the method being called by the sender and executed at the
