@@ -384,7 +384,7 @@ components:
           items:
             type: "object"
             properties:
-              entityUid:
+              entity_uid:
                 type: "string"
                 example: "286cf1b1-3e16-448f-b675-3b232e82174d"
               rating_type:
@@ -406,7 +406,7 @@ components:
               items:
                 type: "object"
                 properties:
-                  entityUid:
+                  entity_uid:
                     type: "string"
                     example: "286cf1b1-3e16-448f-b675-3b232e82174d"
                   entity_name:
