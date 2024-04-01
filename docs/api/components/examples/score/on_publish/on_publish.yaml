@@ -14,4 +14,4 @@ context:
     country:
       code: "IND"
 message:
-  status: true
+  status: [true]

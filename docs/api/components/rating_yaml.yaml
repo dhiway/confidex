@@ -223,7 +223,7 @@ components:
       type: "object"
       properties:
         status:
-          type: "boolean"
+          type: "array"
           example: "true"
 
     PublishRating:
@@ -244,7 +244,7 @@ components:
       type: "object"
       properties:
         status:
-          type: "boolean"
+          type: "array"
           example: "true"
     ReviseRating:
       type: "object"
