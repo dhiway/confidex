@@ -4,7 +4,7 @@ publish:
       " entity_id\n":
         required: true
         type: String
-        owner: Publisher
+        owner: Provider
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         description: >-
           Provides Persistent ID of the seller / entity, where this is generated
@@ -15,7 +15,7 @@ publish:
       " entity_name\n":
         required: false
         type: String
-        owner: Publisher
+        owner: Provider
         usage: Gupta krishna Stores
         description: >-
           Name of the seller (note, uniqueness is determined by `entity_id`
@@ -23,19 +23,19 @@ publish:
       " rating_type\n":
         required: true
         type: ENUM
-        owner: Publisher
+        owner: Provider
         usage: Overall
         description: 'What is rated in this event: overall experience or just the delivery'
       " count_of_txn\n":
         required: true
         type: Integer
-        owner: Publisher
+        owner: Provider
         usage: 100
         description: total number of rating transactions
       " total_rating\n":
         required: true
         type: Number
-        owner: Publisher
+        owner: Provider
         usage: 200
         description: >-
           total rating value (each rating transaction is done on the scale of
@@ -46,31 +46,31 @@ publish:
         code:
           required: mandatory
           type: string
-          owner: Publisher
+          owner: Provider
           usage: IND
           description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
     timestamp:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: api.example-publisher.com
       description: Describes subscriber ID of the Publisher
     transaction_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: 6743e9e2
       description: Describes  a unique value which persists across all API calls
     message_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: 13ba8018f176
       description: >-
         Describes a unique value which persists during a request / callback
@@ -78,13 +78,13 @@ publish:
     version:
       required: mandatory
       type: integer
-      owner: Publisher
+      owner: Provider
       usage: 1.0.0
       description: Describes the version of transaction protocol being used by the sender.
     action:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: publish
       description: >-
         Describes the method being called by the sender and executed at the
@@ -92,7 +92,7 @@ publish:
     publisher_uri:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: https://api.example-publisher.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Publisher for accepting requests from
@@ -100,7 +100,7 @@ publish:
     ttl:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: PT30S
       description: >-
         Describes the duration in ISO8601 format after timestamp for which this
@@ -108,7 +108,7 @@ publish:
     provider_uri:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: https://api.example-provider.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Provider for accepting callbacks from
@@ -116,7 +116,7 @@ publish:
     provider_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: api.example-provider.com
       description: Describes subscriber ID of the Provider
 on_publish:
@@ -212,7 +212,7 @@ revise:
       " entity_id\n":
         required: true
         type: String
-        owner: Publisher
+        owner: Provider
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         description: >-
           Provides Persistent ID of the seller / entity, where this is generated
@@ -223,19 +223,19 @@ revise:
       " rating_type\n":
         required: true
         type: ENUM
-        owner: Publisher
+        owner: Provider
         usage: Overall
         description: 'What is revised in this event: overall experience or just the delivery'
       " count_of_txn\n":
         required: true
         type: Integer
-        owner: Publisher
+        owner: Provider
         usage: 100
         description: total number of rating transactions
       " total_rating\n":
         required: true
         type: Number
-        owner: Publisher
+        owner: Provider
         usage: 200
         description: >-
           total rating value (each rating transaction is done on the scale of
@@ -246,31 +246,31 @@ revise:
         code:
           required: mandatory
           type: string
-          owner: Publisher
+          owner: Provider
           usage: IND
           description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
     timestamp:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: api.example-publisher.com
       description: Describes subscriber ID of the Publisher
     transaction_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: 6743e9e2
       description: Describes  a unique value which persists across all API calls
     message_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: 13ba8018f176
       description: >-
         Describes a unique value which persists during a request / callback
@@ -278,13 +278,13 @@ revise:
     version:
       required: mandatory
       type: integer
-      owner: Publisher
+      owner: Provider
       usage: 1.0.0
       description: Describes the version of transaction protocol being used by the sender.
     action:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: revise
       description: >-
         Describes the method being called by the sender and executed at the
@@ -292,7 +292,7 @@ revise:
     publisher_uri:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: https://api.example-publisher.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Publisher for accepting requests from
@@ -300,7 +300,7 @@ revise:
     ttl:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: PT30S
       description: >-
         Describes the duration in ISO8601 format after timestamp for which this
@@ -308,7 +308,7 @@ revise:
     provider_uri:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: https://api.example-provider.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Provider for accepting callbacks from
@@ -316,7 +316,7 @@ revise:
     provider_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: api.example-provider.com
       description: Describes subscriber ID of the Provider
 on_revise:
@@ -412,7 +412,7 @@ query:
       "entity_id\n":
         required: true
         type: String
-        owner: Publisher
+        owner: Provider
         usage: a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
         description: >-
           Provides Persistent ID of the seller / entity, where this is generated
@@ -423,7 +423,7 @@ query:
       " rating_type\n\n":
         required: true
         type: Enum
-        owner: Publisher
+        owner: Provider
         usage: Overall
         description: Describes the type of rating like overall or just the delivery
   context:
@@ -432,31 +432,31 @@ query:
         code:
           required: mandatory
           type: string
-          owner: Publisher
+          owner: Provider
           usage: IND
           description: Describes country code as per ISO 3166-1 and ISO 3166-2 format
     timestamp:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: '2023-03-23T04:41:16Z'
       description: Describes tme of request generation in RFC3339 format
     publisher_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: api.example-publisher.com
       description: Describes subscriber ID of the Publisher
     transaction_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: 6743e9e2
       description: Describes  a unique value which persists across all API calls
     message_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: 13ba8018f176
       description: >-
         Describes a unique value which persists during a request / callback
@@ -464,13 +464,13 @@ query:
     version:
       required: mandatory
       type: integer
-      owner: Publisher
+      owner: Provider
       usage: 1.0.0
       description: Describes the version of transaction protocol being used by the sender.
     action:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: query
       description: >-
         Describes the method being called by the sender and executed at the
@@ -478,7 +478,7 @@ query:
     publisher_uri:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: https://api.example-publisher.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Publisher for accepting requests from
@@ -486,7 +486,7 @@ query:
     ttl:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: PT30S
       description: >-
         Describes the duration in ISO8601 format after timestamp for which this
@@ -494,7 +494,7 @@ query:
     provider_uri:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: https://api.example-provider.com/pilot/rating/v1
       description: >-
         Describes subscriber URL of the Provider for accepting callbacks from
@@ -502,7 +502,7 @@ query:
     provider_id:
       required: mandatory
       type: string
-      owner: Publisher
+      owner: Provider
       usage: api.example-provider.com
       description: Describes subscriber ID of the Provider
 on_query:
