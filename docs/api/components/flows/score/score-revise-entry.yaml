@@ -18,4 +18,57 @@ details:
         CONFIDEX->>PUBLISHER: Rating Identifier
         PUBLISHER->>PROVIDER: Status (/on_revise) 
         PROVIDER ->> PUBLISHER: Ack
+steps:
+  - summary: revise
+    api: revise
+    details:
+      - description: Revise
+        mermaid: >-
+         sequenceDiagram
+          participant PROVIDER
+          participant PUBLISHER
+          participant CONFIDEX
+          rect rgb(0,195,255)
+          PROVIDER ->> PUBLISHER: /revise
+          note over PROVIDER, PUBLISHER: Sign and send the revised Entry
+          PUBLISHER ->> PROVIDER: Ack
+          PUBLISHER ->> PUBLISHER:  Verify and transform entry
+          PUBLISHER ->> CONFIDEX: Revoke the previous entry
+          CONFIDEX ->> PUBLISHER: Identifier
+          PUBLISHER ->> CONFIDEX: Use the Identifier and publish the revised rating to chain
+          CONFIDEX->>PUBLISHER: Rating Identifier
+          end
+          PUBLISHER->>PROVIDER: Status (/on_revise) 
+          PROVIDER ->> PUBLISHER: Ack
+    reference: if any
+    example:
+      value:
+        $ref: "../../examples/score/revise/revise.yaml"
 
+  - summary: on_revise
+    api: on_revise
+    details:
+      - description: on_revise
+        mermaid: >-
+         sequenceDiagram
+          participant PROVIDER
+          participant PUBLISHER
+          participant CONFIDEX
+
+          PROVIDER ->> PUBLISHER: /revise
+          note over PROVIDER, PUBLISHER: Sign and send the revised Entry
+          PUBLISHER ->> PROVIDER: Ack
+          PUBLISHER ->> PUBLISHER:  Verify and transform entry
+          PUBLISHER ->> CONFIDEX: Revoke the previous entry
+          CONFIDEX ->> PUBLISHER: Identifier
+          PUBLISHER ->> CONFIDEX: Use the Identifier and publish the revised rating to chain
+
+          CONFIDEX->>PUBLISHER: Rating Identifier
+          rect rgb(0,195,255)
+          PUBLISHER->>PROVIDER: Status (/on_revise) 
+          PROVIDER ->> PUBLISHER: Ack
+          end
+    reference: if any
+    example:
+      value:
+        $ref: "../../examples/score/on_revise/on_revise.yaml"  

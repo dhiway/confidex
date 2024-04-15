@@ -15,3 +15,53 @@ details:
         CONFIDEX->>PUBLISHER: Rating Identifier
         PUBLISHER->>PROVIDER: Status (/on_publish)
         PROVIDER ->> PUBLISHER: Ack
+steps:
+  - summary: publish
+    api: publish
+    details:
+      - description: Publish
+        mermaid: >-
+          sequenceDiagram
+            participant PROVIDER
+            participant PUBLISHER
+            participant CONFIDEX
+            rect rgb(0,195,255)
+            PROVIDER ->> PUBLISHER: /publish
+            note over PROVIDER, PUBLISHER: Sign and send the rating entry
+            PUBLISHER ->> PROVIDER: Ack
+            PUBLISHER ->> PUBLISHER:  Verify and transform entry
+            PUBLISHER->>CONFIDEX: Anchors the entry to the chain
+            CONFIDEX->>PUBLISHER: Rating Identifier
+            end
+            PUBLISHER->>PROVIDER: Status (/on_publish)
+            PROVIDER ->> PUBLISHER: Ack
+    reference: if any
+    example:
+      value:
+        $ref: "../../examples/score/publish/publish.yaml"
+
+  - summary: on_publish
+    api: on_publish
+    details:
+      - description: on_publish
+        mermaid: >-
+          sequenceDiagram
+            participant PROVIDER
+            participant PUBLISHER
+            participant CONFIDEX
+
+            PROVIDER ->> PUBLISHER: /publish
+            note over PROVIDER, PUBLISHER: Sign and send the rating entry
+            PUBLISHER ->> PROVIDER: Ack
+            PUBLISHER ->> PUBLISHER:  Verify and transform entry
+            PUBLISHER->>CONFIDEX: Anchors the entry to the chain
+            CONFIDEX->>PUBLISHER: Rating Identifier
+            rect rgb(0,195,255)
+            PUBLISHER->>PROVIDER: Status (/on_publish)
+            PROVIDER ->> PUBLISHER: Ack
+            end
+    reference: if any
+    example:
+      value:
+        $ref: "../../examples/score/on_publish/on_publish.yaml"  
+
