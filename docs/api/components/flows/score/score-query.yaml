@@ -17,3 +17,57 @@ details:
 
         PUBLISHER->>PROVIDER: (/on_query) Decoded Score
         PROVIDER ->> PUBLISHER: Ack
+
+
+steps:
+  - summary: query
+    api: query
+    details:
+      - description: Query
+        mermaid: >-
+          sequenceDiagram
+            participant PROVIDER
+            participant PUBLISHER
+            participant CONFIDEX
+            rect rgb(0,195,255)
+            PROVIDER ->> PUBLISHER: /query
+            note over PROVIDER, PUBLISHER: Sign and send the query
+            PUBLISHER ->> PROVIDER: Ack
+            PUBLISHER ->> PUBLISHER:  Verify the signature
+            PUBLISHER ->> CONFIDEX: Query the chain 
+            CONFIDEX ->> PUBLISHER: Encoded Score
+            PUBLISHER->>PUBLISHER: Decode the encoded score
+            end
+            PUBLISHER->>PROVIDER: (/on_query) Decoded Score
+            PROVIDER ->> PUBLISHER: Ack
+    reference: if any
+    example:
+      value:
+        $ref: "../../examples/score/query/query.yaml"
+
+  - summary:  on_query
+    api:  on_query
+    details:
+      - description: on_query
+        mermaid: >-
+          sequenceDiagram
+            participant PROVIDER
+            participant PUBLISHER
+            participant CONFIDEX
+
+            PROVIDER ->> PUBLISHER: /query
+            note over PROVIDER, PUBLISHER: Sign and send the query
+            PUBLISHER ->> PROVIDER: Ack
+            PUBLISHER ->> PUBLISHER:  Verify the signature
+            PUBLISHER ->> CONFIDEX: Query the chain 
+            CONFIDEX ->> PUBLISHER: Encoded Score
+            PUBLISHER->>PUBLISHER: Decode the encoded score
+            rect rgb(0,195,255)
+            PUBLISHER->>PROVIDER: (/on_query) Decoded Score
+            PROVIDER ->> PUBLISHER: Ack
+            end
+    reference: if any
+    example:
+      value:
+        $ref: "../../examples/score/on_query/on_query.yaml"  
+

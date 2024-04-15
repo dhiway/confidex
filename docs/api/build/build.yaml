@@ -513,6 +513,93 @@ x-flows:
             CONFIDEX->>PUBLISHER: Rating Identifier
             PUBLISHER->>PROVIDER: Status (/on_publish)
             PROVIDER ->> PUBLISHER: Ack
+    steps:
+      - summary: publish
+        api: publish
+        details:
+          - description: Publish
+            mermaid: |-
+              sequenceDiagram
+                participant PROVIDER
+                participant PUBLISHER
+                participant CONFIDEX
+                rect rgb(0,195,255)
+                PROVIDER ->> PUBLISHER: /publish
+                note over PROVIDER, PUBLISHER: Sign and send the rating entry
+                PUBLISHER ->> PROVIDER: Ack
+                PUBLISHER ->> PUBLISHER:  Verify and transform entry
+                PUBLISHER->>CONFIDEX: Anchors the entry to the chain
+                CONFIDEX->>PUBLISHER: Rating Identifier
+                end
+                PUBLISHER->>PROVIDER: Status (/on_publish)
+                PROVIDER ->> PUBLISHER: Ack
+        reference: if any
+        example:
+          value: &ref_2
+            context:
+              domain: ONDC:NTS12
+              action: publish
+              version: 1.0.0
+              provider_id: All in One - Market Place
+              provider_uri: https://api.example.com/api/rating/v1
+              publisher_id: Rating Publisher on Ledger
+              publisher_uri: https://api.publisher-example.com/api/rating/v1
+              transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+              message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
+              timestamp: '2021-06-29T10:52:01.620Z'
+              ttl: PT30S
+              location:
+                country:
+                  code: IND
+            message:
+              rating:
+                - entity_id: >-
+                    a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+                  entity_name: Gupta Kirana Store
+                  rating_type: Overall
+                  count_of_txn: 100
+                  total_rating: 320
+      - summary: on_publish
+        api: on_publish
+        details:
+          - description: on_publish
+            mermaid: |-
+              sequenceDiagram
+                participant PROVIDER
+                participant PUBLISHER
+                participant CONFIDEX
+
+                PROVIDER ->> PUBLISHER: /publish
+                note over PROVIDER, PUBLISHER: Sign and send the rating entry
+                PUBLISHER ->> PROVIDER: Ack
+                PUBLISHER ->> PUBLISHER:  Verify and transform entry
+                PUBLISHER->>CONFIDEX: Anchors the entry to the chain
+                CONFIDEX->>PUBLISHER: Rating Identifier
+                rect rgb(0,195,255)
+                PUBLISHER->>PROVIDER: Status (/on_publish)
+                PROVIDER ->> PUBLISHER: Ack
+                end
+        reference: if any
+        example:
+          value: &ref_3
+            context:
+              domain: ONDC:NTS12
+              action: on_publish
+              version: 1.0.0
+              provider_id: All in One - Market Place
+              provider_uri: https://api.example.com/api/rating/v1
+              publisher_id: Rating Publisher on Ledger
+              publisher_uri: https://api.publisher-example.com/api/rating/v1
+              transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+              message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
+              timestamp: '2021-06-29T10:52:01.620Z'
+              ttl: PT30S
+              location:
+                country:
+                  code: IND
+            message:
+              status:
+                - true
   - summary: Revise - Credit Entry
     details:
       - description: Detailed process of Market Place revising the entry
@@ -533,6 +620,97 @@ x-flows:
             CONFIDEX->>PUBLISHER: Rating Identifier
             PUBLISHER->>PROVIDER: Status (/on_revise) 
             PROVIDER ->> PUBLISHER: Ack
+    steps:
+      - summary: revise
+        api: revise
+        details:
+          - description: Revise
+            mermaid: |-
+              sequenceDiagram
+               participant PROVIDER
+               participant PUBLISHER
+               participant CONFIDEX
+               rect rgb(0,195,255)
+               PROVIDER ->> PUBLISHER: /revise
+               note over PROVIDER, PUBLISHER: Sign and send the revised Entry
+               PUBLISHER ->> PROVIDER: Ack
+               PUBLISHER ->> PUBLISHER:  Verify and transform entry
+               PUBLISHER ->> CONFIDEX: Revoke the previous entry
+               CONFIDEX ->> PUBLISHER: Identifier
+               PUBLISHER ->> CONFIDEX: Use the Identifier and publish the revised rating to chain
+               CONFIDEX->>PUBLISHER: Rating Identifier
+               end
+               PUBLISHER->>PROVIDER: Status (/on_revise) 
+               PROVIDER ->> PUBLISHER: Ack
+        reference: if any
+        example:
+          value: &ref_4
+            context:
+              domain: ONDC:NTS12
+              action: revise
+              version: 1.0.0
+              provider_id: All in One - Market Place
+              provider_uri: https://api.example.com/api/rating/v1
+              publisher_id: Rating Publisher on Ledger
+              publisher_uri: https://api.publisher-example.com/api/rating/v1
+              transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+              message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
+              timestamp: '2021-06-29T10:52:01.620Z'
+              ttl: PT30S
+              location:
+                country:
+                  code: IND
+            message:
+              rating:
+                - entity_id: >-
+                    a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+                  rating_type: Overall
+                  count_of_txn: 80
+                  total_rating: 280
+      - summary: on_revise
+        api: on_revise
+        details:
+          - description: on_revise
+            mermaid: |-
+              sequenceDiagram
+               participant PROVIDER
+               participant PUBLISHER
+               participant CONFIDEX
+
+               PROVIDER ->> PUBLISHER: /revise
+               note over PROVIDER, PUBLISHER: Sign and send the revised Entry
+               PUBLISHER ->> PROVIDER: Ack
+               PUBLISHER ->> PUBLISHER:  Verify and transform entry
+               PUBLISHER ->> CONFIDEX: Revoke the previous entry
+               CONFIDEX ->> PUBLISHER: Identifier
+               PUBLISHER ->> CONFIDEX: Use the Identifier and publish the revised rating to chain
+
+               CONFIDEX->>PUBLISHER: Rating Identifier
+               rect rgb(0,195,255)
+               PUBLISHER->>PROVIDER: Status (/on_revise) 
+               PROVIDER ->> PUBLISHER: Ack
+               end
+        reference: if any
+        example:
+          value: &ref_5
+            context:
+              domain: ONDC:NTS12
+              action: on_revise
+              version: 1.0.0
+              provider_id: All in One - Market Place
+              provider_uri: https://api.example.com/api/rating/v1
+              publisher_id: Rating Publisher on Ledger
+              publisher_uri: https://api.publisher-example.com/api/rating/v1
+              transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
+              message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
+              timestamp: '2021-06-29T10:52:01.620Z'
+              ttl: PT30S
+              location:
+                country:
+                  code: IND
+            message:
+              status:
+                - true
   - summary: Query
     details:
       - description: Detailed process of Market Place querying the entry
@@ -552,36 +730,97 @@ x-flows:
 
             PUBLISHER->>PROVIDER: (/on_query) Decoded Score
             PROVIDER ->> PUBLISHER: Ack
-  - summary: On Publish
-    details:
-      - description: Detailed process of on_publish
-        mermaid: |-
-          sequenceDiagram
-            participant PUBLISHER
-            participant PROVIDER
+    steps:
+      - summary: query
+        api: query
+        details:
+          - description: Query
+            mermaid: |-
+              sequenceDiagram
+                participant PROVIDER
+                participant PUBLISHER
+                participant CONFIDEX
+                rect rgb(0,195,255)
+                PROVIDER ->> PUBLISHER: /query
+                note over PROVIDER, PUBLISHER: Sign and send the query
+                PUBLISHER ->> PROVIDER: Ack
+                PUBLISHER ->> PUBLISHER:  Verify the signature
+                PUBLISHER ->> CONFIDEX: Query the chain 
+                CONFIDEX ->> PUBLISHER: Encoded Score
+                PUBLISHER->>PUBLISHER: Decode the encoded score
+                end
+                PUBLISHER->>PROVIDER: (/on_query) Decoded Score
+                PROVIDER ->> PUBLISHER: Ack
+        reference: if any
+        example:
+          value: &ref_7
+            context:
+              domain: ONDC:NTS12
+              action: query
+              version: 1.0.0
+              provider_id: All in One - Market Place
+              provider_uri: https://api.example.com/api/rating/v1
+              publisher_id: Rating Publisher on Ledger
+              publisher_uri: https://api.publisher-example.com/api/rating/v1
+              transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
+              message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
+              timestamp: '2021-06-29T10:52:01.620Z'
+              ttl: PT30S
+              location:
+                country:
+                  code: IND
+            message:
+              entity_list:
+                - entity_id: >-
+                    a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+                  rating_type: Overall
+      - summary: on_query
+        api: on_query
+        details:
+          - description: on_query
+            mermaid: |-
+              sequenceDiagram
+                participant PROVIDER
+                participant PUBLISHER
+                participant CONFIDEX
 
-            PUBLISHER ->> PROVIDER: /on_publish (status of publish)
-            PROVIDER ->> PUBLISHER: Ack
-  - summary: On Revise
-    details:
-      - description: Detailed process of on_revise
-        mermaid: |-
-          sequenceDiagram
-            participant PUBLISHER
-            participant PROVIDER
-
-            PUBLISHER ->> PROVIDER: /on_revise (status of revise)
-            PROVIDER ->> PUBLISHER: Ack
-  - summary: On Query
-    details:
-      - description: Detailed process of on_query
-        mermaid: |-
-          sequenceDiagram
-            participant PUBLISHER
-            participant PROVIDER
-
-            PUBLISHER ->> PROVIDER: /on_query (Decoded Score)
-            PROVIDER ->> PUBLISHER: Ack
+                PROVIDER ->> PUBLISHER: /query
+                note over PROVIDER, PUBLISHER: Sign and send the query
+                PUBLISHER ->> PROVIDER: Ack
+                PUBLISHER ->> PUBLISHER:  Verify the signature
+                PUBLISHER ->> CONFIDEX: Query the chain 
+                CONFIDEX ->> PUBLISHER: Encoded Score
+                PUBLISHER->>PUBLISHER: Decode the encoded score
+                rect rgb(0,195,255)
+                PUBLISHER->>PROVIDER: (/on_query) Decoded Score
+                PROVIDER ->> PUBLISHER: Ack
+                end
+        reference: if any
+        example:
+          value: &ref_6
+            context:
+              domain: ONDC:NTS12
+              action: on_query
+              version: 1.0.0
+              provider_id: All in One - Market Place
+              provider_uri: https://api.example.com/api/rating/v1
+              publisher_id: Rating Publisher on Ledger
+              publisher_uri: https://api.publisher-example.com/api/rating/v1
+              transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
+              message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
+              timestamp: '2021-06-29T10:52:01.620Z'
+              ttl: PT30S
+              location:
+                country:
+                  code: IND
+            message:
+              scores:
+                - entity_id: >-
+                    a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
+                  entity_name: Gupta Kirana Store
+                  score: 3.7
+                  total_rating: 280
+                  count_of_txn: 73
 x-examples:
   score:
     summary: Rating API Implementation
@@ -591,162 +830,38 @@ x-examples:
         examples:
           - summary: publish
             description: Publish Rating of multiple entities from the provider.
-            value:
-              context:
-                domain: ONDC:NTS12
-                action: publish
-                version: 1.0.0
-                provider_id: All in One - Market Place
-                provider_uri: https://api.example.com/api/rating/v1
-                publisher_id: Rating Publisher on Ledger
-                publisher_uri: https://api.publisher-example.com/api/rating/v1
-                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
-                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
-                timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: PT30S
-                location:
-                  country:
-                    code: IND
-              message:
-                rating:
-                  - entity_id: >-
-                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-                    entity_name: Gupta Kirana Store
-                    rating_type: Overall
-                    count_of_txn: 100
-                    total_rating: 320
+            value: *ref_2
       on_publish:
         examples:
           - summary: on_publish
             description: Update the status of rating publish on ledger.
-            value:
-              context:
-                domain: ONDC:NTS12
-                action: on_publish
-                version: 1.0.0
-                provider_id: All in One - Market Place
-                provider_uri: https://api.example.com/api/rating/v1
-                publisher_id: Rating Publisher on Ledger
-                publisher_uri: https://api.publisher-example.com/api/rating/v1
-                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
-                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c10
-                timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: PT30S
-                location:
-                  country:
-                    code: IND
-              message:
-                status:
-                  - true
+            value: *ref_3
       revise:
         examples:
           - summary: revise
             description: Revise the previously published rating.
-            value:
-              context:
-                domain: ONDC:NTS12
-                action: revise
-                version: 1.0.0
-                provider_id: All in One - Market Place
-                provider_uri: https://api.example.com/api/rating/v1
-                publisher_id: Rating Publisher on Ledger
-                publisher_uri: https://api.publisher-example.com/api/rating/v1
-                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
-                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
-                timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: PT30S
-                location:
-                  country:
-                    code: IND
-              message:
-                rating:
-                  - entity_id: >-
-                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-                    rating_type: Overall
-                    count_of_txn: 80
-                    total_rating: 280
+            value: *ref_4
       on_revise:
         examples:
           - summary: on_revise
             description: >-
               Callback of Revise call to get to know the status of the revise
               call.
-            value:
-              context:
-                domain: ONDC:NTS12
-                action: on_revise
-                version: 1.0.0
-                provider_id: All in One - Market Place
-                provider_uri: https://api.example.com/api/rating/v1
-                publisher_id: Rating Publisher on Ledger
-                publisher_uri: https://api.publisher-example.com/api/rating/v1
-                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce0
-                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669c11
-                timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: PT30S
-                location:
-                  country:
-                    code: IND
-              message:
-                status:
-                  - true
+            value: *ref_5
       on_query:
         examples:
           - summary: on_query
             description: >-
               Callback of the query, which provides the latest aggregated score
               of the entity.
-            value:
-              context:
-                domain: ONDC:NTS12
-                action: on_query
-                version: 1.0.0
-                provider_id: All in One - Market Place
-                provider_uri: https://api.example.com/api/rating/v1
-                publisher_id: Rating Publisher on Ledger
-                publisher_uri: https://api.publisher-example.com/api/rating/v1
-                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
-                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
-                timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: PT30S
-                location:
-                  country:
-                    code: IND
-              message:
-                scores:
-                  - entity_id: >-
-                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-                    entity_name: Gupta Kirana Store
-                    score: 3.7
-                    total_rating: 280
-                    count_of_txn: 73
+            value: *ref_6
       query:
         examples:
           - summary: query
             description: >-
               Initiate the query to get the latest aggregated score of set of
               entitites.
-            value:
-              context:
-                domain: ONDC:NTS12
-                action: publish
-                version: 1.0.0
-                provider_id: All in One - Market Place
-                provider_uri: https://api.example.com/api/rating/v1
-                publisher_id: Rating Publisher on Ledger
-                publisher_uri: https://api.publisher-example.com/api/rating/v1
-                transaction_id: 226c67bd-9aa7-4aef-8d62-c69e3a669ce1
-                message_id: 226c67bd-9aa7-4aef-8d62-c69e3a669d10
-                timestamp: '2021-06-29T10:52:01.620Z'
-                ttl: PT30S
-                location:
-                  country:
-                    code: IND
-              message:
-                entity_list:
-                  - entity_id: >-
-                      a250a6db99213211f333db7f328085ae277c680d2c7178c4bc65cab9cdab78aa
-                    rating_type: Overall
+            value: *ref_7
 x-attributes:
   rating:
     attribute_set:

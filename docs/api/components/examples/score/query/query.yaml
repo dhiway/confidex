@@ -1,6 +1,6 @@
 context:
   domain: "ONDC:NTS12"
-  action: "publish"
+  action: "query"
   version: "1.0.0"
   provider_id: "All in One - Market Place"
   provider_uri: "https://api.example.com/api/rating/v1"
